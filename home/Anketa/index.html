@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANKETA</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang=ru>
+    <head>
+        <meta charset=UTF-8>
+        <title>ANKETA</title>
+    </head>
+    <body>
+<script>
+var lastName=prompt('Введите вашу фамилию!');
+var name=prompt('Введите ваше имя!');
+var otch=prompt('Ведите ваше отчевство!');
+var old=prompt('Введите ваш возраст в годах.');
+var gender=confirm('Если вы женщина- нажмите "ОК", если вы мужчина- нажмите "Отмена"');
+var realOld=parseInt(old);
+var pen;
+if (gender){
+gender='женщина';
+if(realOld>50){
+pen='да'}
+else{
+pen='нет'}}
+else{
+gender='мужчина';
+if(realOld>60){
+pen='да'}
+else{
+pen='нет'}};
+
+alert("Ваше ФИО: "+lastName+' '+name+' '+otch+'\nВаш возраст в годах: '+realOld+'\nВаш возраст в днях: '+(realOld*365)+'\nЧерез 5 лет вам будет: '+(realOld+5)+'\nваш пол: '+gender+'\nвы на пенсии: '+pen);
+</script>
+</body>
+</html>
+</body>
+</html>
