@@ -8,12 +8,61 @@
 </head>
 <body>
     <script>
-        var Fam=prompt("Введите Вашу фамилию");
-        var name=prompt("Введите Ваше имя");
-        var otch=prompt("Введите Ваше отчество");
-        var age=prompt("Введите Ваш возраст");
+        "use strict";
+        var namep="Введите Ваше имя";
+        var Famp="Введите Вашу Фамилию";
+        var otchp="Введите Ваше отчество";
+        var Fam= validSimbol(Fam,Famp);
+        var name= validSimbol(name,namep);
+        var otch= validSimbol(otch,otchp);
+       
+        function validSimbol(text,textp){
+            for( var text=prompt(textp); text.length>5; text=prompt("Введите еще раз, не более 5 знаков"));
+            while(true){
+                if(text===""){
+                    var text=prompt("Заполните плое!!!");
+                }
+                else{
+                    if(text.length>5){
+                        text=prompt("Введите еще раз, не более 5 знаков");
+                    }
+                    else{
+                        break;
+                    };
+                    break;
+                }
+            
+            }
+            return text;
+        };
+        //var name=prompt("Введите Ваше имя");
+       // var otch=prompt("Введите Ваше отчество");
+       var age=prompt("Введите Ваш возраст");
+       var RealAge=parseInt(age);
+       age=validNum();
+       function validNum(){
+        //    for(var RealAge=parseInt(age);(Boolean(RealAge)==false);age=prompt("Введите данные корректно"));
+            while(true){
+                
+                if (Boolean(RealAge)===false){
+                    age=prompt("Введите данные корректно") ;
+                RealAge=parseInt(age);
+                }
+                else{
+                    if(RealAge>150){
+                        age=prompt("Введите реальный возраст!")
+                        RealAge=parseInt(age);
+                    }
+                    else{break;}
+                }
+            }
+            
+            return RealAge;
+        };
+      
         var gender=confirm('Если вы женщина- нажмите "ОК", если вы мужчина- нажмите "Отмена"');
-        var RealAge=parseInt(age);
+        
+        
         var pen;
         if (gender){
             gender="женщина";
