@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplus</title>
+</head>
+<body>
+    <script>
+         "use strict";
+/*        var a=prompt("Введите текст");
+       deletebac(a);
+       function deletebac(text){
+      
+       console.log(text.split(" "));
+       var textCenter=text.split(" ");
+       
+       var textLast='$';
+       for(var i=0;i<(textCenter.length-1);i++){
+      
+       
+       console.log(textCenter[i]);
+       if(textCenter[i]!==''){
+        textLast+=textCenter[i]+" ";
+        if(i===(textCenter.length-1)){
+           textLast+=textCenter[i];
+        }
+       }
+       else{
+           continue
+       }
+       
+       // var textLast=textCenter[word]+" "+textCenter[(word===(textCenter-1))];
+        }
+        console.log(textCenter[i]);
+        alert(textLast+"$");
+       } */
+    /*  var vvod=prompt("Введите текст");
+     trim(vvod);
+     function trim(text){
+         var a=text.indexOf("\w");
+         var b=text.lastIndexOf("\w");
+         var result=text.slice(a,b);
+         alert("$"+result+"$");
+     } */
+
+
+
+
+
+
+     
+/*      var str=prompt('Введите текст');
+     trim(str);
+     function trim(text){
+     var nextp=text.split(" ");
+     
+     for(var i=0;i<nextp.lenght;i++){
+        
+         if(nextp[i]!==''){
+           var next=nextp[i]
+         }
+         else{
+            break
+         }
+        next+=nextp[i];
+        return next;
+     }
+     
+     var finalText=next.join(" "); 
+     alert("$"+next.join(" ")+"$");
+}*/ 
+
+
+
+
+/* var str=prompt('Введите текст');
+trim(str);
+     function trim(text){
+     var nextp=text.split(" ").join("");
+     alert("$"+nextp+"$");
+     } */
+
+
+/* 
+     var str=prompt('Введите текст');
+     trim(str);
+     function trim(s) {
+    var first = undefined;
+    for (var i = 0; i < s.length; ++i) {
+        if (s[i] !== ' ') {
+            first = i;
+            break;
+        }
+    }
+    if (first === undefined) {
+        return '';
+    }
+
+    var last;
+    for (var i = s.length - 1; ; --i) {
+        if (s[i] !== ' ') {
+            last = i;
+            break;
+        }
+    }
+
+    return s.substring(first, last + 1);
+    alert(s);
+}; */
+
+
+
+
+
+
+
+
+/* 11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 */
+
+
+
+
+
+/* var str=prompt("v");
+    space(str)
+    function space(text){
+        alert("#"+text.split(" ").join('')+"#")
+    } */
+
+var str=prompt("Введите текст!");
+    space(str)
+    function space(text){
+        function deletespace(value) {
+  return value !=="";
+}
+var textnew=text.split(" ").filter(deletespace);
+
+alert("#"+textnew.join(' ')+"#")
+   }
+    
+
+
+  
+    /* function trim(str) {
+let l = 0, r = str.length - 1
+
+for (let i = 0; i <= r; i++) {
+if (str[i] === ' ') l++
+else break
+}
+
+if (l !== r) {
+for (let i = r; i > Math.floor(r / 2); i--) {
+if (str[i] === ' ') r--
+else break
+}
+}
+
+return str.slice(l, r + 1)
+
+}
+alert("#"+trim(str)+"#") */
+
+</script>
+</body>
+</html>

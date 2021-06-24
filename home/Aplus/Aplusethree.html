@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>a+</title>
+</head>
+
+<body>
+    <script>
+        var str = prompt('Введите текст для проверки');
+        poli(str);
+        function poli(text) {
+            var textlow = text.toLowerCase().replace(/ё/g, "е");
+            var textRep = textlow.replace(/[.,\/#!?$№%\^&\*;:{}=\-_`~()]/g, "");
+            var textf = textRep.replace(/\s/g, "");
+            var textMass = textRep.split("");
+            console.log(textMass);
+
+            /* if (textMass===textRev){
+             
+                console.log(true);
+                alert('true')
+            }
+            else{
+                alert('false');
+            } */
+            /*   var k = textMass.length;
+              for (var i = 0, s = textMass.length; textMass[i] < Math.floor(k / 2); i++, s--) {
+  
+                 
+                 
+  
+                      if (textMass[i] === textMass[s]) {
+  
+  
+                          console.log(textMass[i], textMass[s])
+                          alert("Удача!")
+                      }
+  
+                      else {
+                          alert("Вводимый Вами текст не пли")
+                          break
+                      }
+                  }
+   */       var k = textMass.length-1;
+            for (var i = 0, s = k; i <=k /*Math.floor(k / 2)*/; i++, s--) {
+                if (textMass[i] === (textMass[s])) {
+                    console.log(textMass[i]);
+                    console.log(textMass[s]);
+                    
+                } else {
+                     alert("false")
+                    break;
+                   
+                }
+                alert("good")
+            }
+        }
+
+            
+
+
+    </script>
+</body>
+
+</html>
