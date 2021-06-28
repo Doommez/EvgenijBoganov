@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <div>
+       brand <br>
+       <input type="text" name="brand" onclick="getValue()" > <br>
+       <input type="text" ><br>
+       <input type="text" ><br>
+       <input type="text" ><br>
+       <input type="submit" value="Добавить">
+   </div>
+<script>
+    function getValue(){
+        const brand =document.getElementById("brand");
+        const value= brand.value;
+        let obj={
+            brand: value
+        };
+        phones.push(obj);
+    }
+    let phones=[];
+
+</script>
+</body>
+</html>
