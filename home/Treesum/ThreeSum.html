@@ -14,9 +14,32 @@
         [ 9, [] ], 
         1, 8
       ];
+      ;
 function fra(r,v,i,a) {
-  return r+v; }
+  return r+v; 
+  
+}
 console.log( mr.flat(Infinity).reduce(fra,0) );
+var sum= mr.flat(Infinity).reduce((function(a,b,c,d) {
+return a+b;
+}),0);
+console.log(sum);
+function treeSum(array) {
+  var value;
+  var sum = 0;
+  for (var i=0; i<array.length; i++){
+  value = array[i];
+    if (Array.isArray(value)) {
+      sum += treeSum(value)
+    } else {
+    sum += value
+    }
+  };
+  return sum;
+};
+
+console.log(treeSum(mr));
+
     </script>
 </body>
 </html>

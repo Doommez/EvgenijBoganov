@@ -11,18 +11,19 @@
         var str = prompt('Введите текст для проверки');
         
        
-        var strlow = str.toLowerCase().replace(/ё/g, "е");
-        var strRep = strlow.replace(/[.,\/#!?$№%\^&\*;:{}=\-_`~()]/g, "");
-        var strf = strRep.replace(/\s/g, "");
-        var strMass = strf.split(" ").join("").split("");
-        console.log(strMass);
-        checkPalindrom(strMass);
        
-            
+        checkPalindrom(str);
         function checkPalindrom(text) {
-            i=text.length-1 
+            
+        var textlow = text.toLowerCase().replace(/ё/g, "е");
+        var textRep = textlow.replace(/[.,\/#!?$№%\^&\*;:{}=\-_`~()]/g, "");
+        var textf = textRep.replace(/\s/g, "");
+        var textMass = textf.split(" ").join("").split("");
+        console.log(textMass);
+        
+            i=textMass.length-1 
             var t="";
-            r=text
+            r=textMass
             a4(i);
            
             function a4(num){
@@ -44,7 +45,7 @@ else{
 
  }
 
-/////ордлпрадалп
+
 
 
 
