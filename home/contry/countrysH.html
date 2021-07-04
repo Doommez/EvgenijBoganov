@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countrys</title>
+</head>
+<body>
+    <button onclick='y()'>ввод информации о стране</button>
+    <button onclick='t()'>получение информации о стране</button>
+    <button onclick='r()'>перечень всех стран</button>
+    <button onclick='e()'>удаление информации о стране</button>
+
+
+
+    <script>
+var countryName;
+var capitalName;
+var countrysH={};
+function y() {
+             countryName = prompt("ввод");
+capitalName=prompt("ввод");
+           addCountry(countryName,capitalName);
+        }
+function t() {
+countryName = prompt("инф о стране");
+console.log(getCountryInfo(countryName));
+}
+function r() {
+console.log(listCountrys());}
+function e() {
+ countryName = prompt("ввод");
+deleteCountry(countryName);
+}
+
+    function addCountry(countryName,capitalName) {
+        countrysH[countryName]=capitalName;
+    }
+
+    function deleteCountry(countryName) {
+        delete countrysH[countryName];
+    }
+
+    function getCountryInfo(countryName) {
+        if ( countryName in countrysH )
+            return 'страна: ' + countryName + ' столица: ' + countrysH[countryName] ;
+        else
+            return 'нет информации о стране ' + countryName + '!' ;
+    }
+
+    function listCountrys() {
+        var res="";
+        for ( var CN in countrysH )
+            res+='\n'+getCountryInfo(CN);
+        return res;
+    }
+
+    function goodBye( ) {
+        alert('До свидания!');
+    }
+    
+    </script>
+    
+</body>
+</html>
