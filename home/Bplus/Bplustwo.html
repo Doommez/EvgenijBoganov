@@ -8,17 +8,14 @@
 </head>
 <body>
     <script>
-         "use strict";
-         var years=prompt("ВВедите год");
-         console.log(years[0]);
-         getVek(years);
-         function getVek(num){
-            
-           return console.log(Math.floor((num-1)/100+1))
-             }
-       
-        
-       
+        "use strict"
+        var str=prompt('Введите текст');
+        var strMass = str.split(" ").join("").split("");
+            console.log(strMass);
+        res(str);
+        function res(text){
+            return alert(text.split('').reverse().join(''))
+        }
     </script>
 </body>
 </html>
