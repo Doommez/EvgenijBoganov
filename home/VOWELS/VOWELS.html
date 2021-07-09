@@ -14,10 +14,16 @@
         function getGl(text){
             var textMass= text.split('');
             console.log(textMass);
-            const mass=['ё','a','е','и','о','у','э','ю','я']
-            for(i=0;    i<textMass.length; i++){
-
-            }
+            const mass=["а", "о","и", "е", "ё", "э", "ы", "у", "ю", "я"];
+            var k=0;
+            for(var i=0;    i<textMass.length; i++){
+                for(var j=0; j<mass.length;j++){
+                console.log(i[textMass]);
+                if(textMass[i]===mass[j]){
+                    k++;
+                }
+            }}
+            return console.log(k);
         }
     </script>
     
