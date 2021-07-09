@@ -9,11 +9,14 @@
 <body>
     <script>
         "use strict";
-        let str=prompt("Введите текст");
+        var str=prompt("Введите текст");
+        getGl(str)
         function getGl(text){
-            const textMass= text.split('');
-            for (i=0,i<textMass.length,i++) {
-                
+            var textMass= text.split('');
+            console.log(textMass);
+            const mass=['ё','a','е','и','о','у','э','ю','я']
+            for(i=0;    i<textMass.length; i++){
+
             }
         }
     </script>
