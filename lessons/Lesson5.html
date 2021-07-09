@@ -9,26 +9,17 @@
 </head>
 <body>
    <div>
-       brand <br>
-<<<<<<< HEAD
-       <input type="text" name="brand" id="brand"  > <br>
-       <input type="text" ><br>
-       <input type="text" ><br>
-       <input type="text" ><br>
-       <input type="submit" value="Добавить" onclick="getValue()">
-=======
        <input type="text" name="model" id="model" > <br>
        <input type="text"  name="imgUrl" id="img"><br>
        <input type="text" id="color" ><br>
        <input type="text" id="price"><br>
        <input type="submit" value="Добавить" onclick="getValue()" >
-       <input type="submit" value="Удалить" onclick="deleteValue()" >
->>>>>>> 47ea41e0268b23b93739c033f760046b448ae5ca
+       <input type="submit" value="Рендер" onclick="render()" >
    </div>
    <div id="app"></div>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 <script>
-    /* function getValue(){
+/*      function getValue(){
         const model =document.getElementById("model");
         const value= model.value;
         const imgUrl =document.getElementById("imgUrl");
@@ -47,9 +38,9 @@
             
         };
         phones.push(obj);
-    }
-    let phones=[]; */
-    let phones=[];
+    } */
+ /*    let phones=[];  */
+     let phones=[];
         let obj={};
         function getValue(){
             const img=document.getElementById('img');
@@ -66,12 +57,67 @@
             };
             phones.push(obj);
         }
-    function deleteValue(){
- phones.pop();
+    function render(){
+        let html="";
+    for(let i=0;i<phones.length;i++){
+    html+=`<div class="card" style="width: 18rem;">
+    <img src="${phones[i].img}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">${phones[i].model}</h5>
+      <p class="card-text">${phones[i].price}</p>
+      <a href="#" class="btn btn-primary" onclick="delet()">удалить</a>
+    </div>
+  </div>`}
+    let app= document.getElementById('app');
+    app.innerHTML=html;
+    }
+    phones=document.getElementById("phone");
+    let str="";
+    for(let i=0;i<arr.length)
+    function delet(){
+        
     }
   
+ 
 
 
+ 
+
+
+
+/* 
+ 
+ class phone{
+    constructor(){
+        this.phones
+    }
+add(brand,model,color,price){
+    
+            const model=document.getElementById('model');
+            const brand=document.getElementById('img');
+            const price=document.getElementById('color');
+            const price=document.getElementById('price');
+    this.brand=brand,
+    this.model=model,
+    this.color=color,
+    this.price=price
+}
+render(phones){
+    let html="";
+    for(let i=0;i<phones.length;i++){
+    html+=`<div class="card" style="width: 18rem;">
+    <img src="${phones[i].img}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">${phones[i].model}</h5>
+      <p class="card-text">${phones[i].price}</p>
+      <a href="#" class="btn btn-primary">удалить</a>
+    </div>
+  </div>`}
+    let app= document.getElementById('app');
+    app.innerHTML=html;
+
+}
+}  */
 </script>
 
 
