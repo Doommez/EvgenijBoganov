@@ -12,7 +12,7 @@
         var str=prompt("Введите текст");
         getGl(str)
         function getGl(text){
-            var textMass= text.split('');
+            var textMass= text.toLowerCase().split('');
             console.log(textMass);
             const mass=["а", "о","и", "е", "ё", "э", "ы", "у", "ю", "я"];
             var k=0;
