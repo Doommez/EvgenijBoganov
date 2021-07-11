@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOWELS_ARRreduce</title>
+</head>
+<body>
+    <script>
+        
+        "use strict";
+        var str = prompt("Введите текст");
+        getGl(str)
+        function getGl(text) {
+            var textMass = text.toLowerCase().split('');
+            console.log(textMass);
+            const mass = ["а", "о", "и", "е", "ё", "э", "ы", "у", "ю", "я"];
+            
+            function abc(r,elem,i,arr){
+                var y=elem;
+                if(mass.indexOf(y)!==-1){
+                    r++
+                    
+                }
+               return r
+
+            }
+            var f=textMass.reduce(abc,0);
+            console.log(f)
+            
+        }
+
+
+
+
+    </script>
+</body>
+</html>

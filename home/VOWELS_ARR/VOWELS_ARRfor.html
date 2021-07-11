@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOWELS_arrFor</title>
+</head>
+
+<body>
+    <script>
+        
+        "use strict";
+        var str = prompt("Введите текст");
+        getGl(str)
+        function getGl(text) {
+            var textMass = text.toLowerCase().split('');
+            console.log(textMass);
+            const mass = ["а", "о", "и", "е", "ё", "э", "ы", "у", "ю", "я"];
+            var k = 0;
+            function abc(elem, i, arr) {
+                var t = elem
+               
+                if (mass.indexOf(t)!==-1) {
+                    k++
+
+                }
+                return k;
+            }
+           
+            textMass.forEach(abc);
+            console.log(k);
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>
