@@ -50,6 +50,53 @@
             const sale=document.getElementById('sale');
             obj={
                 img: img.value,
+               color: color.value,
+                model: model.value,
+                price: price.value,
+               
+            };
+            phones.push(obj);
+        }
+    function render(){
+        let l=``;
+        let html="";
+    for(let i=0;i<phones.length;i++){
+        id=`id="${i}"`;
+    html+=`<div class="card" ${id} style="width: 18rem;">
+    <img src="${phones[i].img}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">${phones[i].model},${phones[i].color}</h5>
+      <p class="card-text">${phones[i].price}</p>
+      <a href="#" class="btn btn-primary" onclick="delet(${i})">удалить</a>
+    </div>
+  </div>`
+
+
+
+}
+    let app= document.getElementById("app");
+    app.innerHTML=html;
+    };
+    function delet(i){
+     let delcard=   document.getElementById(i);
+     delcard.style.display='none';
+};
+
+
+
+
+
+/* Норм способ!!!!
+let phones=[];
+        let obj={};
+        function getValue(){
+            const img=document.getElementById('img');
+            const brand=document.getElementById('brand');
+            const model=document.getElementById('model');
+            const price=document.getElementById('price');
+            const sale=document.getElementById('sale');
+            obj={
+                img: img.value,
                
                 model: model.value,
                 price: price.value,
@@ -71,6 +118,32 @@
     let app= document.getElementById('app');
     app.innerHTML=html;
     }
+ */
+
+
+
+
+
+
+
+
+
+
+  /*   const arr=[
+        {id:1},
+        {id:2},
+        {id:3},
+        {id:4},
+        {id:5},
+        {id:6},
+        {id:7}
+    ]
+    const card=document.getElementById("card");
+    let str="";
+    for(let i=0;i<arr.length;i++){
+        str=
+    }
+ */
     /* phones=document.getElementById("phone");
     let str="";
     for(let i=0;i<arr.length)
