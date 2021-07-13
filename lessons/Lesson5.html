@@ -79,7 +79,13 @@
     };
     function delet(i){
      let delcard=   document.getElementById(i);
-     delcard.style.display='none';
+     console.log(delcard);
+     let tor={};
+     tor[delcard]=true;
+     console.log(tor);
+     tor[delcard]=null;
+     delcard.remove();
+    // delcard.style.display='none';
 };
 
 
