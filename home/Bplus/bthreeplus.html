@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bthreeplus</title>
+</head>
+<body>
+    
+    <script>
+        "use strict"
+        let str=prompt("Введите выражение!" );
+        calcul(str);
+        function calcul(text){
+            var textMass=text.split('');
+            
+            var sqLeft="(";
+            var sqRight=")";
+            console.log(textMass);
+            let sqL=textMass.indexOf(sqLeft);
+            let sqR=textMass.indexOf(sqRight);
+            let spl=sqR-sqL-1;
+            let firstDe=textMass.splice(sqL+1,spl);
+            console.log(firstDe);
+            console.log(spl);
+            
+        }
+    </script>
+</body>
+</html>
