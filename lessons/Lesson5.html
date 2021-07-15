@@ -16,7 +16,57 @@
        <input type="submit" value="Добавить" onclick="getValue(),render()" >
        
    </div>
+   
+   <div id="popap" class="popap">
+        <div class="popap_body">
+            
+            <div class="popap_content">
+                <a href="#" class="popap_close">X</a>
+    <input type="text" name="model" id="model" > <br>
+    <input type="text"  name="imgUrl" id="img"><br>
+    <input type="text" id="color" ><br>
+    <input type="text" id="price"><br>
+    <input type="submit" value="Добавить" onclick="refresh(),render()" >
+</div>
+        </div>  
+   </div>
    <div id="app"></div>
+   <style>
+    .popap{
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+       opacity: 0;
+       visibility: hidden;
+        background: rgba(0, 0, 0, 0.8);
+    }
+    .popap:target{
+     opacity: 1;
+     visibility: visible;
+    }
+    .popap_body{
+        min-height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+       
+        
+        
+    }
+    .popap_content{
+        background: white;
+        padding: 30px 30px 30px 30px;
+        position: relative;
+    }
+
+    .popap_close{
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+   </style>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 <script>
 /*      function getValue(){
@@ -68,6 +118,7 @@
       <h5 class="card-title">${phones[i].model},${phones[i].color}</h5>
       <p class="card-text">${phones[i].price}</p>
       <a href="#" class="btn btn-primary" onclick="delet(${i})">удалить</a>
+      <a href="#popap" class="btn btn-primary">обновить</a>
     </div>
   </div>`
 
@@ -79,12 +130,15 @@
     };
     function delet(i){
      let delcard=   document.getElementById(i);
-     console.log(delcard);
+     /* console.log(delcard);
      let tor={};
      tor[delcard]=true;
      console.log(tor);
-     tor[delcard]=null;
+     tor[delcard]=null; */
      delcard.remove();
+     //phones[i]=null;
+     phones.splice(i,1);
+     phones.slice(0,1);
     // delcard.style.display='none';
 };
 
