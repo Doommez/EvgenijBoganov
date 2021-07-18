@@ -1,31 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bthreeplus</title>
 </head>
+
 <body>
-    
+    <div class="calc">
+        <div class="str">
+            <input type="text" name="str" id="str" value="" readonly>
+        </div>
+        <div class="calc__1str">
+            <input type="button" name="" id="C" value="C" onclick="delNums(document.getElementById('str').value)">
+            <input type="button" name="" id="(" value="(" onclick="addNums('(')">
+            <input type="button" name="" id=")" value=")" onclick="addNums(')')">
+            <input type="button" name="" id="/" value="/">
+        </div>
+        <div class="calc__1str">
+            <input type="button" name="" id="7" value="7" onclick="addNums('7')">
+            <input type="button" name="" id="8" value="8" onclick="addNums('8')">
+            <input type="button" name="" id="9" value="9" onclick="addNums('9')">
+            <input type="button" name="" id="*" value="*">
+        </div>
+        <div class="calc__1str">
+            <input type="button" name="" id="4" value="4" onclick="addNums('4')">
+            <input type="button" name="" id="5" value="5" onclick="addNums('5')">
+            <input type="button" name="" id="6" value="6" onclick="addNums('6')">
+            <input type="button" name="" id="-" value="-" onclick="addNumsMinus('-')">
+        </div>
+        <div class="calc__1str">
+            <input type="button" name="" id="1" value="1" onclick="addNums('1')">
+            <input type="button" name="" id="2" value="2" onclick="addNums('2')">
+            <input type="button" name="" id="3" value="3" onclick="addNums('3')">
+            <input type="button" name="" id="+" value="+" onclick="addNumsPlus('+')">
+        </div>
+        <div class="calc__1str">
+            <input type="button" name="" id="0" value="0" onclick="addNums('0')" style="width: 124.5px;">
+            <input type="button" name="" id="." value="." onclick="addNums('.')">
+            <input type="button" name="" id="=" value="=" onclick="addNum()">
+            
+        </div>
+    </div>
     <script>
         "use strict"
+        let summ=0;
+        function addNums(num){
+            document.getElementById("str").value= document.getElementById("str").value +num
+            
+        }
+        function delNums(strDel){
+            document.getElementById("str").value="";
+            return summ=0;
+        }
+        function addNumsMinus(num){
+            let x=document.getElementById("str").value;
+            console.log(x);
+            let y= x.split("");
+            console.log(y[0]);
+            if(y[0]==undefined||y[0]=="("){
+                document.getElementById("str").value= document.getElementById("str").value +num
+            }
+            else{
+                
+               summ=parseFloat(x)-summ;
+               document.getElementById("str").value=""
+               return summ
+            }
+            
+        }
+        function addNumsPlus(num){
+            let x=document.getElementById("str").value;
+            console.log(x);
+            let y= x.split("");
+            console.log(y[0]);
+            if(y[0]!=="("){
+               summ+=parseFloat(x);
+               document.getElementById("str").value=""
+               return summ
+            }
+            
+            
+        }
+       
+        function addNum(){
+            document.getElementById("str").value=summ;
+            
+        };
+    </script>
+    <style>
+        .str{
+            width: 250px;
+        }
+        .str input{
+            width: 100%;
+            height: 40px;
+        }
+        .calc__1str{
+            width: 255px;
+        }
+        .calc__1str input{
+        width: 60px;
+        margin: 0 0 0 0.7655px;
+        height: 60px;
+        }
+    </style>
+    <!--    <div class="all">
+        <div class="pole"></div>
+        <div class="calc">
+            <div class="calc__up">
+                <div class="calc__C">C</div>
+                <div class="calc__sql">(</div>
+                <div class="calc__sqr">)</div>
+            </div>
+            <div class="calc__vir">
+                <div class="calc__del">/</div>
+                <div class="calc__umn">*</div>
+                <div class="calc__minus">-</div>
+                <div class="calc__plus">+</div>
+                <div class="calc__ravno">=</div>
+            </div>
+            <div class="calc_str1">
+                <div class="calc__7">7</div>
+                <div class="calc__8">8</div>
+                <div class="calc__9">9</div>
+            </div>
+            <div class="calc_str2">
+                <div class="calc__4">4</div>
+                <div class="calc__5">5</div>
+                <div class="calc__6">6</div>
+            </div>
+            <div class="calc_str3">
+                <div class="calc__1">1</div>
+                <div class="calc__2">2</div>
+                <div class="calc__3">3</div>
+            </div>
+            <div class="calc_str4">
+                <div class="calc__0">0</div>
+                <div class="calc__point">.</div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .all{
+            width: 240px;
+            height: 300px;
+        }
+        .pole{
+            width: 100%;
+        }
+        div{
+            width: 60px;
+            height: 60px;
+           
+        }
+        .calc{
+            display: grid;
+            width: 100%;
+        }
+        .calc__up{
+            display: flex;
+            width: 100%;
+        }
+        .calc_str1{
+            display: flex;
+        }
+        .calc_str2{
+            display: flex;
+        }
+        .calc_str3{
+            display: flex;
+        }
+        .calc_str4{
+            display: flex;
+        }
+    </style> -->
+    <!--  <script>
+        "use strict"
         let str=prompt("Введите выражение!" );
-        calcul(str);
+        var ttt=str.split('');
+        calcul(ttt);
         function calcul(text){
-            var textMass=text.split('');
+           function num(elem,i,arr){
+               if(arr[i]!==/[+-])
+           }
             
             var sqLeft="(";
             var sqRight=")";
-            console.log(textMass);
-            let sqL=textMass.indexOf(sqLeft);
-            let sqR=textMass.indexOf(sqRight);
-            let spl=sqR-sqL-1;
-            let firstDe=textMass.splice(sqL+1,spl);
+            console.log(text);
+            let sqL=text.indexOf(sqLeft);
+            let sqR=text.indexOf(sqRight);
+            if(sqL!==-1,sqR!==-1){
+                let spl=sqR-sqL-1;
+            let firstDe=text.splice(sqL+1,spl);
             console.log(firstDe);
             console.log(spl);
+            calcul(firstDe);
+            let numsq=firstDe.filter(num);
+            console.log(numsq);
+        }
+            if(Mass.indexOf("*")!==-1){
+                let umn=text.indexOf("*");
+                let arg1=text.splice(umn-1,1);
+                let arg2=text.splice(umn+2,1);
+                let umnres=parseInt(arg1)*parseInt(arg2);
+                console.log(umnres);
+            } 
+            
+
+           
             
         }
-    </script>
+        
+    </script> -->
 </body>
+
 </html>

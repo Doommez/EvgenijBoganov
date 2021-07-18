@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" value="" id="str">
+    <input type="button" id="1" value="reult" onclick="result(document.getElementById('str').value)">
+    <div>
+        <input type="text" name="result" id="2">
+    </div>
+
+    <script>
+        function result(txt) {
+            console.log(txt);
+
+            
+            let txtS = txt.split("");
+            console.log(txtS);
+            if (txtS.indexOf("(") !== -1) {
+                let sqL = txtS.indexOf("(");
+                let sqR = txtS.indexOf(")");
+                const sqobkiPointer = sqR - sqL - 1;
+                console.log(sqobkiPointer);
+                const sqobki = txtS.splice(sqL + 1, sqobkiPointer)
+                console.log(sqobki);
+                let sqobkiNum = sqobki.join("").split(/[\/\*\+]/g)
+                console.log(sqobkiNum);
+                let pumn=sqobki.indexOf("*");
+                let pdedl=sqobki.indexOf("/");
+                let plus=sqobki.indexOf("+");
+                let pminus=sqobki.indexOf("-");
+                if (sqobki.indexOf("*") !== -1 || sqobki.indexOf("/") !== -1) {
+                    if (sqobki.indexOf("*") > sqobki.indexOf("/")) {
+                       if(plus){}
+                    }
+                }
+
+
+            }
+        }
+    </script>
+</body>
+
+</html>
