@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            display: flex;
+        }
+        .contaner1{
+            
+            width: 500px;
+
+        }
+        .container2{
+            width: 500px;
+        }
+        .container2 input{
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div class="contaner1">
+    <input type="text" id="str">
+    <input type="submit" value="div" onclick="getStr()">
+    <input type="submit" value="strong" onclick="getStrong()">
+    <input type="submit" value="em" onclick="getEm()">
+    <input type="submit" value="p" onclick="getP()">
+</div>
+<div class="container2" id="newStr">
+   
+</div>
+<script>
+    "use strict"
+    function getStr(){
+        let str=document.getElementById("str").value;
+        let newStr=document.getElementById("newStr");
+        console.log(str);
+        let newTxt=document.createTextNode(str)
+        let divL=document.createElement("div");
+        divL.appendChild(newTxt);
+        
+        newStr.appendChild(divL)
+    }
+    function getStrong(){
+        let str=document.getElementById("str").value;
+        let newStr=document.getElementById("newStr");
+        let newTxt=document.createTextNode(str)
+        let divL=document.createElement("strong");
+        divL.appendChild(newTxt);
+        
+        newStr.appendChild(divL)
+    }
+    function getEm(){
+        let str=document.getElementById("str").value;
+        let newStr=document.getElementById("newStr");
+        let newTxt=document.createTextNode(str)
+
+        let divL=document.createElement("div");
+        let emL=document.createElement("em");
+        emL.appendChild(newTxt)
+        divL.appendChild(emL);
+        
+        newStr.appendChild(divL)
+    }
+    function getP(){
+        let str=document.getElementById("str").value;
+        let newStr=document.getElementById("newStr");
+        let newTxt=document.createTextNode(str)
+        let divL=document.createElement("p");
+        divL.appendChild(newTxt);
+        
+        newStr.appendChild(divL)
+    }
+</script>
+</body>
+</html>
