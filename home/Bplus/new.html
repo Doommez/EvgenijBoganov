@@ -18,31 +18,48 @@
     <script>
         function result(txt) {
             console.log(txt);
+           
 
-            
-            let txtS = txt.split("");
-            console.log(txtS);
-            if (txtS.indexOf("(") !== -1) {
-                let sqL = txtS.indexOf("(");
-                let sqR = txtS.indexOf(")");
-                const sqobkiPointer = sqR - sqL - 1;
-                console.log(sqobkiPointer);
-                const sqobki = txtS.splice(sqL + 1, sqobkiPointer)
-                console.log(sqobki);
-                let sqobkiNum = sqobki.join("").split(/[\/\*\+]/g)
-                console.log(sqobkiNum);
-                let pumn=sqobki.indexOf("*");
-                let pdedl=sqobki.indexOf("/");
-                let plus=sqobki.indexOf("+");
-                let pminus=sqobki.indexOf("-");
-                if (sqobki.indexOf("*") !== -1 || sqobki.indexOf("/") !== -1) {
-                    if (sqobki.indexOf("*") > sqobki.indexOf("/")) {
-                       if(plus){}
+        let txtS = txt.split("");
+        console.log(txtS);
+        if (txtS.indexOf("(") !== -1) {
+            let sqL = txtS.indexOf("(");
+            let sqR = txtS.indexOf(")");
+            const sqobkiPointer = sqR - sqL - 1;
+            console.log(sqobkiPointer);
+            const sqobki = txtS.splice(sqL + 1, sqobkiPointer)
+            console.log(sqobki);
+            let sqobkiNum = sqobki.join("").split(/[\/\*\+]/g)
+            console.log(sqobkiNum);
+            let pumn = sqobki.indexOf("*");
+            let pdedl = sqobki.indexOf("/");
+            let plus = sqobki.indexOf("+");
+            let pminus = sqobki.indexOf("-");
+            summ(sqobki);
+           
+            function summ(arr) {
+                let arrNoZnak = arr.join('').split(/[-\/\*\+]/g);
+                console.log(arrNoZnak);
+                let arrNoNum = arr.join('').split(/[0-9]/g).filter(deletespace);
+                console.log(arrNoNum);
+                for(let i=0;i<arrNoNum.length;i++){
+                    if(arrNoNum[i]==="*"){
+                        console.log(arrNoNum[i]);
+                       let imin=i+1;
+                      
+                        let mndl=parseFloat(arrNoZnak[i])*parseFloat(arrNoZnak[imin]);
+                        console.log(parseFloat(arrNoZnak[i]));
+                        console.log(parseFloat(arrNoZnak[imin]));
+                        return mndl;
+                        console.log(mndl);
                     }
                 }
 
-
             }
+            function deletespace(value) {
+                return value !== "";
+            }
+        }
         }
     </script>
 </body>
