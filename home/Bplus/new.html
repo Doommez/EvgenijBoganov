@@ -18,48 +18,130 @@
     <script>
         function result(txt) {
             console.log(txt);
-           
 
-        let txtS = txt.split("");
-        console.log(txtS);
-        if (txtS.indexOf("(") !== -1) {
-            let sqL = txtS.indexOf("(");
-            let sqR = txtS.indexOf(")");
-            const sqobkiPointer = sqR - sqL - 1;
-            console.log(sqobkiPointer);
-            const sqobki = txtS.splice(sqL + 1, sqobkiPointer)
-            console.log(sqobki);
-            let sqobkiNum = sqobki.join("").split(/[\/\*\+]/g)
-            console.log(sqobkiNum);
-            let pumn = sqobki.indexOf("*");
-            let pdedl = sqobki.indexOf("/");
-            let plus = sqobki.indexOf("+");
-            let pminus = sqobki.indexOf("-");
-            summ(sqobki);
-           
-            function summ(arr) {
-                let arrNoZnak = arr.join('').split(/[-\/\*\+]/g);
-                console.log(arrNoZnak);
-                let arrNoNum = arr.join('').split(/[0-9]/g).filter(deletespace);
-                console.log(arrNoNum);
-                for(let i=0;i<arrNoNum.length;i++){
-                    if(arrNoNum[i]==="*"){
-                        console.log(arrNoNum[i]);
-                       let imin=i+1;
-                      
-                        let mndl=parseFloat(arrNoZnak[i])*parseFloat(arrNoZnak[imin]);
-                        console.log(parseFloat(arrNoZnak[i]));
-                        console.log(parseFloat(arrNoZnak[imin]));
-                        return mndl;
-                        console.log(mndl);
+
+            let txtS = txt.split("");
+            console.log(txtS);
+            if (txtS.indexOf("(") !== -1) {
+                let sqL = txtS.indexOf("(");
+                let sqR = txtS.indexOf(")");
+                const sqobkiPointer = sqR - sqL - 1;
+                console.log(sqobkiPointer);
+                const sqobki = txtS.splice(sqL + 1, sqobkiPointer)
+                console.log(sqobki);
+                
+                let sqobkiNum = sqobki.join("").split(/[\/\*\+]/g)
+                console.log(sqobkiNum);
+                let pumn = sqobki.indexOf("*");
+                let pdedl = sqobki.indexOf("/");
+                let plus = sqobki.indexOf("+");
+                let pminus = sqobki.indexOf("-");
+                let res=0;
+                let result=0
+                summ(sqobki);
+
+                function summ(arr) {
+                    let arrNoZnak = arr.join('').split(/[-\/\*\+]/g).filter(deletespace);
+                    console.log(arrNoZnak);
+                    let arrNoNum = arr.join('').split(/[0-9]/g).join('').split("").filter(deletespace);
+                    /* for(let n=0;n<arrNoNum.length;n++){
+                        if(arrNoNum[n]==="+-"||arrNoNum[n]==="-+"||arrNoNum[n]==="+-"||arrNoNum[n]==="*+"||arrNoNum[n]==="+*"||arrNoNum[n]==="+/"||arrNoNum[n]==="/+"||arrNoNum[n]==="*-"||arrNoNum[n]==="-*"||arrNoNum[n]==="-/"||arrNoNum[n]==="/-"){
+                            arrNoNum= arrNoNum.join('').split("");
+                        }
+                    } */
+                    console.log(arrNoNum);
+                    for (let i = 0; i < arrNoNum.length; i++) {
+                        if (arrNoNum[i] === "*") {
+                            console.log(arrNoNum[i]);
+                            let imin = i + 1;
+
+                            let mn = parseFloat(arrNoZnak[i]) * parseFloat(arrNoZnak[imin]);
+                            console.log(parseFloat(arrNoZnak[i]));
+                            console.log(parseFloat(arrNoZnak[imin]));
+                            console.log(mn);
+                            arrNoZnak.splice(i, 2, mn)
+
+                            console.log(arrNoZnak);
+                            arrNoNum.splice(i, 1);
+                            console.log(arrNoNum);
+                        }
                     }
-                }
+                    for (let q = 0; q < arrNoNum.length; q++) {
+                        if (arrNoNum[q] === "/") {
+                            console.log(arrNoNum[q]);
+                            let qpl = q + 1;
 
+                            let del = parseFloat(arrNoZnak[q]) / parseFloat(arrNoZnak[qpl]);
+                            console.log(parseFloat(arrNoZnak[q]));
+                            console.log(parseFloat(arrNoZnak[qpl]));
+                            console.log(del);
+                            arrNoZnak.splice(q, 2, del)
+
+                            console.log(arrNoZnak);
+                            arrNoNum.splice(q, 1);
+                            console.log(arrNoNum);
+                        }
+                    }
+                    for (let e = 0; e < arrNoNum.length; e++) {
+                        if (arrNoNum[e] === "-") {
+                            console.log(arrNoNum[e]);
+                            let epl = e + 1;
+                            if (arr[e] === "-" && arr[0] === "-") {
+                                let eminus = parseFloat(arrNoNum[e] + arrNoZnak[epl]);
+                                console.log(eminus);
+                                arrNoZnak.splice(e, 2, eminus)
+                                console.log(arrNoZnak);
+                                arrNoNum.splice(e, 1);
+                                console.log(arrNoNum);
+                            }
+                            else {
+                                let minus = parseFloat(arrNoZnak[e]) - parseFloat(arrNoZnak[epl]);
+                                console.log(parseFloat(arrNoZnak[e]));
+                                console.log(parseFloat(arrNoZnak[epl]));
+                                console.log(minus);
+                                arrNoZnak.splice(e, 2, minus)
+
+                                console.log(arrNoZnak);
+                                arrNoNum.splice(e, 1);
+                                console.log(arrNoNum);
+                            }
+                        }
+                    }
+                    for (let w = 0; w < arrNoNum.length; w++) {
+                        if (arrNoNum[w] === "+") {
+                            console.log(arrNoNum[w]);
+                            let wpl = w + 1;
+
+                            let plus = parseFloat(arrNoZnak[w]) + parseFloat(arrNoZnak[wpl]);
+                            console.log(parseFloat(arrNoZnak[w]));
+                            console.log(parseFloat(arrNoZnak[wpl]));
+                            console.log(plus);
+                            arrNoZnak.splice(w, 2, plus)
+
+                            console.log(arrNoZnak);
+                            arrNoNum.splice(w, 1);
+                            console.log(arrNoNum);
+                            continue
+                        }
+
+                    }
+                    console.log(arrNoZnak[0]);
+                    res=arrNoZnak[0];
+                    return res;
+                }
+                console.log(res);
+                res=`${res}`;
+                txtS.splice(sqL,sqR-sqL);
+                console.log(txtS);
+                txtS[txtS.length]=res;
+                console.log(txtS);
+                summ(txtS);
+                result=res;
+                console.log(result);
+                function deletespace(value) {
+                    return value !== "";
+                }
             }
-            function deletespace(value) {
-                return value !== "";
-            }
-        }
         }
     </script>
 </body>
