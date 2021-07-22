@@ -9,19 +9,78 @@
 </head>
 
 <body>
-    <input type="text" value="" id="str">
+   <!--  <input type="text" value="" id="str">
     <input type="button" id="1" value="reult" onclick="result(document.getElementById('str').value)">
     <div>
         <input type="text" name="result" id="2">
+    </div> -->
+    <div class="calc">
+        <div class="str">
+            <input type="text" name="str" id="str" value="" readonly>
+        </div>
+        <div class="calc__1str">
+            <input type="button" name="" id="C" value="C" onclick="delNums(document.getElementById('str').value)">
+            <input type="button" name="" id="(" value="(" onclick="addNums('(')">
+            <input type="button" name="" id=")" value=")" onclick="addNums(')')">
+            <input type="button" name="" id="/" value="/" onclick="addNums('/')">
+        </div>
+        <div class="calc__1str">
+            <input type="button" name="" id="7" value="7" onclick="addNums('7')">
+            <input type="button" name="" id="8" value="8" onclick="addNums('8')">
+            <input type="button" name="" id="9" value="9" onclick="addNums('9')">
+            <input type="button" name="" id="*" value="*" onclick="addNums('*')">
+        </div>
+        <div class="calc__1str">
+            <input type="button" name="" id="4" value="4" onclick="addNums('4')">
+            <input type="button" name="" id="5" value="5" onclick="addNums('5')">
+            <input type="button" name="" id="6" value="6" onclick="addNums('6')">
+            <input type="button" name="" id="-" value="-" onclick="addNums('-')">
+        </div>
+        <div class="calc__1str">
+            <input type="button" name="" id="1" value="1" onclick="addNums('1')">
+            <input type="button" name="" id="2" value="2" onclick="addNums('2')">
+            <input type="button" name="" id="3" value="3" onclick="addNums('3')">
+            <input type="button" name="" id="+" value="+" onclick="addNums('+')">
+        </div>
+        <div class="calc__1str">
+            <input type="button" name="" id="0" value="0" onclick="addNums('0')" style="width: 124.5px;">
+            <input type="button" name="" id="." value="." onclick="addNums('.')">
+            <input type="button" name="" id="=" value="=" onclick="result(document.getElementById('str').value)">
+            
+        </div>
     </div>
-
+    <style>
+        .str{
+            width: 250px;
+        }
+        .str input{
+            width: 100%;
+            height: 40px;
+        }
+        .calc__1str{
+            width: 255px;
+        }
+        .calc__1str input{
+        width: 60px;
+        margin: 0 0 0 0.7655px;
+        height: 60px;
+        }
+    </style>
     <script>
+         function addNums(num){
+            document.getElementById("str").value= document.getElementById("str").value +num
+            
+        }
+        function delNums(strDel){
+            document.getElementById("str").value="";
+            
+        }
         function result(txt) {
             console.log(txt);
             let res = 0;
                 let result = 0
                 function summ(arr) {
-                    let arrNoZnak = arr.join('').split(/[-\/\*\+]/g).filter(deletespace);
+                    let arrNoZnak = arr.join('').split(/[-\/\*\+\.]/g).filter(deletespace);
                     console.log(arrNoZnak);
 
                     let arrNoNum = arr.join('').split(/[0-9]/g).filter(deletespace);
@@ -31,9 +90,24 @@
                         }
                     } */
                     console.log(arrNoNum);
+                    for(let r=0;r<arrNoNum.length;r++){
+                        if(arrNoNum[r]==="."){
+                            console.log(arrNoNum[r]);
+                            let rmin = r + 1;
 
+                            let rn = parseFloat(arrNoZnak[r]+"."+ arrNoZnak[rmin]);
+                            console.log(parseFloat(arrNoZnak[r]));
+                            console.log(parseFloat(arrNoZnak[rmin]));
+                            console.log(rn);
+                            arrNoZnak.splice(r, 2, rn)
+
+                            console.log(arrNoZnak);
+                            arrNoNum.splice(r, 1);
+                            console.log(arrNoNum);
+                        }
+                    }
                     for (let i = 0; i < arrNoNum.length; i++) {
-                        if (arrNoNum[i] === "*" || arrNoNum[i] === "*-") {
+                        if (arrNoNum[i] === "*" ) {
                             console.log(arrNoNum[i]);
                             let imin = i + 1;
 
@@ -47,13 +121,40 @@
                             arrNoNum.splice(i, 1);
                             console.log(arrNoNum);
                         }
+                        if( arrNoNum[i] === "*-"){
+                            let imin = i + 1;
+
+                            let mn = parseFloat(arrNoZnak[i]) * parseFloat(-arrNoZnak[imin]);
+                            console.log(parseFloat(arrNoZnak[i]));
+                            console.log(parseFloat(arrNoZnak[imin]));
+                            console.log(mn);
+                            arrNoZnak.splice(i, 2, mn)
+
+                            console.log(arrNoZnak);
+                            arrNoNum.splice(i, 1);
+                            console.log(arrNoNum);
+                        }
                     }
                     for (let q = 0; q < arrNoNum.length; q++) {
-                        if (arrNoNum[q] === "/" || arrNoNum[q] === "/-") {
+                        if (arrNoNum[q] === "/" ) {
                             console.log(arrNoNum[q]);
                             let qpl = q + 1;
 
                             let del = parseFloat(arrNoZnak[q]) / parseFloat(arrNoZnak[qpl]);
+                            console.log(parseFloat(arrNoZnak[q]));
+                            console.log(parseFloat(arrNoZnak[qpl]));
+                            console.log(del);
+                            arrNoZnak.splice(q, 2, del)
+
+                            console.log(arrNoZnak);
+                            arrNoNum.splice(q, 1);
+                            console.log(arrNoNum);
+                        }
+                        if(arrNoNum[q] === "/-"){
+                            console.log(arrNoNum[q]);
+                            let qpl = q + 1;
+
+                            let del = parseFloat(arrNoZnak[q]) / parseFloat(-arrNoZnak[qpl]);
                             console.log(parseFloat(arrNoZnak[q]));
                             console.log(parseFloat(arrNoZnak[qpl]));
                             console.log(del);
@@ -142,11 +243,15 @@
                 summ(txtS);
                 result = res;
                 console.log(result);
-                
+               
+                document.getElementById("str").value=result;
             }
             else {
                 console.log(txtS);
                 summ(txtS);
+                result=res;
+              
+                document.getElementById("str").value=result;
             }
         }
     </script>
