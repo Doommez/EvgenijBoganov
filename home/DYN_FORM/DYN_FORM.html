@@ -6,7 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DYN_FORM</title>
 </head>
+<style>
+  .longtext{
+    width: 700px;
+  }
+</style>
 <body>
+  <form id="form" action="https://fe.it-academy.by/TestForm.php" >
+   
+  </form>
+  <button onclick="addForm(formDef1)">fd1</button>
+  <button onclick="addForm(formDef2)">fd2</button>
     <script>
         var formDef1=
 [
@@ -32,13 +42,27 @@ var formDef2=
   {label:'Зарегистрироваться:',kind:'submit'},
 ];
 
-function getForm(arr){
+function addForm(arr){
   for(let i=0;i<arr.length;i++){
-    console.log(arr[i].label);
+    console.log(arr[i]);
+ 
+    
+    
     
   }
+  let form=document.getElementById('form');
+  console.log(form);
+  let label=document.createElement("label");
+  let txtLabel=document.createTextNode(arr[0].label);
+  let input=document.createElement("input");
+  input.setAttribute('type','text');
+  input.setAttribute('class','longtext');
+  label.appendChild(txtLabel);
+  label.appendChild(input);
+  form.appendChild(label);
+  
 }
-getForm(formDef1);
+
     </script>
 </body>
 </html>
