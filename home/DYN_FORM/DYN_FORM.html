@@ -25,8 +25,12 @@
     width: 100px;
   }
   .shorttext{
-    width: 300px
+    width: 100px
 
+  }
+  .memo{
+    width: 700px;
+    min-height: 100px;
   }
 </style>
 <body>
@@ -151,25 +155,90 @@ select.appendChild(option);
   divcombo.appendChild(select);
  
   document.getElementById('form').appendChild(divcombo);
-
-  
-
+ 
 
     break;
     case 'radio':
-   
+    let divradio=document.createElement("div");
+    let radioLable=document.createElement("label");
+  let radiotxt=document.createTextNode(arr[i].label);
+
+  radioLable.appendChild(radiotxt);
+  radioLable.setAttribute("for",i);
+  let spanRadio=document.createElement("span");
+  spanRadio.setAttribute("id",i);
+  for(let r=0;r<arr[i].variants.length;r++){
+
+    let inputRadio=document.createElement("input");
+    inputRadio.setAttribute('type','radio');
+    inputRadio.setAttribute('name',arr[i].name);
+    inputRadio.setAttribute('value',arr[i].variants[r].value);
+    let inputRadioTxt=document.createTextNode(arr[i].variants[r].text);
+    spanRadio.appendChild(inputRadio);
+    spanRadio.appendChild(inputRadioTxt);
+
+  }
+  divradio.appendChild( radioLable);
+  divradio.appendChild(spanRadio);
+  document.getElementById('form').appendChild(divradio);
+   break;
+
+   case 'check':
+   let divcheck=document.createElement("div");
+    let checkLable=document.createElement("label");
+  let checktxt=document.createTextNode(arr[i].label);
+
+  checkLable.appendChild(checktxt);
+  checkLable.setAttribute("for",i);
+  let inputcheck=document.createElement("input");
+  inputcheck.setAttribute("type","checkbox")
+  inputcheck.setAttribute("class","check");
+  inputcheck.setAttribute("id",i);
+ divcheck.appendChild(checkLable);
+  divcheck.appendChild(inputcheck);
+  document.getElementById('form').appendChild(divcheck);
+
+
+
+   break;
+
+
+   case 'memo':
+   let divmemo=document.createElement("div");
+    let memoLable=document.createElement("label");
+  let memotxt=document.createTextNode(arr[i].label);
+
+  memoLable.appendChild(memotxt);
+  memoLable.setAttribute("for",i);
+ 
+   let memoTextarea=document.createElement("textarea");
+   memoTextarea.setAttribute("name",arr[i].name);
+   memoTextarea.setAttribute("id", i);
+   memoTextarea.setAttribute("class","memo");
+   divmemo.appendChild(memoLable);
+   divmemo.appendChild(memoTextarea);
+   document.getElementById('form').appendChild(divmemo);
   
    break;
-   case 'left':
-   
   
-   break;
-   case 'left':
-   
+   case 'submit':
+   let divsubmit=document.createElement("div");
+    let submitLable=document.createElement("label");
+  let submittxt=document.createTextNode(arr[i].label);
+
+  submitLable.appendChild(submittxt);
+  submitLable.setAttribute("for",i);
+  let inputsubmit=document.createElement("input");
+  inputsubmit.setAttribute("type","submit")
+  inputsubmit.setAttribute("class","submit");
+  inputsubmit.setAttribute("id",i);
+  inputsubmit.appendChild(submitLable);
+  divsubmit.appendChild(inputsubmit);
+  document.getElementById('form').appendChild(divsubmit);
   
    break;
   default:
-  
+  alert("Не правильная форма!")
 
     
     
