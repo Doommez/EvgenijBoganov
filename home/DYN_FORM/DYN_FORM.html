@@ -9,6 +9,24 @@
 <style>
   .longtext{
     width: 700px;
+    display: block;
+    box-sizing: border-box;
+  }
+ 
+  label{
+    display: block;
+    width: 200px;
+    float: left;
+    
+   
+  
+  }
+  .Number{
+    width: 100px;
+  }
+  .shorttext{
+    width: 300px
+
   }
 </style>
 <body>
@@ -42,26 +60,123 @@ var formDef2=
   {label:'Зарегистрироваться:',kind:'submit'},
 ];
 
+
+
+
+
 function addForm(arr){
   for(let i=0;i<arr.length;i++){
     console.log(arr[i]);
+    let kind=arr[i].kind;
+
  
+    switch (kind ) {
+  case 'longtext':
+  let form=document.getElementById('form');
+  console.log(form);
+  let divLong=document.createElement("div");
+  let labelLong=document.createElement("label");
+  let txtLabelLong=document.createTextNode(arr[i].label);
+  let inputLong=document.createElement("input");
+  let spanLong=document.createElement("span");
+  labelLong.setAttribute('for',i)
+  inputLong.setAttribute('type','text');
+  
+  inputLong.setAttribute('name',arr[i].name);
+  inputLong.setAttribute('id',i);
+  inputLong.setAttribute('class','longtext');
+  labelLong.appendChild(txtLabelLong);
+  spanLong.appendChild(inputLong);
+  divLong.appendChild(labelLong);
+  divLong.appendChild(spanLong);
+  form.appendChild(divLong);
+
+    break;
+  case 'number':
+
+  let divNumber=document.createElement("div");
+  let labelNumber=document.createElement("label");
+  let txtLabelNumber=document.createTextNode(arr[i].label);
+  let inputNumber=document.createElement("input");
+  let spanNumber=document.createElement("span");
+  labelNumber.setAttribute('for',i)
+  inputNumber.setAttribute('type','text');
+  
+  inputNumber.setAttribute('name',arr[i].name);
+  inputNumber.setAttribute('id',i);
+  inputNumber.setAttribute('class','Number');
+  labelNumber.appendChild(txtLabelNumber);
+  spanNumber.appendChild(inputNumber);
+  divNumber.appendChild(labelNumber);
+  divNumber.appendChild(spanNumber);
+  document.getElementById('form').appendChild(divNumber);
+    break;
+  case 'shorttext':
+  
+  let divshort=document.createElement("div");
+  let labelshort=document.createElement("label");
+  let txtLabelshort=document.createTextNode(arr[i].label);
+  let inputshort=document.createElement("input");
+  let spanshort=document.createElement("span");
+  labelshort.setAttribute('for',i)
+  inputshort.setAttribute('type','text');
+  
+  inputshort.setAttribute('name',arr[i].name);
+  inputshort.setAttribute('id',i);
+  inputshort.setAttribute('class','shorttext');
+  labelshort.appendChild(txtLabelshort);
+  spanshort.appendChild(inputshort);
+  divshort.appendChild(labelshort);
+  divshort.appendChild(spanshort);
+  document.getElementById('form').appendChild(divshort);
+    break;
+  case 'combo':
+  let divcombo=document.createElement("div");
+ 
+  
+  let select=document.createElement("select");
+select.setAttribute("name",arr[i].name);
+let selecttxt=document.createTextNode(arr[i].label);
+let selectLable=document.createElement("label");
+selectLable.appendChild(selecttxt);
+selectLable.setAttribute("for",i);
+
+  for(let c=0;c<arr[i].variants.length;c++){
+    let option=document.createElement("option");
+option.setAttribute('value',arr[i].variants.value);
+option.appendChild(document.createTextNode(arr[i].variants[c].text))
+select.appendChild(option);
+  }
+  divcombo.appendChild(selectLable);
+  divcombo.appendChild(select);
+ 
+  document.getElementById('form').appendChild(divcombo);
+
+  
+
+
+    break;
+    case 'radio':
+   
+  
+   break;
+   case 'left':
+   
+  
+   break;
+   case 'left':
+   
+  
+   break;
+  default:
+  
+
     
     
     
   }
-  let form=document.getElementById('form');
-  console.log(form);
-  let label=document.createElement("label");
-  let txtLabel=document.createTextNode(arr[0].label);
-  let input=document.createElement("input");
-  input.setAttribute('type','text');
-  input.setAttribute('class','longtext');
-  label.appendChild(txtLabel);
-  label.appendChild(input);
-  form.appendChild(label);
-  
-}
+ 
+}}
 
     </script>
 </body>
