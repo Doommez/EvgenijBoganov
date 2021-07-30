@@ -8,7 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-   <div>
+   <div class="addCard">
        <input type="text" name="model" id="model" > <br>
        <input type="text"  name="imgUrl" id="img"><br>
        <input type="text" id="color" ><br>
@@ -16,7 +16,14 @@
        <input type="submit" value="Добавить" onclick="getValue(),render()" >
        
    </div>
-   
+   <div class="by"  ondrop="divDrop(event)" ondragover="divDragOver(event)"
+   ondragenter="divDragEnter(event)"
+   ondragleave="divDragLeave(event)">
+<img src="/lessons/png-transparent-shopping-cart-shopping-bags-trolleys-computer-icons-shopping-cart-decoration-angle-text-rectangle.png" alt="">
+   <p  class="pokupki">
+
+   </p>
+</div>
    <div id="popap" class="popap">
         <div class="popap_body">
             
@@ -32,6 +39,18 @@
    </div>
    <div id="app"></div>
    <style>
+       .by img {
+        width: 100px;
+       }
+       body {
+           display: flex;
+       }
+       .by{
+           width: 500px;
+       }
+       .addCard{
+           display: inline-block;
+       }
     .popap{
         position: fixed;
         top: 0px;
@@ -112,15 +131,18 @@
         let html="";
     for(let i=0;i<phones.length;i++){
         id=`id="${i}"`;
-    html+=`<div class="card" ${id} style="width: 18rem;">
+    html+=`<div class="card" ${id} style="width: 18rem;" >
     <img src="${phones[i].img}" class="card-img-top" alt="...">
     <div class="card-body">
       <h5 class="card-title">${phones[i].model},${phones[i].color}</h5>
       <p class="card-text">${phones[i].price}</p>
       <a href="#" class="btn btn-primary" onclick="delet(${i})">удалить</a>
-      <a href="#popap" class="btn btn-primary">обновить</a>
+      <a href="#popap" ${id} class="btn btn-primary">обновить</a>
     </div>
   </div>`
+
+
+
 
 
 
@@ -142,6 +164,30 @@
     // delcard.style.display='none';
 };
 
+
+
+
+
+
+function divDragEnter(EO) {
+  console.log("enter");
+}
+
+function divDragLeave(EO) {
+   console.log("leave");
+}
+
+function divDragOver(EO) {
+   console.log("over");
+}
+
+function divDrop(EO) {
+    EO=EO||window.event;
+    EO.preventDefault();
+    var dragElem=document.getElementById('by');
+    EO.Target.appendChild(dragElem);
+    console.log("drop");
+}
 
 
 
