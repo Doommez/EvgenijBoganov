@@ -16,13 +16,9 @@
        <input type="submit" value="Добавить" onclick="getValue(),render()" >
        
    </div>
-   <div class="by"  ondrop="divDrop(event)" ondragover="divDragOver(event)"
-   ondragenter="divDragEnter(event)"
-   ondragleave="divDragLeave(event)">
+   <div class="by" id="by"   >
 <img src="/lessons/png-transparent-shopping-cart-shopping-bags-trolleys-computer-icons-shopping-cart-decoration-angle-text-rectangle.png" alt="">
-   <p  class="pokupki">
-
-   </p>
+<div id="totalPrice"></div>
 </div>
    <div id="popap" class="popap">
         <div class="popap_body">
@@ -47,9 +43,17 @@
        }
        .by{
            width: 500px;
+           position: relative;
        }
        .addCard{
            display: inline-block;
+       }
+       .pokupki{
+           position: absolute;
+           width: 50px;
+           top: 0;
+           left: 0;
+           color:red;
        }
     .popap{
         position: fixed;
@@ -131,7 +135,7 @@
         let html="";
     for(let i=0;i<phones.length;i++){
         id=`id="${i}"`;
-    html+=`<div class="card" ${id} style="width: 18rem;" >
+    html+=` <div class="card" ${id} style="width: 18rem;" draggable="true">
     <img src="${phones[i].img}" class="card-img-top" alt="...">
     <div class="card-body">
       <h5 class="card-title">${phones[i].model},${phones[i].color}</h5>
@@ -163,31 +167,43 @@
      phones.slice(0,1);
     // delcard.style.display='none';
 };
+let app = document.getElementById("app");
+const basket = document.getElementById("by");
+    const totalPrice = document.getElementById("produkt");
+let itemId = null;
+    let priceCount = 0;
+    const cardD=document.querySelectorAll("card");
+    
+
+   
+    document.addEventListener("dragstart", function (ev) {
+    
+console.log('gghgggh',ev.target.id);
+
+    itemId = ev.target.id;
+    
+    console.log('dragstart');
+});
+
+document.addEventListener("dragover", function (ev) {
+    ev.preventDefault();
+    console.log('dragover');
+});
+
+basket.addEventListener("drop", function (ev) {
+    const itemBlock = document.createElement("div");
+        const title = document.createElement("p");
+        title.innerHTML =phones[itemId].model + " - " + phones[itemId].price + "$";
+        itemBlock.appendChild(title);
+        this.appendChild(itemBlock);
+        priceCount +=parseFloat(phones[itemId].price);
+        console.log(priceCount);
+        totalPrice.innerHTML = priceCount + "$";
+});
 
 
 
 
-
-
-function divDragEnter(EO) {
-  console.log("enter");
-}
-
-function divDragLeave(EO) {
-   console.log("leave");
-}
-
-function divDragOver(EO) {
-   console.log("over");
-}
-
-function divDrop(EO) {
-    EO=EO||window.event;
-    EO.preventDefault();
-    var dragElem=document.getElementById('by');
-    EO.Target.appendChild(dragElem);
-    console.log("drop");
-}
 
 
 
