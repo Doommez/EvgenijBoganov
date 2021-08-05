@@ -17,9 +17,13 @@
        
    </div>
    <div class="by" id="by"   >
-<img src="/lessons/png-transparent-shopping-cart-shopping-bags-trolleys-computer-icons-shopping-cart-decoration-angle-text-rectangle.png" alt="">
+<img src="/lessons/kisspng-computer-icons-shopping-cart-retail-clip-art-shopping-cart-5abdaab0711a27.4162977915223794404633.jpg" alt="">
 <div id="totalPrice"></div>
 </div>
+<div class="by" id="baskettwo"   >
+    <img src="/lessons/kisspng-computer-icons-shopping-cart-retail-clip-art-shopping-cart-5abdaab0711a27.4162977915223794404633.jpg" alt="">
+    
+    </div>
    <div id="popap" class="popap">
         <div class="popap_body">
             
@@ -173,7 +177,7 @@ const basket = document.getElementById("by");
 let itemId = null;
     let priceCount = 0;
     const cardD=document.querySelectorAll("card");
-    
+    let basketdel=document.getElementById("baskettwo")
 
    
     document.addEventListener("dragstart", function (ev) {
@@ -181,8 +185,9 @@ let itemId = null;
 console.log('gghgggh',ev.target.id);
 
     itemId = ev.target.id;
-    
+    console.log(itemId);
     console.log('dragstart');
+    return itemId
 });
 
 document.addEventListener("dragover", function (ev) {
@@ -201,7 +206,20 @@ basket.addEventListener("drop", function (ev) {
         totalPrice.innerHTML = priceCount + "$";
 });
 
-
+basketdel.addEventListener("drop",function (ev){
+    console.log(itemId);
+     let delcard=   document.getElementById( itemId);
+     /* console.log(delcard);
+     let tor={};
+     tor[delcard]=true;
+     console.log(tor);
+     tor[delcard]=null; */
+      delcard.remove(); 
+     //phones[i]=null;
+   /*   phones.splice(i,1);
+     phones.slice(0,1); */
+    // delcard.style.display='none';
+} );
 
 
 
