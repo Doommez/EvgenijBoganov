@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRINKS_HASH_FUNC</title>
+</head>
+<body>
+    <input type="button" value="ввод информации о напитке" onclick="addDrink()" >
+    <input type="button" value="получение информации о напитке" onclick="getDrink()" >
+    <input type="button" value="удаление информации о напитке" onclick="deleteDrink()" >
+    <input type="button" value="перечень всех напитков" onclick="getKeysDrink()" >
+    
+
+
+
+
+
+    <script>
+        "use strict"
+        class HashStorageFunc {
+constructor(){
+    this.obj={};
+}
+
+
+  
+  addValue(key,value) {
+   this.obj[key]=value;
+  }
+  getValue(key) {
+        return  this.obj[key]
+    }
+ 
+ deleteValue(key) {
+        if (!(key in  this.obj)) {
+            return false;
+        }
+        delete  this.obj[key];
+        return true;
+    }
+  getKeys() {       
+        return Object.keys(this.obj);
+    }
+}
+let drinkResept= new HashStorageFunc;
+
+function addDrink(){
+    let name = prompt('Введите название напитка');
+    let alco = confirm('Если напиток алкольный, нажмите "ок", если безалкогольный, нажмите "отмена"')
+        ? 'да' 
+        : 'нет';
+        let recipeInfo = prompt('Введите рецепт приготовления напитка');   
+        drinkResept.addValue(name, { alсoholic: alco, recipe: recipeInfo});
+}
+function getDrink() {
+    let name = prompt('Введите название напитка');
+   
+    let info = drinkResept.getValue(name);
+    
+    alert('напиток ' + name + '\n' + 'алкогольный: ' + info.alсoholic + '\n' + 'рецепт приготовления: ' + info.recipe);
+}  
+function deleteDrink() {
+    let name = prompt('Введите название напитка, который хотите удалить');
+   
+    drinkResept.deleteValue(name)
+        ? alert('Напиток удален из хранилища!')
+        : alert('Напиток не найден!');
+}
+
+function getKeysDrink() {
+    let drinks = drinkResept.getKeys();
+   
+    alert('Напитки в хранилище: ' + drinks.join(', '));
+}
+
+    </script>
+</body>
+</html>
