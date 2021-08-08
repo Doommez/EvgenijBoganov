@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VALID_FORM</title>
+</head>
+<body>
+    <style>
+        .longtext{
+          width: 700px;
+          display: block;
+          box-sizing: border-box;
+        }
+       
+        label{
+          display: block;
+          width: 200px;
+          float: left;
+          
+         
+        
+        }
+        .Number{
+          width: 100px;
+        }
+        .shorttext{
+          width: 100px
+      
+        }
+        .memo{
+          width: 700px;
+          min-height: 100px;
+        }
+      </style>
+      <body>
+        <form id="form" action="https://fe.it-academy.by/TestForm.php" >
+         
+        </form>
+        
+          <script>
+              var formDef1=
+      [
+        {label:'Название сайта:',kind:'longtext',name:'sitename'},
+        {label:'URL сайта:',kind:'longtext',name:'siteurl'},
+        {label:'Посетителей в сутки:',kind:'number',name:'visitors'},
+        {label:'E-mail для связи:',kind:'shorttext',name:'email'},
+        {label:'Рубрика каталога:',kind:'combo',name:'division',
+          variants:[{text:'здоровье',value:1},{text:'домашний уют',value:2},{text:'бытовая техника',value:3}]},
+        {label:'Размещение:',kind:'radio',name:'payment',
+          variants:[{text:'бесплатное',value:1},{text:'платное',value:2},{text:'VIP',value:3}]},
+        {label:'Разрешить отзывы:',kind:'check',name:'votes'},
+        {label:'Описание сайта:',kind:'memo',name:'description'},
+        {label:'Опубликовать:',kind:'submit'},
+      ];
+      
+      var formDef2=
+      [
+        {label:'Фамилия:',kind:'longtext',name:'lastname'},
+        {label:'Имя:',kind:'longtext',name:'firstname'},
+        {label:'Отчество:',kind:'longtext',name:'secondname'},
+        {label:'Возраст:',kind:'number',name:'age'},
+        {label:'Зарегистрироваться:',kind:'submit'},
+      ];
+      
+      
+      
+      
+      
+      function addForm(arr){
+        for(let i=0;i<arr.length;i++){
+          
+          let kind=arr[i].kind;
+      
+       
+          switch (kind ) {
+        case 'longtext':
+        let form=document.getElementById('form');
+   
+        let divLong=document.createElement("div");
+        let labelLong=document.createElement("label");
+        let txtLabelLong=document.createTextNode(arr[i].label);
+        let inputLong=document.createElement("input");
+        let spanLong=document.createElement("span");
+        labelLong.setAttribute('for',i)
+        inputLong.setAttribute('type','text');
+        
+        inputLong.setAttribute('name',arr[i].name);
+        inputLong.setAttribute('id',i);
+        inputLong.setAttribute('class','longtext');
+        labelLong.appendChild(txtLabelLong);
+        spanLong.appendChild(inputLong);
+        divLong.appendChild(labelLong);
+        divLong.appendChild(spanLong);
+        form.appendChild(divLong);
+      
+          break;
+        case 'number':
+      
+        let divNumber=document.createElement("div");
+        let labelNumber=document.createElement("label");
+        let txtLabelNumber=document.createTextNode(arr[i].label);
+        let inputNumber=document.createElement("input");
+        let spanNumber=document.createElement("span");
+        labelNumber.setAttribute('for',i)
+        inputNumber.setAttribute('type','number');
+        
+        inputNumber.setAttribute('name',arr[i].name);
+        inputNumber.setAttribute('id',i);
+        inputNumber.setAttribute('class','Number');
+        labelNumber.appendChild(txtLabelNumber);
+        spanNumber.appendChild(inputNumber);
+        divNumber.appendChild(labelNumber);
+        divNumber.appendChild(spanNumber);
+        document.getElementById('form').appendChild(divNumber);
+          break;
+        case 'shorttext':
+        
+        let divshort=document.createElement("div");
+        let labelshort=document.createElement("label");
+        let txtLabelshort=document.createTextNode(arr[i].label);
+        let inputshort=document.createElement("input");
+        let spanshort=document.createElement("span");
+        labelshort.setAttribute('for',i)
+        inputshort.setAttribute('type','text');
+        
+        inputshort.setAttribute('name',arr[i].name);
+        inputshort.setAttribute('id',i);
+        inputshort.setAttribute('class','shorttext');
+        labelshort.appendChild(txtLabelshort);
+        spanshort.appendChild(inputshort);
+        divshort.appendChild(labelshort);
+        divshort.appendChild(spanshort);
+        document.getElementById('form').appendChild(divshort);
+          break;
+        case 'combo':
+        let divcombo=document.createElement("div");
+       
+        
+        let select=document.createElement("select");
+      select.setAttribute("name",arr[i].name);
+      let selecttxt=document.createTextNode(arr[i].label);
+      let selectLable=document.createElement("label");
+      selectLable.appendChild(selecttxt);
+      selectLable.setAttribute("for",i);
+      
+        for(let c=0;c<arr[i].variants.length;c++){
+          let option=document.createElement("option");
+      option.setAttribute('value',arr[i].variants.value);
+      option.appendChild(document.createTextNode(arr[i].variants[c].text))
+      select.appendChild(option);
+        }
+        divcombo.appendChild(selectLable);
+        divcombo.appendChild(select);
+       
+        document.getElementById('form').appendChild(divcombo);
+       
+      
+          break;
+          case 'radio':
+          let divradio=document.createElement("div");
+          let radioLable=document.createElement("label");
+        let radiotxt=document.createTextNode(arr[i].label);
+      
+        radioLable.appendChild(radiotxt);
+        radioLable.setAttribute("for",i);
+        let spanRadio=document.createElement("span");
+        spanRadio.setAttribute("id",i);
+        for(let r=0;r<arr[i].variants.length;r++){
+      
+          let inputRadio=document.createElement("input");
+          inputRadio.setAttribute('type','radio');
+          inputRadio.setAttribute('name',arr[i].name);
+          inputRadio.setAttribute('value',arr[i].variants[r].value);
+          let inputRadioTxt=document.createTextNode(arr[i].variants[r].text);
+          spanRadio.appendChild(inputRadio);
+          spanRadio.appendChild(inputRadioTxt);
+      
+        }
+        divradio.appendChild( radioLable);
+        divradio.appendChild(spanRadio);
+        document.getElementById('form').appendChild(divradio);
+         break;
+      
+         case 'check':
+         let divcheck=document.createElement("div");
+          let checkLable=document.createElement("label");
+        let checktxt=document.createTextNode(arr[i].label);
+      
+        checkLable.appendChild(checktxt);
+        checkLable.setAttribute("for",i);
+        let inputcheck=document.createElement("input");
+        inputcheck.setAttribute("type","checkbox")
+        inputcheck.setAttribute("class","check");
+        inputcheck.setAttribute("id",i);
+       divcheck.appendChild(checkLable);
+        divcheck.appendChild(inputcheck);
+        document.getElementById('form').appendChild(divcheck);
+      
+      
+      
+         break;
+      
+      
+         case 'memo':
+         let divmemo=document.createElement("div");
+          let memoLable=document.createElement("label");
+        let memotxt=document.createTextNode(arr[i].label);
+      
+        memoLable.appendChild(memotxt);
+        memoLable.setAttribute("for",i);
+       
+         let memoTextarea=document.createElement("textarea");
+         memoTextarea.setAttribute("name",arr[i].name);
+         memoTextarea.setAttribute("id", i);
+         memoTextarea.setAttribute("class","memo");
+         divmemo.appendChild(memoLable);
+         divmemo.appendChild(memoTextarea);
+         document.getElementById('form').appendChild(divmemo);
+        
+         break;
+        
+         case 'submit':
+         let divsubmit=document.createElement("div");
+          let submitLable=document.createElement("label");
+        let submittxt=document.createTextNode(arr[i].label);
+      
+        submitLable.appendChild(submittxt);
+        submitLable.setAttribute("for",i);
+        let inputsubmit=document.createElement("input");
+        inputsubmit.setAttribute("type","submit")
+        inputsubmit.setAttribute("class","submit");
+        inputsubmit.setAttribute("id",i);
+        inputsubmit.appendChild(submitLable);
+        divsubmit.appendChild(inputsubmit);
+        document.getElementById('form').appendChild(divsubmit);
+        
+         break;
+        default:
+        alert("Не правильная форма!")
+      
+          
+          
+          
+        }
+       
+      }}
+      addForm(formDef1);
+        addForm(formDef2);
+
+        let forms=document.getElementById('form');
+       
+      forms.addEventListener('click',function(ev){
+          
+        let elem=ev.target
+      let elemAtr=elem.getAttribute('name');
+      elem.addEventListener("blur",function(ev){
+        switch(elemAtr){
+
+      
+case 'sitename':
+    let elemText=elem.value
+    
+    console.log(elemText);
+    if(elemText.length>5){
+        alert("Слишком много буков!!!");
+        elem.value="";
+        elem.focus()
+        elem.style.cssText="border-color:red"
+        let spanError=document.createElement("span");
+        let errorText=document.createTextNode("превышает 5 символов!")
+        spanError.appendChild(errorText);
+        let q=ev.currentTarget;
+        console.log(q);
+        sp4
+        
+    }
+    else{
+        elem.addEventListener("blur",function(ev){
+            elem.style.cssText="border-color:-internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));"
+        })
+    }
+}
+      })
+     
+      })
+    
+      
+      
+        function valid(){
+
+        }
+          </script>
+</body>
+</html>
