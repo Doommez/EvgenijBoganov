@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>snake</title>
+</head>
+<body>
+    <div class="pole" id="pole">
+        <div class="snake" id="snake"></div>
+    </div>
+    <style>
+        .pole{
+            height: 500px;
+            width: 500px;
+            border: solid 5px;
+            position: relative;
+        }
+        .snake{
+            width: 20px;
+            height: 20px;
+            background-color:seagreen;
+            position: absolute;
+        }
+    </style>
+    <script>
+        "use sctrict"
+        let snake=document.getElementById("snake");
+        let timer=setInterval(goSnake,10);
+        let x=0;
+        let y=0;
+        function goSnake(){
+            x+=1;
+            snake.style.left=x+"px";
+       
+       
+        window.addEventListener("keydown",pressKey);
+            function pressKey(ev){
+                let key=ev.keyCode;
+                console.log(key);
+               clearInterval(timer);
+                switch(key){
+
+              
+                case 40: 
+               y+=1;
+                    у
+            
+            }
+
+            }
+        }
+    </script>
+</body>
+</html>
