@@ -33,27 +33,50 @@
 
         let x = 0;
         let y = 0;
-
-        window.addEventListener("keydown", goSnake);
-
-        function goSnake(ev) {
-            let timer = setInterval(go, 10);
-            function go() {
+        
+        window.addEventListener("keydown", go);
+       
+        function go(ev) {
+           
+          
 
                 let key = ev.key;
                 console.log(key);
+                
                 switch (key) {
+                   
                     case "ArrowDown":
-
+                    let timerD = setInterval(goD, 10);
+                    
+                    function goD(){
                         y++
                         snake.style.top = y + "px";
+                        console.log(timerD);
+                        
+                    }
+
+                    if(key==="ArrowRight"){
+                        console.log(timerD);
+                        clearInterval(timerD)
+                    }
+                          return timerD;
                        
-                        break;
+                       
+                       break;
                     case "ArrowRight":
-                    y=y
+                      
+                      
+                    let timerR = setInterval(goR, 10);
+                    function goR(ev){
+                        clearInterval(timerD);
+                       
                         x ++;
                         snake.style.left = x + "px";
-                        break;
+                    }
+                   
+                   
+                      
+                     break;
                     case "ArrowLeft":
 
                         x--;
@@ -68,27 +91,8 @@
 
                 }
  
- /* if(key==="ArrowDown"){
-     
-    y++
-                        snake.style.top = y + "px";
- }
- else if(key==="ArrowRight"){
-    x ++;
-                        snake.style.left = x + "px";
-                        
- }
- else if(key==="ArrowLeft"){
-    x--;
-                        snake.style.left = x + "px";
-                        
- }
- else if(key==="ArrowUp"){
-    y--
-                        snake.style.top = y + "px";
-                      
-                         */
- }
+
+ 
             }
 
         

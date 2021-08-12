@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        .container{
+            border-radius: 50%;
+            background-color: sandybrown;
+            width: 500px;
+            height: 500px;
+            position: relative;
+            display:flex ;
+            
+        }
+        .clockElectron{
+            position: absolute;
+            top: 40%;
+            left: 40%;
+            font-size: 30px;
+        }
+        .hours{
+            top: 0%;
+            left: 0%;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: seagreen;
+            
+        }
+    </style>
+    <script>
+        "use strict"
+        function clockDom(){
+            let body=document.querySelector("body");
+            let div=document.createElement("div");
+            body.appendChild(div)
+            div.className="container";
+            let divClockElectron=document.createElement("div");
+            divClockElectron.className="clockElectron";
+            div.appendChild(divClockElectron);
+            let timerClockElecktron=setInterval(clockElectron,1000);
+            function clockElectron(){
+                let data=new Date();
+                let hours=data.getHours();
+                let min=data.getMinutes();
+                let sec=data.getSeconds();
+                divClockElectron.innerHTML=`${hours}:${min}:${sec}`;
+            }
+            for(let i=1;i<=12;i++){
+                let divhours=document.createElement("div");
+            divhours.className="hours";
+            divhours.setAttribute("id",i);
+                div.appendChild(divhours);
+                let rad=0-(20*i);
+               
+            }
+            
+        }
+        clockDom();
+    </script>
+</body>
+</html
