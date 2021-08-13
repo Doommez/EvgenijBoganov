@@ -1,67 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <style>
-        .container{
+        .container {
             border-radius: 50%;
             background-color: sandybrown;
             width: 500px;
             height: 500px;
             position: relative;
-            display:flex ;
-            
+
+
         }
-        .clockElectron{
+
+        .clockElectron {
             position: absolute;
             top: 40%;
             left: 40%;
             font-size: 30px;
         }
-        .hours{
+
+        .circle {
+            width: 1px;
+            height: 1px;
+            padding: 9px 9px;
+            background-color: aqua;
+            z-index: 3;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+
+        .hours {
             top: 0%;
             left: 0%;
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background-color: seagreen;
-            
+            background-color: rgb(100, 133, 51);
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+      
+        .h {
+           height: 20px;
+           width: 1px;
+            background-color: grey;
+            position: absolute;
+            top:50% ;
+            left: 50%;
+            padding: 10px;
+            display: inline;
+            border-radius: 50%;
+        }
+     
+        
+        .m {
+            width: 8px;
+            height: 100px;
+            background-color: grey;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 51%;
+        }
+
+        .s {
+            width: 5px;
+            height: 200px;
+            background-color: grey;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 51%;
         }
     </style>
     <script>
         "use strict"
-        function clockDom(){
-            let body=document.querySelector("body");
-            let div=document.createElement("div");
+
+       
+        //Функция вычисляющаяя положения Часов по окружнсти
+        function pos(elem, nom) {
+
+            var center = document.getElementById('center');
+
+
+
+            var radius = 200;
+            var angle = nom / 180 * Math.PI;
+
+            var CenterX = center.offsetLeft + center.offsetWidth / 2;
+            var CenterY = center.offsetTop + center.offsetHeight / 2;
+
+            var elemCenterX = CenterX + radius * Math.sin(angle);
+            var elemCenterY = CenterY - radius * Math.cos(angle);
+
+            elem.style.left = Math.round(elemCenterX - elem.offsetWidth / 2) + 'px';
+            elem.style.top = Math.round(elemCenterY - elem.offsetHeight / 2) + 'px';
+        }
+
+        function clockDom() {
+            let body = document.querySelector("body");
+            let div = document.createElement("div");
             body.appendChild(div)
-            div.className="container";
-            let divClockElectron=document.createElement("div");
-            divClockElectron.className="clockElectron";
+            div.className = "container";
+            let divClockElectron = document.createElement("div");
+            divClockElectron.className = "clockElectron";
             div.appendChild(divClockElectron);
-            let timerClockElecktron=setInterval(clockElectron,1000);
-            function clockElectron(){
-                let data=new Date();
-                let hours=data.getHours();
-                let min=data.getMinutes();
-                let sec=data.getSeconds();
-                divClockElectron.innerHTML=`${hours}:${min}:${sec}`;
+            let timerClockElecktron = setInterval(clockElectron, 1000);
+
+            let divClockCirckle = document.createElement('div');
+            divClockCirckle.className = "circle";
+            divClockCirckle.setAttribute("id", "center")
+            div.appendChild(divClockCirckle);
+            //Электронное время
+            function clockElectron() {
+                let data = new Date();
+                let hours = data.getHours();
+                let min = data.getMinutes();
+                let sec = data.getSeconds();
+                divClockElectron.innerHTML = `${hours}:${min}:${sec}`;
+                //движение стрелок
+                const H = document.getElementById("h");
+                const M = document.getElementById("m");
+                const S = document.getElementById("s");
+                const deg = 6;
+                let h = hours * 30;
+                let m = min * deg;
+                let s = sec * deg;
+
+                H.style.transform = `rotateZ(${(h) + (m / 12)}deg)`;
+                M.style.transform = `rotateZ(${m}deg)`;
+                S.style.transform = `rotateZ(${s}deg)`;
             }
-            for(let i=1;i<=12;i++){
-                let divhours=document.createElement("div");
-            divhours.className="hours";
-            divhours.setAttribute("id",i);
+            for (let i = 1; i <= 12; i++) {
+                let divhours = document.createElement("div");
+                divhours.className = "hours";
+                divhours.setAttribute("id", i);
+                let textH = document.createTextNode(`${i}`);
+                divhours.appendChild(textH)
                 div.appendChild(divhours);
-                let rad=0-(20*i);
-               
+
+                let rad = i * 30;
+                pos(document.getElementById(i), rad);
             }
-            
+            let h = document.createElement("div");
+            let m = document.createElement("div");
+            let s = document.createElement("div");
+            h.setAttribute("id", "h");
+            m.setAttribute("id", "m");
+            s.setAttribute("id", "s");
+            h.className = "h";
+            m.className = "m";
+            s.className = "s";
+            div.appendChild(h);
+            div.appendChild(m);
+            div.appendChild(s);
+
         }
         clockDom();
     </script>
 </body>
+
 </html
