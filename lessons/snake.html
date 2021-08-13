@@ -33,63 +33,71 @@
 
         let x = 0;
         let y = 0;
-
-        window.addEventListener("keydown", goSnake);
-
+let timer;
+        const star = function (callback) {
+            timer = setInterval(callback, 10);
+        }
+    function moveRight(){
+             
+        x ++;
+                        snake.style.left = x + "px";
+             
+         }
+         function moveLeft(){
+             
+            x--;
+                        snake.style.left = x + "px";
+             
+         }
+         function moveDown(){
+             
+            y++
+                        snake.style.top = y + "px";
+             
+         }
+         function moveUp(){
+             
+            y--
+                        snake.style.top = y + "px";
+             
+         }
+       
+window.addEventListener("keydown",goSnake)
         function goSnake(ev) {
-            let timer = setInterval(go, 10);
-            function go() {
-
-                let key = ev.key;
-                console.log(key);
+            console.log(ev);
+             let key=ev.keyCode;
+            console.log(key);
                 switch (key) {
                     case "ArrowDown":
-
-                        y++
-                        snake.style.top = y + "px";
+                    if(timer){
+                        clearInterval(timer)
+                    
+                    } 
+                    timer=setInterval(moveDown,10)
                        
                         break;
                     case "ArrowRight":
-                    y=y
-                        x ++;
-                        snake.style.left = x + "px";
+                    if(timer){
+                        clearInterval(timer)
+                   
+                    } 
+                    timer=setInterval(moveRight,10)
                         break;
                     case "ArrowLeft":
-
-                        x--;
-                        snake.style.left = x + "px";
+                    if(timer) clearInterval(timer)
+                    timer=setInterval(moveLeft,10)
+                      
                         break;
                     case "ArrowUp":
-                        y--
-                        snake.style.top = y + "px";
+                    if(timer) clearInterval(timer)
+                    timer=setInterval(moveUp,10)
                         break;
                     
-                    default:
 
                 }
- 
- /* if(key==="ArrowDown"){
-     
-    y++
-                        snake.style.top = y + "px";
+
  }
- else if(key==="ArrowRight"){
-    x ++;
-                        snake.style.left = x + "px";
-                        
- }
- else if(key==="ArrowLeft"){
-    x--;
-                        snake.style.left = x + "px";
-                        
- }
- else if(key==="ArrowUp"){
-    y--
-                        snake.style.top = y + "px";
-                      
-                         */
- }
-            }
+            
 
         
     </script>

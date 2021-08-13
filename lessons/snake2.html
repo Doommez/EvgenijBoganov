@@ -33,68 +33,14 @@
 
         let x = 0;
         let y = 0;
-        
-        window.addEventListener("keydown", go);
+         let timer=setInterval(moveRight,10)
+         function moveRight(){
+             
+             x++
+             snake.style.left=x+"px";
+             
+         }
        
-        function go(ev) {
-           
-          
-
-                let key = ev.key;
-                console.log(key);
-                
-                switch (key) {
-                   
-                    case "ArrowDown":
-                    let timerD = setInterval(goD, 10);
-                    
-                    function goD(){
-                        y++
-                        snake.style.top = y + "px";
-                        console.log(timerD);
-                        
-                    }
-
-                    if(key==="ArrowRight"){
-                        console.log(timerD);
-                        clearInterval(timerD)
-                    }
-                          return timerD;
-                       
-                       
-                       break;
-                    case "ArrowRight":
-                      
-                      
-                    let timerR = setInterval(goR, 10);
-                    function goR(ev){
-                        clearInterval(timerD);
-                       
-                        x ++;
-                        snake.style.left = x + "px";
-                    }
-                   
-                   
-                      
-                     break;
-                    case "ArrowLeft":
-
-                        x--;
-                        snake.style.left = x + "px";
-                        break;
-                    case "ArrowUp":
-                        y--
-                        snake.style.top = y + "px";
-                        break;
-                    
-                    default:
-
-                }
- 
-
- 
-            }
-
         
     </script>
 </body>
