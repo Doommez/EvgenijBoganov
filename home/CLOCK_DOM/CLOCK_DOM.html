@@ -9,15 +9,36 @@
 </head>
 
 <body>
-    ddd
+  
     <style>
+     .log{
+         width: 1px;
+         height: 1px;
+         background-color: salmon;
+         transform: rotate();
+         margin: 0 auto;
+         position: relative;
+     }
+     .log::before{
+        content: "";
+        height: 50px;
+        width: 5px;
+        background-color: seagreen;
+        position: absolute;
+        top: -40px;
+        left: -5px;
+        transform: rotate(30deg);
+        transform-origin: center;
+     }
         .container {
             border-radius: 50%;
             background-color: sandybrown;
-            width: 500px;
-            height: 500px;
+            width: 601px;
+            height: 601px;
             position: relative;
-
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
         }
 
@@ -31,14 +52,16 @@
         .circle {
             width: 1px;
             height: 1px;
-            padding: 9px 9px;
-            background-color: aqua;
-            z-index: 3;
+            padding: 1px 1px;
+            
+            z-index: 10;
             border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-        }
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            }
 
         .hours {
             top: 0%;
@@ -52,39 +75,44 @@
             align-items: center;
             justify-content: center;
         }
-      
+     
         .h {
-           height: 20px;
-           width: 1px;
-            background-color: grey;
-            position: absolute;
-            top:50% ;
-            left: 50%;
-            padding: 10px;
-            display: inline;
-            border-radius: 50%;
+           height: 70px;
+           width: 10px;
+            background-color: black;
+           position: absolute;
+            top:230px;
+            left: 303px;
+            transform-origin: left top;
+            border-radius: 20px 20px;
+            
+            transform-origin: left bottom;
         }
      
         
         .m {
-            width: 8px;
-            height: 100px;
-            background-color: grey;
-            border-radius: 50%;
+            width:8px;
+            height: 150px;
+            background-color: black;
+            border-radius: 20px 20px;
             position: absolute;
-            top: 50%;
-            left: 51%;
+            top:151px;
+            left: 301px;
+            transform-origin: left bottom;
+            z-index:- 1;
         }
 
         .s {
-            width: 5px;
+            width: 6px;
             height: 200px;
-            background-color: grey;
-            border-radius: 50%;
+            background-color: black;
+            border-radius: 20px 20px;
             position: absolute;
-            top: 50%;
-            left: 51%;
+            top:100px;
+            left: 300px;
+            transform-origin: left bottom;
         }
+       
     </style>
     <script>
         "use strict"
@@ -135,14 +163,15 @@
                 const H = document.getElementById("h");
                 const M = document.getElementById("m");
                 const S = document.getElementById("s");
+               
                 const deg = 6;
                 let h = hours * 30;
-                let m = min * deg;
-                let s = sec * deg;
+                let m =min* 6 ;
+                let s = sec*6;
 
                 H.style.transform = `rotateZ(${(h) + (m / 12)}deg)`;
                 M.style.transform = `rotateZ(${m}deg)`;
-                S.style.transform = `rotateZ(${s}deg)`;
+                S.style.transform = `rotateZ(${s}deg)`;   
             }
             for (let i = 1; i <= 12; i++) {
                 let divhours = document.createElement("div");

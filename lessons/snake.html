@@ -30,76 +30,88 @@
     <script>
         "use sctrict"
         let snake = document.getElementById("snake");
-
+        let pole=document.getElementById("pole");
         let x = 0;
         let y = 0;
-let timer;
-        const star = function (callback) {
-            timer = setInterval(callback, 10);
+        let timer;
+        /*  const star = function (callback) {
+             timer = setInterval(callback, 10);
+         } */
+        function moveRight() {
+            if(snake.offsetLeft>pole.offsetWidth-snake.offsetWidth-11){
+                clearInterval(timer);
+                return
+            }
+            x++;
+            snake.style.left = x + "px";
+
         }
-    function moveRight(){
-             
-        x ++;
-                        snake.style.left = x + "px";
-             
-         }
-         function moveLeft(){
-             
+        function moveLeft() {
+            if(snake.offsetLeft<pole.offsetLeft-7){
+                clearInterval(timer);
+                return
+            }
             x--;
-                        snake.style.left = x + "px";
-             
-         }
-         function moveDown(){
-             
+            snake.style.left = x + "px";
+
+        }
+        function moveDown() {
+            if(snake.offsetTop>pole.offsetHeight-snake.offsetHeight-10){
+                clearInterval(timer);
+                return
+            }
             y++
-                        snake.style.top = y + "px";
-             
-         }
-         function moveUp(){
-             
+            snake.style.top = y + "px";
+
+        }
+        function moveUp() {
+            if(snake.offsetTop<pole.offsetTop-7){
+                clearInterval(timer);
+                return
+            }
             y--
-                        snake.style.top = y + "px";
-             
-         }
-       
-window.addEventListener("keydown",goSnake)
+            snake.style.top = y + "px";
+
+        }
+
+        window.addEventListener("keydown", goSnake)
         function goSnake(ev) {
             console.log(ev);
-             let key=ev.key;
+            let key = ev.key;
             console.log(key);
-                switch (key) {
-                    case "ArrowDown":
-                    if(timer){
+            switch (key) {
+                case "ArrowDown":
+                    if (timer) {
                         clearInterval(timer)
-                    
-                    } 
-                    timer=setInterval(moveDown,10)
-                       
-                        break;
-                    case "ArrowRight":
-                    if(timer){
+
+                    }
+                    timer = setInterval(moveDown, 10)
+
+                    break;
+                case "ArrowRight":
+                    if (timer) {
                         clearInterval(timer)
-                   
-                    } 
-                    timer=setInterval(moveRight,10)
-                        break;
-                    case "ArrowLeft":
-                    if(timer) clearInterval(timer)
-                    timer=setInterval(moveLeft,10)
-                      
-                        break;
-                    case "ArrowUp":
-                    if(timer) clearInterval(timer)
-                    timer=setInterval(moveUp,10)
-                        break;
-                    
 
-                }
+                    }
+                    timer = setInterval(moveRight, 10)
+                    break;
+                case "ArrowLeft":
+                    if (timer) clearInterval(timer)
+                    timer = setInterval(moveLeft, 10)
 
- }
-            
+                    break;
+                case "ArrowUp":
+                    if (timer) clearInterval(timer)
+                    timer = setInterval(moveUp, 10)
+                    break;
 
-        
+
+            }
+
+        }
+
+
+
     </script>
 </body>
 
