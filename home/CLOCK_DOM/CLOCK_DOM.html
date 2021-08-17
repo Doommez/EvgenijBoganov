@@ -108,8 +108,8 @@
             background-color: black;
             border-radius: 20px 20px;
             position: absolute;
-            top:100px;
-            left: 300px;
+            top:97px;
+            left: 305px;
             transform-origin: left bottom;
         }
        
@@ -120,7 +120,7 @@
        
         //Функция вычисляющаяя положения Часов по окружнсти
         function pos(elem, nom) {
-
+           //на
             var center = document.getElementById('center');
 
 
@@ -153,6 +153,7 @@
             divClockCirckle.setAttribute("id", "center")
             div.appendChild(divClockCirckle);
             //Электронное время
+            
             function clockElectron() {
                 let data = new Date();
                 let hours = data.getHours();
@@ -160,9 +161,7 @@
                 let sec = data.getSeconds();
                 divClockElectron.innerHTML = `${hours}:${min}:${sec}`;
                 //движение стрелок
-                const H = document.getElementById("h");
-                const M = document.getElementById("m");
-                const S = document.getElementById("s");
+               
                
                 const deg = 6;
                 let h = hours * 30;
@@ -173,6 +172,7 @@
                 M.style.transform = `rotateZ(${m}deg)`;
                 S.style.transform = `rotateZ(${s}deg)`;   
             }
+            
             for (let i = 1; i <= 12; i++) {
                 let divhours = document.createElement("div");
                 divhours.className = "hours";
@@ -196,7 +196,10 @@
             div.appendChild(h);
             div.appendChild(m);
             div.appendChild(s);
-
+            const H = document.getElementById("h");
+                const M = document.getElementById("m");
+                const S = document.getElementById("s");
+                clockElectron();
         }
         clockDom();
     </script>
