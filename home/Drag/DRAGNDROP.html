@@ -68,7 +68,7 @@
             document.addEventListener('mouseup',onMouseDrop)
            function onMouseDrop(ev){
             document.removeEventListener('mousemove', onMouseMove);
-
+            document.removeEventListener('mouseup',onMouseDrop);
             
            }
             

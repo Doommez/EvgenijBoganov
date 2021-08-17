@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>game</title>
+</head>
+<body>
+    <style>
+        .pole{
+            width: 300px;
+            height: 300px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .pole0{
+            width: 50px;
+            height: 50px;
+            background-color: green;
+        }
+        .pole1{
+            width: 50px;
+            height: 50px;
+            background-color: black;
+        }
+        .pole2{
+            width: 50px;
+            height: 50px;
+            background-color: blue;
+            background: url(/lessons/pole0.jpg);
+        }
+    </style>
+    <div class="pole" id="pole"></div>
+    <script>
+        "use script"
+        let pole=document.getElementById("pole");
+        let areaH=
+        [
+            [0,1,2,1,2,0],
+            [1,1,0,0,2,0],
+            [0,2,1,1,0,2],
+            [0,1,0,1,2,0],
+            [1,0,2,1,2,0],
+            [0,2,2,1,2,2]
+        ]
+        for(let i=0;i<areaH.length;i++){
+            for(let k=0;k<areaH[i].length;k++){
+                if(areaH[i][k]==0){
+                    creatPole0()
+                }
+                 else if(areaH[i][k]==1){
+                    cratePole1();
+
+                }
+                else if(areaH[i][k]==2){
+                    cratePole2();
+                } 
+                   
+                
+            }
+        }
+        function creatPole0(){
+            let div=document.createElement("div");
+            div.className="pole0";
+            pole.appendChild(div)
+
+        }
+        function cratePole1(){
+            let div=document.createElement("div");
+            div.className="pole1";
+            pole.appendChild(div)
+
+        }
+        function cratePole2(){
+            let div=document.createElement("div");
+            div.className="pole2";
+            pole.appendChild(div)
+
+        }
+    </script>
+</body>
+</html>
