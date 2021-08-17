@@ -27,6 +27,7 @@
 
     .span {
       display: flex;
+
     }
 
     .Number {
@@ -270,35 +271,72 @@
         let elem = ev.target
         let elemAtr = elem.getAttribute('name');
         elem.addEventListener("blur", function (ev) {
+          let elemText = elem.value
+          let up=elem.parentElement;
           switch (elemAtr) {
 
 
             case 'sitename':
-              let elemText = elem.value
+              
 
-              console.log(elemText);
               if (elemText.length > 5) {
-                alert("Слишком много буков!!!");
-                elem.value = "";
-                elem.focus()
-                elem.style.cssText = "border-color:red"
+               
+               elem.value="";
+                elem.focus();
+                
+               
+                elem.style.cssText = "border-color:red; border:solid 3px red"
+                if(up.lastChild.tagName=="span"){
+                  
+                  return;
+                }
                 let spanError = document.createElement("span");
                 let errorText = document.createTextNode("превышает 5 символов!")
                 spanError.appendChild(errorText);
-                spanError.style.color="red";
-                let q = ev.currentTarget;
-                console.log(q);
-                let span = document.querySelector("span");
-                span.style.display="flex";
-                span.appendChild(spanError);
-
+                spanError.style.color = "red";
+                console.log(up.lastChild.tagName);
+               
+                up.style.display = "flex";
+                up.appendChild(spanError);
+               
               }
+
               else {
                 elem.addEventListener("blur", function (ev) {
                   elem.style.cssText = "border-color:-internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));"
-                  let t= document.querySelector("span");
-                  let tt=t.lastChild;
-                  tt.style.display="none";
+                 
+                  console.log(up);
+                  up.lastChild.style.display = "none";
+                 
+                  
+                })
+              }
+              break;
+            case 'siteurl':
+              
+
+
+              if (elemText.split('.').indexOf("com")==-1) {
+
+                elem.value = "";
+                elem.focus();
+                elem.style.cssText = "border-color:red; border:solid 3px red"
+                let spanError = document.createElement("span");
+                let errorText = document.createTextNode("превышает 5 символов!")
+                spanError.appendChild(errorText);
+                spanError.style.color = "red";
+                let span = document.querySelector("span");
+                span.style.display = "flex";
+                span.appendChild(spanError);
+
+              }
+
+              else {
+                elem.addEventListener("blur", function (ev) {
+                  elem.style.cssText = "border-color:-internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));"
+                  let t = document.querySelector("span");
+                  let tt = t.lastChild;
+                  tt.style.display = "none";
                   console.log(tt);
                 })
               }

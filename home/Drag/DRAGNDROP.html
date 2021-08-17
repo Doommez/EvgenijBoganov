@@ -56,8 +56,7 @@
             let posY = Math.round(ev.clientY - posBalltarg.y);
             let posContX=ball.offsetLeft;
             let posContY=ball.offsetTop;
-            console.log(posContX);
-           console.log(posX,posY);
+
             document.addEventListener('mousemove', onMouseMove);
             function onMouseMove(ev){
                 
@@ -65,15 +64,53 @@
                 ball.style.left=ev.pageX-posX-posContX+"px"
                 ball.style.top=ev.pageY-posY-posContY+"px" 
             }
-            document.addEventListener('mouseup',onMouseDrop)
+            ball.addEventListener('mouseup',onMouseDrop)
            function onMouseDrop(ev){
             document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup',onMouseDrop);
+            document.removeEventListener('mouseup',onMouseDrop); }
+            ball.ondragstart = function() {
+  return false;
+};
+          
             
-           }
-            
-        }
+        } 
+        /* let ball=document.getElementById("2")
+        ball.onmousedown = function(event) {
 
+let shiftX = event.clientX - ball.getBoundingClientRect().left;
+let shiftY = event.clientY - ball.getBoundingClientRect().top;
+
+ball.style.position = 'absolute';
+ball.style.zIndex = 1000;
+document.body.append(ball);
+
+moveAt(event.pageX, event.pageY);
+
+// переносит мяч на координаты (pageX, pageY),
+// дополнительно учитывая изначальный сдвиг относительно указателя мыши
+function moveAt(pageX, pageY) {
+  ball.style.left = pageX - shiftX + 'px';
+  ball.style.top = pageY - shiftY + 'px';
+}
+
+function onMouseMove(event) {
+  moveAt(event.pageX, event.pageY);
+}
+
+// передвигаем мяч при событии mousemove
+document.addEventListener('mousemove', onMouseMove);
+
+// отпустить мяч, удалить ненужные обработчики
+ball.onmouseup = function() {
+  document.removeEventListener('mousemove', onMouseMove);
+  ball.onmouseup = null;
+};
+
+};
+
+ball.ondragstart = function() {
+return false;
+}; */
     </script>
 </body>
 
