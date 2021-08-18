@@ -99,7 +99,7 @@
             top:146px;
             left: 304px;
             transform-origin: left bottom;
-            z-index:- 1;
+            z-index:- 1; 
         }
 
         .s {
@@ -116,16 +116,16 @@
     </style>
     <script>
         "use strict"
-
-       
+        var radius = 200;//радиус от ценра до дивов с значением часов
+        const deg = 6; //на столько градусов смещается секундная стрелка часов
         //Функция вычисляющаяя положения Часов по окружнсти
         function pos(elem, nom) {
-           //на
+           
             var center = document.getElementById('center');
 
 
 
-            var radius = 200;
+           
             var angle = nom / 180 * Math.PI;
 
             var CenterX = center.offsetLeft + center.offsetWidth / 2;
@@ -137,7 +137,7 @@
             elem.style.left = Math.round(elemCenterX - elem.offsetWidth / 2) + 'px';
             elem.style.top = Math.round(elemCenterY - elem.offsetHeight / 2) + 'px';
         }
-
+//функция отрисовки и работы часов
         function clockDom() {
             let body = document.querySelector("body");
             let div = document.createElement("div");
@@ -163,7 +163,7 @@
                 //движение стрелок
                
                
-                const deg = 6;
+               
                 let h = hours * 30;
                 let m =min* 6 ;
                 let s = sec*6;
@@ -172,7 +172,7 @@
                 M.style.transform = `rotateZ(${m}deg)`;
                 S.style.transform = `rotateZ(${s}deg)`;   
             }
-            
+            //цикл создания дивов со значением часов которые разещаются по окружности 
             for (let i = 1; i <= 12; i++) {
                 let divhours = document.createElement("div");
                 divhours.className = "hours";
@@ -201,7 +201,7 @@
                 const S = document.getElementById("s");
                 clockElectron();
         }
-        clockDom();
+        clockDom();//запускаем функцию отрисовки часов, чтобы отрисовка прошла сразу
     </script>
 </body>
 
