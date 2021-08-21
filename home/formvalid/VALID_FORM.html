@@ -99,12 +99,16 @@
               let spanLong = document.createElement("span");
               labelLong.setAttribute('for', i)
               inputLong.setAttribute('type', 'text');
+            
 
               inputLong.setAttribute('name', arr[i].name);
               inputLong.setAttribute('id', i);
               inputLong.setAttribute('class', 'longtext');
               labelLong.appendChild(txtLabelLong);
               spanLong.appendChild(inputLong);
+              let spanError=document.createElement("span");
+            spanError.style.display="none"
+            spanLong.appendChild(spanError);
               divLong.appendChild(labelLong);
               divLong.appendChild(spanLong);
               form.appendChild(divLong);
@@ -125,6 +129,10 @@
               inputNumber.setAttribute('class', 'Number');
               labelNumber.appendChild(txtLabelNumber);
               spanNumber.appendChild(inputNumber);
+              let spanErrorN=document.createElement("span");
+            spanErrorN.style.display="none"
+            spanNumber.appendChild(spanErrorN);
+            
               divNumber.appendChild(labelNumber);
               divNumber.appendChild(spanNumber);
               document.getElementById('form').appendChild(divNumber);
@@ -144,6 +152,9 @@
               inputshort.setAttribute('class', 'shorttext');
               labelshort.appendChild(txtLabelshort);
               spanshort.appendChild(inputshort);
+              let spanErrorS=document.createElement("span");
+            spanErrorS.style.display="none"
+            spanshort.appendChild(spanErrorS);
               divshort.appendChild(labelshort);
               divshort.appendChild(spanshort);
               document.getElementById('form').appendChild(divshort);
@@ -229,8 +240,12 @@
               memoTextarea.setAttribute("name", arr[i].name);
               memoTextarea.setAttribute("id", i);
               memoTextarea.setAttribute("class", "memo");
+              
               divmemo.appendChild(memoLable);
               divmemo.appendChild(memoTextarea);
+              let spanErrorM=document.createElement("span");
+            spanErrorM.style.display="none"
+            divmemo.appendChild(spanErrorM);
               document.getElementById('form').appendChild(divmemo);
 
               break;
@@ -245,6 +260,7 @@
               let inputsubmit = document.createElement("input");
               inputsubmit.setAttribute("type", "submit")
               inputsubmit.setAttribute("class", "submit");
+              inputsubmit.setAttribute("name", "submit");
               inputsubmit.setAttribute("id", i);
               inputsubmit.appendChild(submitLable);
               divsubmit.appendChild(inputsubmit);
@@ -262,94 +278,189 @@
         }
       }
       addForm(formDef1);
-      addForm(formDef2);
+   
 
       let forms = document.getElementById('form');
-
-      forms.addEventListener('click', function (ev) {
-
-        let elem = ev.target
-        let elemAtr = elem.getAttribute('name');
-        elem.addEventListener("blur", function (ev) {
-          let elemText = elem.value
-          let up=elem.parentElement;
-          switch (elemAtr) {
-
-
-            case 'sitename':
-              
-
-              if (elemText.length > 5) {
-               
-               elem.value="";
-                elem.focus();
-                
-               
-                elem.style.cssText = "border-color:red; border:solid 3px red"
-                if(up.lastChild.tagName=="span"){
-                  
-                  return;
-                }
-                let spanError = document.createElement("span");
-                let errorText = document.createTextNode("превышает 5 символов!")
-                spanError.appendChild(errorText);
-                spanError.style.color = "red";
-                console.log(up.lastChild.tagName);
-               
-                up.style.display = "flex";
-                up.appendChild(spanError);
+      let textareas=forms.querySelectorAll("textarea"); 
+    
+    for(let k=0;k<textareas.length;k++){
+      textareas[k].addEventListener("blur",function(ev){
+     let elem=ev.target;
+     let up=elem.parentElement;
+              if (elem.value.length<20) {
+                let textErrorLong=document.createTextNode("Не менее 20 символов!");
+              up.lastChild.appendChild(textErrorLong);
+              up.lastChild.style.display="inline-block"
+              up.lastChild.style.color="red"
+              elem.style.border="solid 3px red"
                
               }
-
-              else {
-                elem.addEventListener("blur", function (ev) {
+    
+              else{
+                
                   elem.style.cssText = "border-color:-internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));"
                  
                   console.log(up);
                   up.lastChild.style.display = "none";
                  
                   
-                })
+                }
+               
+              
+      })
+    let inputs=forms.querySelectorAll("input"); 
+      for(let i=0;i<inputs.length;i++){
+        inputs[i].addEventListener("blur", function (ev) {
+          let elem=ev.target;
+          
+          console.log(elem.name);
+          let elemText = elem.value
+          let up=elem.parentElement;
+          switch (elem.name) {
+
+
+            case 'sitename':
+              
+            
+               if (elemText.length > 5) {
+                let textErrorLong=document.createTextNode("Не более 5 символов");
+              up.lastChild.appendChild(textErrorLong);
+              up.lastChild.style.display="inline-block"
+              up.lastChild.style.color="red"
+              elem.style.border="solid 3px red"
+              
+              
+    
+               
+              }
+            
+              else if(elemText==""){
+              let textErrorNone=document.createTextNode("Пустое поле!");
+              up.lastChild.appendChild(textErrorNone);
+              up.lastChild.style.display="inline-block"
+              up.lastChild.style.color="red"}
+              else{
+                
+                  elem.style.cssText = "border-color:-internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));"
+                 
+                  console.log(up);
+                  up.lastChild.style.display = "none";
+                 
+                  
+                }
+               
+              break;
+            
+              case 'siteurl':
+                if(elemText.indexOf(".com")==-1){
+                  console.log(elemText.indexOf("com"));
+                  let textErrorLong=document.createTextNode("Введите коректный адрес");
+              up.lastChild.appendChild(textErrorLong);
+              up.lastChild.style.display="inline-block"
+              up.lastChild.style.color="red"
+              elem.style.border="solid 3px red"
+                }
+                else if(elemText==""){
+              let textErrorNone=document.createTextNode("Пустое поле!");
+              up.lastChild.appendChild(textErrorNone);
+              up.lastChild.style.display="inline-block"
+              up.lastChild.style.color="red"}
+              else{
+                
+                elem.style.cssText = "border-color:-internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));"
+               
+                console.log(up);
+                up.lastChild.style.display = "none";
+               
+                
               }
               break;
-            case 'siteurl':
-              
-
-
-              if (elemText.split('.').indexOf("com")==-1) {
-
-                elem.value = "";
-                elem.focus();
-                elem.style.cssText = "border-color:red; border:solid 3px red"
-                let spanError = document.createElement("span");
-                let errorText = document.createTextNode("превышает 5 символов!")
-                spanError.appendChild(errorText);
-                spanError.style.color = "red";
-                let span = document.querySelector("span");
-                span.style.display = "flex";
-                span.appendChild(spanError);
-
+              case 'visitors':
+               
+              if(parseFloat(elemText)<0 ){
+                  let textErrorLong=document.createTextNode("Введите реальное колличество посетителей");
+              up.lastChild.appendChild(textErrorLong);
+              up.lastChild.style.display="inline-block"
+              up.lastChild.style.color="red"
+              elem.style.border="solid 3px red"
+                }
+                else if(elemText==""){
+              let textErrorNone=document.createTextNode("Пустое поле!");
+              up.lastChild.appendChild(textErrorNone);
+              up.lastChild.style.display="inline-block"
+              up.lastChild.style.color="red"}
+              else{
+                
+                elem.style.cssText = "border-color:-internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));"
+               
+                console.log(up);
+                up.lastChild.style.display = "none";
+               
+                
               }
-
-              else {
-                elem.addEventListener("blur", function (ev) {
-                  elem.style.cssText = "border-color:-internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));"
-                  let t = document.querySelector("span");
-                  let tt = t.lastChild;
-                  tt.style.display = "none";
-                  console.log(tt);
-                })
+              case "email":
+              if(elemText.indexOf("@")==-1){
+                
+                  let textErrorLong=document.createTextNode("Введите коректный адрес");
+              up.lastChild.appendChild(textErrorLong);
+              up.lastChild.style.display="inline-block"
+              up.lastChild.style.color="red"
+              elem.style.border="solid 3px red"
+                }
+                else if(elemText==""){
+              let textErrorNone=document.createTextNode("Пустое поле!");
+              up.lastChild.appendChild(textErrorNone);
+              up.lastChild.style.display="inline-block"
+              up.lastChild.style.color="red"}
+              else{
+                
+                elem.style.cssText = "border-color:-internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));"
+               
+                console.log(up);
+                up.lastChild.style.display = "none";
+               
+                
               }
+              case 'submit':
+                
+              if(elemText==""){
+              let textErrorNone=document.createTextNode("Пустое поле!");
+              up.lastChild.appendChild(textErrorNone);
+              up.lastChild.style.display="inline-block"
+              up.lastChild.style.color="red"}
           }
+         
         })
-
-      })
-
-
-
-      function valid() {
-
+        
       }
+      for(let q=0;q<inputs.length;q++){
+       if(inputs[q].name=='submit'){
+         var d=inputs[q]
+         console.log(d);
+       }
+       
+      }
+      
+       d.addEventListener("click",submit)
+      function submit(ev){
+        console.log(inputs);
+        for(let r=0;r<inputs.length-1;r++){
+          if(inputs[r].name=='sitename'||inputs[r].name=='siteurl'||inputs[r].name=='visitors'||inputs[r].name=='email'){
+            if(inputs[r].value==""){
+              ev.preventDefault(); 
+            alert("qwerqerq")
+            }
+           
+          }
+        }
+       
+        
+      } 
+
+    }
+
+
+
     </script>
   </body>
 
