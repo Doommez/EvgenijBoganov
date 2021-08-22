@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <svg id="svg" width="500" height="500"></svg>
+    <script>
+        var radius = 200
+
+
+          var CenterX = svg.getBoundingClientRect().left + svg.getBoundingClientRect().width / 2; //узнаем центр svg по X
+         var  CenterY = svg.getBoundingClientRect().top + svg.getBoundingClientRect().height / 2; //узнаем центр svg по Y
+
+
+
+function createSVG() {
+        var svg=document.getElementById("svg");
+
+        var circle=document.createElementNS("http://www.w3.org/2000/svg",'ellipse');
+        circle.setAttribute("stroke","green");
+        circle.setAttribute("fill","yellow");
+        circle.setAttribute("rx",250);
+        circle.setAttribute("ry",250);
+        circle.setAttribute("cx",250);
+        circle.setAttribute("cy",250);
+        circle.setAttribute("id","ttt");
+        var angleValue=0;
+        svg.appendChild(circle);
+        for (let i = 1; i <= 12; i++) {
+                let hours = document.createElementNS("http://www.w3.org/2000/svg",'ellipse');
+               
+                let smallCircleCX;
+                angleValue+=30;
+                angle = angleValue / 180 * Math.PI;
+	smallCircleCX = Math.round(CenterX + radius * Math.sin(angle) - svg.getBoundingClientRect().left);
+	smallCircleCY = Math.round(CenterY - radius * Math.cos(angle) - svg.getBoundingClientRect().top);
+                hours.setAttribute("stroke","blue");
+                hours.setAttribute("fill","green");
+                hours.setAttribute("cx",smallCircleCX);
+                hours.setAttribute("cy",smallCircleCY);
+                hours.setAttribute("rx",20);
+                hours.setAttribute("ry",20);
+                hours.setAttribute("id",i);
+               svg.appendChild(hours);
+               let svgChildElemText = document.createElementNS("http://www.w3.org/2000/svg", "text")
+                svgChildElemText.innerHTML = i;
+	svgChildElemText.setAttribute("x", smallCircleCX);
+	svgChildElemText.setAttribute("y", smallCircleCY);
+	svgChildElemText.setAttribute("text-anchor", "middle");
+	svgChildElemText.setAttribute("dominant-baseline", "central");
+	svgChildElemText.style.fontSize = 20;
+	svgChildElemText = svg.appendChild(svgChildElemText);
+            console.log(document.getElementById(i));
+             
+            }
+            let h = document.createElementNS("http://www.w3.org/2000/svg",'line');
+               
+            h.setAttribute("stroke-width",10);
+                h.setAttribute("stroke","blue");
+                
+                h.setAttribute("x1",250);
+                h.setAttribute("y1",250);
+                h.setAttribute("x2",250);
+                h.setAttribute("y2",150);
+                h.setAttribute("id","h");
+               svg.appendChild(h);
+               let s = document.createElementNS("http://www.w3.org/2000/svg",'line');
+               
+               s.setAttribute("stroke-width",2);
+                   s.setAttribute("stroke","blue");
+                   
+                   s.setAttribute("x1",250);
+                   s.setAttribute("y1",250);
+                   s.setAttribute("x2",250);
+                   s.setAttribute("y2",50);
+                   s.setAttribute("id","h");
+                  svg.appendChild(s);
+                  let m = document.createElementNS("http://www.w3.org/2000/svg",'line');
+               
+               m.setAttribute("stroke-width",6);
+                   m.setAttribute("stroke","blue");
+                   
+                   m.setAttribute("x1",250);
+                   m.setAttribute("y1",250);
+                   m.setAttribute("x2",250);
+                   m.setAttribute("y2",100);
+                   m.setAttribute("id","h");
+                  svg.appendChild(m);
+                  console.log(h);
+                   h.style.transformOrigin = "center 250px";
+                   m.style.transformOrigin = "center 250px";
+                   s.style.transformOrigin = "center 250px";
+                  //h.style.transform="rotate("+10*6+"deg)"; */
+                  let timerClockElecktron = setInterval(clockElectron, 1000);
+                  function clockElectron() {
+                let data = new Date();
+                let hours = data.getHours();
+                let min = data.getMinutes();
+                let sec = data.getSeconds();
+               
+                //движение стрелок
+               
+               
+               
+                let moveh = hours * 30;
+                let movem =min* 6 ;
+                let moves = sec*6;
+                h.style.transform="rotate("+ moveh+"deg)";
+                m.style.transform="rotate("+ movem+"deg)";
+                s.style.transform="rotate("+ moves+"deg)";
+            }
+            clockElectron();
+    }
+
+    createSVG()
+    var center = document.getElementById('ttt');
+    </script>
+
+</body>
+</html>

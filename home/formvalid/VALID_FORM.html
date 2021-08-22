@@ -282,7 +282,7 @@
 
       let forms = document.getElementById('form');
       let textareas=forms.querySelectorAll("textarea"); 
-    
+      let tt=forms.querySelectorAll("input")
     for(let k=0;k<textareas.length;k++){
       textareas[k].addEventListener("blur",function(ev){
      let elem=ev.target;
@@ -323,12 +323,19 @@
               
             
                if (elemText.length > 5) {
+               if(up.lastChild.style.display=="none"){
                 let textErrorLong=document.createTextNode("Не более 5 символов");
               up.lastChild.appendChild(textErrorLong);
               up.lastChild.style.display="inline-block"
               up.lastChild.style.color="red"
               elem.style.border="solid 3px red"
+               }
+               else{
+                elem.style.border="solid 3px red"
               
+               }
+                
+            
               
     
                
@@ -353,12 +360,17 @@
             
               case 'siteurl':
                 if(elemText.indexOf(".com")==-1){
-                  console.log(elemText.indexOf("com"));
+                  if(up.lastChild.style.display=="none"){
                   let textErrorLong=document.createTextNode("Введите коректный адрес");
               up.lastChild.appendChild(textErrorLong);
               up.lastChild.style.display="inline-block"
               up.lastChild.style.color="red"
-              elem.style.border="solid 3px red"
+              elem.style.border="solid 3px red"}
+              
+              else{
+                elem.style.border="solid 3px red"
+              }
+             
                 }
                 else if(elemText==""){
               let textErrorNone=document.createTextNode("Пустое поле!");
@@ -398,10 +410,11 @@
                
                 
               }
+              break;
               case "email":
               if(elemText.indexOf("@")==-1){
                 
-                  let textErrorLong=document.createTextNode("Введите коректный адрес");
+                  let textErrorLong=document.createTextNode("Введите почту");
               up.lastChild.appendChild(textErrorLong);
               up.lastChild.style.display="inline-block"
               up.lastChild.style.color="red"
@@ -421,13 +434,8 @@
                
                 
               }
-              case 'submit':
-                
-              if(elemText==""){
-              let textErrorNone=document.createTextNode("Пустое поле!");
-              up.lastChild.appendChild(textErrorNone);
-              up.lastChild.style.display="inline-block"
-              up.lastChild.style.color="red"}
+              break;
+             
           }
          
         })
@@ -443,17 +451,35 @@
       
        d.addEventListener("click",submit)
       function submit(ev){
+        var m=0;
         console.log(inputs);
         for(let r=0;r<inputs.length-1;r++){
           if(inputs[r].name=='sitename'||inputs[r].name=='siteurl'||inputs[r].name=='visitors'||inputs[r].name=='email'){
             if(inputs[r].value==""){
               ev.preventDefault(); 
-            alert("qwerqerq")
+             var x=inputs[r];
+              x.focus();
+           
             }
            
+           
           }
+           else if(inputs[r].style.color=="red"){
+              ev.preventDefault(); 
+            }
+          
+           
         }
-       
+        for(let t=0;t<inputs.length-1;t++){
+          if(inputs[t].checked){
+            m=m+1;
+           
+          }
+          }
+          if(m<1){
+            ev.preventDefault()
+            alert("Выберете тип размещения!")
+        }
         
       } 
 
