@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="cvs" width="500px" height="500px"></canvas>
+    <script>
+        cvs=document.getElementById("cvs");
+        var context=cvs.getContext('2d');
+        context.strokeStyle='red';
+    context.beginPath();
+    context.arc(250,250, 250,0,360,  false);
+    context.fillStyle="yellow";
+    context.fill();
+    context.stroke();
+    </script>
+</body>
+</html>

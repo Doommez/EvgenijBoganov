@@ -94,14 +94,20 @@ function createSVG() {
                    h.style.transformOrigin = "center 250px";
                    m.style.transformOrigin = "center 250px";
                    s.style.transformOrigin = "center 250px";
-                  //h.style.transform="rotate("+10*6+"deg)"; */
+                 
                   let timerClockElecktron = setInterval(clockElectron, 1000);
+                  let text = document.createElementNS("http://www.w3.org/2000/svg",'text');
+                  text.style.fontSize = 40;
                   function clockElectron() {
                 let data = new Date();
                 let hours = data.getHours();
                 let min = data.getMinutes();
                 let sec = data.getSeconds();
-               
+                
+                text.setAttribute("x",210);
+                text.setAttribute("y",125);
+               text.innerHTML =`${hours}:${min}:${sec}`;
+                svg.appendChild(text)
                 //движение стрелок
                
                
