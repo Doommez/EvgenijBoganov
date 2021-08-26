@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" value="Старт!" onclick='start()'><br>
+    <script>
+        const pole=document.createElement("div");
+        var poleH={
+            width:600,
+        height:400
+        }
+        var ballH={
+        posX : 290,
+        posY : 190,
+        speedX : 2,
+        speedY : 1,
+        width : 20,
+        height: 20,
+
+        update : function() {
+            
+            ball.style.left=this.posX+"px";
+            ball.style.top=this.posY+"px";
+        }
+       
+    }
+        
+        pole.setAttribute("id","pole");
+        pole.style.width=poleH.width+"px"
+        pole.style.height=poleH.height+"px"
+        pole.style.background="#F0EE7E"
+        pole.style.position="relative"
+        document.body.appendChild(pole);
+//ракетки
+        const rac1=document.createElement("div");
+        rac1.style.cssText="position:absolute;left:0px;top:160px;width:30px;height:80px;background:green;"
+        pole.appendChild(rac1);
+        const rac2=document.createElement("div");
+        rac2.style.cssText="position:absolute;right:0px;top:160px;width:30px;height:80px;background:green;"
+        pole.appendChild(rac2);
+        //ball
+        const ball=document.createElement("div");
+        ball.style.cssText="position:absolute;width:"+ballH.width+"px;height:"+ballH.height+"px;background:red; border-radius:50%"
+        pole.appendChild(ball);
+        //move raket1
+        let x1=0;
+        let y=160;
+        let timer;
+       //движение всех ракеток
+        function moveracup(){
+            if(rac1.offsetTop<=pole.offsetTop-30){
+                clearInterval(timer);
+                return
+            }
+            y--
+            rac1.style.top = y + "px";
+        }
+        function moverac2up(){
+            if(rac2.offsetTop<=pole.offsetTop-30){
+                clearInterval(timer);
+                return
+            }
+            y--
+            rac2.style.top = y + "px";
+        }
+        function moveracdown(){
+            if(rac1.offsetTop>pole.offsetHeight-rac1.offsetHeight){
+                clearInterval(timer);
+                return
+            }
+           
+            y++
+            rac1.style.top = y + "px";
+        }
+        function moverac2down(){
+            if(rac2.offsetTop>pole.offsetHeight-rac2.offsetHeight){
+                clearInterval(timer);
+                return
+            }
+           
+            y++
+            rac2.style.top = y + "px";
+        }
+        //дфижение по таймеру и нажатию кнопки
+        window.addEventListener("keydown", move)
+        function move(ev) {
+            console.log(ev);
+            let key = ev.code;
+     
+            switch (key) {
+                case "ControlLeft":
+                    if (timer) {
+                        clearInterval(timer)
+
+                    }
+                    timer = setInterval(moveracdown, 10)
+
+                    break;
+                case "ShiftLeft":
+                    if (timer) clearInterval(timer)
+                    timer = setInterval(moveracup, 10)
+                    break;
+                    case "ControlRight":
+                    if (timer) {
+                        clearInterval(timer)
+
+                    }
+                    timer = setInterval(moverac2down, 10)
+
+                    break;
+                case "ShiftRight":
+                    if (timer) clearInterval(timer)
+                    timer = setInterval(moverac2up, 10)
+                    break;
+
+            }}
+            //мяч left:290px;top:190px;
+       let timer2;
+    function start() {
+        if(timer2){
+            clearInterval(timer2);
+            ballH.posX=290;
+            ballH.posY=190;
+        }
+        // плавное движение - от 25 кадр/сек
+        timer2=setInterval(tick,10);
+    }
+
+    function tick() {
+
+        ballH.posX+=ballH.speedX;
+        // вылетел ли мяч правее стены?
+        if ( ballH.posX+ballH.width>poleH.width ) {
+            ballH.speedX=-ballH.speedX;
+            ballH.posX=poleH.width-ballH.width;
+            
+        }
+        // вылетел ли мяч левее стены?
+        if ( ballH.posX<0 ) {
+            ballH.speedX=-ballH.speedX;
+            ballH.posX=0;
+        }
+
+        ballH.posY+=ballH.speedY;
+        // вылетел ли мяч ниже пола?
+        if ( ballH.posY+ballH.height>poleH.height ) {
+            ballH.speedY=-ballH.speedY;
+            ballH.posY=poleH.height-ballH.height;
+        }
+        // вылетел ли мяч выше потолка?
+        if ( ballH.posY<0 ) {
+            ballH.speedY=-ballH.speedY;
+            ballH.posY=0;
+        }
+
+        ballH.update();
+    }
+
+    ballH.update();
+    </script>
+</body>
+</html>

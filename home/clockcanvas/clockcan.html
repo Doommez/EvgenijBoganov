@@ -7,16 +7,116 @@
     <title>Document</title>
 </head>
 <body>
-    <canvas id="cvs" width="500px" height="500px"></canvas>
+    <canvas id="cvs" width="500px" height="500px">
+      
+    </canvas>
     <script>
-        cvs=document.getElementById("cvs");
+     cvs=document.getElementById("cvs");
         var context=cvs.getContext('2d');
+        function drow() {
+            
+       
+        context.save();
         context.strokeStyle='red';
     context.beginPath();
     context.arc(250,250, 250,0,360,  false);
     context.fillStyle="yellow";
+    context.lineWidth=1;
     context.fill();
     context.stroke();
+    context.restore();
+
+   
+
+    var radius = 200
+
+    var angleValue=0;
+var CenterX = 250
+var  CenterY = 250
+        for (let i = 1; i <= 12; i++) {
+            context.save();
+            context.beginPath();
+   
+                let smallCircleCX;
+                angleValue+=30;
+                angle = angleValue / 180 * Math.PI;
+	smallCircleCX = Math.round(CenterX + radius * Math.sin(angle) - 0);
+	smallCircleCY = Math.round(CenterY - radius * Math.cos(angle) - 0);
+    context.arc(smallCircleCX,smallCircleCY, 20,0,360,  false);
+    context.fillStyle="green";
+    context.lineWidth=2;
+    context.fill();
+    context.stroke();
+    context.strokeStyle='black';
+    context.lineWidth=3;
+    context.font='normal 20px Arial';
+    context.textAlign='center';
+    context.textBaseline='middle';
+    context.strokeText(i,smallCircleCX,smallCircleCY);
+    context.restore();
+  
+    
+}
+
+           
+        }
+        function clockElectron() {
+                let data = new Date();
+                let hours = data.getHours();
+                let min = data.getMinutes();
+                let sec = data.getSeconds();
+               
+        
+        
+                context.save();
+               
+                context.strokeStyle='black';
+    context.lineWidth=1;
+    context.font='normal 20px Arial';
+    context.textAlign='center';
+  
+    context.strokeText(`${hours}:${min}:${sec}`,250,150);
+    context.restore();
+                //движение стрелок
+                let moveh = hours * 30*0.0175;
+                let movem =min* 6 *0.0175;
+                let moves = sec*6*0.0175;
+                context.save();
+                context.lineCap='round';
+    context.beginPath();
+    context.moveTo(250,250);
+    context.lineTo(smallCircleCX = Math.round(250 + 100 * Math.sin(moveh)),Math.round(250 - 100 * Math.cos(moveh) ));
+    context.lineWidth=10;
+    context.stroke();
+ 
+    context.restore(); 
+    context.save();
+                context.lineCap='round';
+    context.beginPath();
+    context.moveTo(250,250);
+    context.lineTo(smallCircleCX = Math.round(250 + 150 * Math.sin(movem)),Math.round(250 - 150 * Math.cos(movem) ));
+    context.lineWidth=6;
+    context.stroke();
+    
+    context.restore();           
+    context.save();
+                context.lineCap='round';
+    context.beginPath();
+    context.moveTo(250,250);
+    context.lineTo(smallCircleCX = Math.round(250 + 200 * Math.sin(moves)),Math.round(250 - 200 * Math.cos(moves) ));
+    context.lineWidth=2;
+    context.stroke();
+    context.rotate(moves);
+    context.restore();                     
+               
+                
+               
+            }
+        let timerClockElecktron = setInterval(drowa, 1000);
+               function drowa(arrow){
+                drow();
+                clockElectron();
+               }
     </script>
 </body>
 </html>
