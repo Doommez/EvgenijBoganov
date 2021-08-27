@@ -31,6 +31,7 @@
    </style>
    <script>
 // поле
+var area=document.getElementById("area")
 var areaH={
         width : 600,
         height : 400
@@ -51,29 +52,30 @@ var areaH={
         }
     }
 //ракетки
+var rac1Elem=document.getElementById('rac1');
 var rac1={
     posX : 0,
         posY : 160,
-        speedY : 1,
+        speedY : 0,
         width : 20,
         height: 50,
        
         update : function() {
             var rac1Elem=document.getElementById('rac1');
            rac1Elem.style.left=this.posX+"px";
-            rac1Elem.style.top=this.posY+"px";
+            rac1Elem.style.top=this.posY+this.speedY+"px";
         }
 }
 var rac2={
-    posX : 0,
+    posX : 580,
         posY : 160,
-        speedY : 1,
+        speedY : 0,
         width : 20,
         height: 50,
         update : function() {
             var rac2Elem=document.getElementById('rac2');
            rac2Elem.style.right=this.posX+"px";
-            rac2Elem.style.top=this.posY+"px";
+            rac2Elem.style.top=this.posY+this.speedY+"px";
         }
 }
 //score
@@ -100,11 +102,11 @@ document.body.appendChild(area);
 //рисовка ракеток
 
 const rac1D=document.createElement("div");
-        rac1D.style.cssText="position:absolute;left:"+rac1.posX+"px;top:"+rac1.posY+"px;width:30px;height:80px;background:green;"
+        rac1D.style.cssText="position:absolute;left:"+rac1.posX+"px;top:"+rac1.posY+"px;width:"+rac1.width+"px;height:"+rac1.height+"px;background:green;"
         rac1D.setAttribute("id","rac1")
         area.appendChild(rac1D);
         const rac2D=document.createElement("div");
-        rac2D.style.cssText="position:absolute;right:"+rac2.posX+"px;top:"+rac2.posY+"px;width:30px;height:80px;background:green;"
+        rac2D.style.cssText="position:absolute;left:"+rac2.posX+"px;top:"+rac2.posY+"px;width:"+rac2.width+"px;height:"+rac2.height+"px;background:green;"
         rac2D.setAttribute("id","rac2")
         area.appendChild(rac2D);
         //ball
@@ -117,61 +119,113 @@ drow();
 //движение ракеток
 window.addEventListener("keydown", move)
         function move(ev) {
-            console.log(ev);
+            ev.preventDefault()
             let key = ev.code;
-     
+          
             switch (key) {
                 case "ControlLeft":
-                   rac1.posY+=+5
-                   rac1.update()
+                   rac1.speedY=5
+                 
                     break;
                 case "ShiftLeft":
-                rac1.posY+=-5
-                   rac1.update()
+                rac1.speedY=-5
                     break;
-                   
-
-            }}
-           window.addEventListener("keydown", move2)
-        function move2(ev) {
-            console.log(ev);
-            let key = ev.code;
-     
-            switch (key) {
-               
                     case "ControlRight":
-                    rac2.posY+=+5
-                   rac2.update()
+                    rac2.speedY=+5
+                   
                     break;
                 case "ShiftRight":
-                rac2.posY+=-5
-                   rac2.update()
+                rac2.speedY=-5
                     break;
 
             }}
+            window.addEventListener("keyup", nomove)
+        function nomove(ev) {
+            ev.preventDefault()
+            let key = ev.code;
+          
+            switch (key) {
+                case "ControlLeft":
+                   rac1.speedY=0
+                 
+                    break;
+                case "ShiftLeft":
+                rac1.speedY=0
+                    break;
+                    case "ControlRight":
+                    rac2.speedY=0
+                   
+                    break;
+                case "ShiftRight":
+                rac2.speedY=0
+                    break;
+
+            }}
+          
 //таймер мяча
 let timer2;
     function start() {
         if(timer2){
+            
             clearInterval(timer2);
             ballH.posX=290;
             ballH.posY=190;
-        
+            ballH.update();
+            score.player1=0;
+            score.player2=0;
+            score.update();
+            timer2=0
+            return
+        }else{
+            timer2=setInterval(tick,10);
         }
         // плавное движение - от 25 кадр/сек
-        timer2=setInterval(tick,10);
+       
     }
 
     function tick() {
-
+        rac1.posY+=rac1.speedY
+        console.log(rac1.posY);
+        console.log(rac1.height, areaH.height);
+        if(rac1.posY+rac1.height>areaH.height){
+                      rac1.posY=areaH.height-rac1.height
+                    
+                  }
+      if(rac1.posY<0){
+          rac1.posY=0
+      }
+       
+        rac1.update();
+       
+        
+        rac2.posY+=rac2.speedY
+        if(rac2.posY+rac2.height>areaH.height){
+                      rac2.posY=areaH.height-rac2.height
+                    
+                  }
+      if(rac2.posY<0){
+          rac2.posY=0
+      }
+       rac2.update();
         ballH.posX+=ballH.speedX;
+        //удар об ракетку 2
+        if ( ballH.posX+ballH.width>=rac2.posX&&ballH.posY>=rac2.posY&&ballH.posY<=rac2.posY+rac2.height ) {
+            ballH.speedX=-ballH.speedX;
+            
+        }
+        //удар об 1 ракетку
+        if ( ballH.posX<=rac1.width&&ballH.posY>=rac1.posY&&ballH.posY<=rac1.posY+rac1.height ) {
+            ballH.speedX=-ballH.speedX;
+            ballH.posX=rac1.width;
+        }
         // вылетел ли мяч правее стены?
         if ( ballH.posX+ballH.width>areaH.width ) {
             score.player1+=1
         score.update()
-        ball.posX=290;
-            ball.posY=190
-       clearInterval(timer2)
+        ballH.posX=290;
+            ballH.posY=190
+            ballH.update()
+        //clearInterval(timer2) 
       
             
         }
@@ -179,10 +233,11 @@ let timer2;
         if ( ballH.posX<0 ) {
             score.player2+=1
         score.update()
-        ball.posX=290;
-            ball.posY=190
-       clearInterval(timer2)
-        return
+            ballH.posX=290;
+            ballH.posY=190;
+            ballH.update();
+            
+        
         }
         if(ballH.posX+ballH.width>areaH.offsetLeft){
             ballH.speedX=-ballH.speedX;
