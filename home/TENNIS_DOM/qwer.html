@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+   
+    <input type="button" value="Старт!" onclick='start()'><span id="score"></span>
+      
+  
+     <style>
+         input{
+          margin-bottom: 15px;
+         }
+       span{
+           margin: 0 auto;
+           padding-left: 250px;
+           font-size: 30px;
+           font:bold;
+          
+
+       }
+       .area{
+           background: #F0EE7E;
+           position: relative;
+       }
+   </style>
+   <script>
+// поле
+var area=document.getElementById("area")
+var areaH={
+        width : 600,
+        height : 400
+    }
+    //мяч
+    var ballH={
+        posX : 290,
+        posY : 190,
+        speedX :4 ,
+        speedY : 2,
+        width : 20,
+        height: 20,
+
+        update : function() {
+            var ballElem=document.getElementById('ball');
+            ballElem.style.left=this.posX+"px";
+            ballElem.style.top=this.posY+"px";
+        }
+    }
+//ракетки
+var rac1Elem=document.getElementById('rac1');
+var rac1={
+    posX : 0,
+        posY : 160,
+        speedY : 0,
+        width : 20,
+        height: 50,
+       
+        update : function() {
+            var rac1Elem=document.getElementById('rac1');
+           rac1Elem.style.left=this.posX+"px";
+            rac1Elem.style.top=this.posY+this.speedY+"px";
+        }
+}
+var rac2={
+    posX : 580,
+        posY : 160,
+        speedY : 0,
+        width : 20,
+        height: 50,
+        update : function() {
+            var rac2Elem=document.getElementById('rac2');
+           rac2Elem.style.right=this.posX+"px";
+            rac2Elem.style.top=this.posY+this.speedY+"px";
+        }
+}
+//score
+// находим где будет счет
+let scoreValue=document.getElementById("score")
+var score={
+    player1:0,
+    player2:0,
+    update:function(){
+        let value="";
+     value+=score.player1+":"+score.player2;
+      scoreValue.innerHTML=value;
+    }
+}
+//отрисовка поля 
+
+function drow(){
+score.update();
+let area=document.createElement("div");
+area.style.cssText="width:"+areaH.width+"px; height:"+areaH.height+"px";
+area.setAttribute("id","area");
+area.setAttribute("class","area")
+document.body.appendChild(area);
+//рисовка ракеток
+
+const rac1D=document.createElement("div");
+        rac1D.style.cssText="position:absolute;left:"+rac1.posX+"px;top:"+rac1.posY+"px;width:"+rac1.width+"px;height:"+rac1.height+"px;background:green;"
+        rac1D.setAttribute("id","rac1")
+        area.appendChild(rac1D);
+        const rac2D=document.createElement("div");
+        rac2D.style.cssText="position:absolute;left:"+rac2.posX+"px;top:"+rac2.posY+"px;width:"+rac2.width+"px;height:"+rac2.height+"px;background:green;"
+        rac2D.setAttribute("id","rac2")
+        area.appendChild(rac2D);
+        //ball
+        const ball=document.createElement("div");
+        ball.setAttribute("id","ball")
+        ball.style.cssText="translatez(0);position:absolute;width:"+ballH.width+"px;height:"+ballH.height+"px;background:red; border-radius:50%; left:"+ballH.posX+"px;top:"+ballH.posY+"px"
+        area.appendChild(ball);
+}
+drow();
+//движение ракеток
+window.addEventListener("keydown", move)
+        function move(ev) {
+            ev.preventDefault()
+            let key = ev.code;
+          
+            switch (key) {
+                case "ControlLeft":
+                   rac1.speedY=5
+                 
+                    break;
+                case "ShiftLeft":
+                rac1.speedY=-5
+                    break;
+                    case "ControlRight":
+                    rac2.speedY=+5
+                   
+                    break;
+                case "ShiftRight":
+                rac2.speedY=-5
+                    break;
+
+            }}
+            window.addEventListener("keyup", nomove)
+        function nomove(ev) {
+            ev.preventDefault()
+            let key = ev.code;
+          
+            switch (key) {
+                case "ControlLeft":
+                   rac1.speedY=0
+                 
+                    break;
+                case "ShiftLeft":
+                rac1.speedY=0
+                    break;
+                    case "ControlRight":
+                    rac2.speedY=0
+                   
+                    break;
+                case "ShiftRight":
+                rac2.speedY=0
+                    break;
+
+            }}
+          
+//таймер мяча
+let timer2;
+var random;
+    function start() {
+        console.log(timer2);
+        if(timer2){
+            
+           cancelAnimationFrame(tick)
+            ballH.posX=290;
+            ballH.posY=190;
+            ballH.update(); 
+           /* score.player1=0;
+            score.player2=0;
+            score.update();*/
+            
+            requestAnimationFrame(tick);
+           
+        }else{
+            
+            timer2=requestAnimationFrame(tick);
+           
+        } 
+        
+        random=getRandomInt(1,4);
+        console.log(random);
+        return random;
+    }
+   
+    function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+
+    function tick() {
+  
+        rac1.posY+=rac1.speedY
+
+        if(rac1.posY+rac1.height>areaH.height){
+                      rac1.posY=areaH.height-rac1.height
+                    
+                  }
+      if(rac1.posY<0){
+          rac1.posY=0
+      }
+       
+        rac1.update();
+       
+        
+        rac2.posY+=rac2.speedY
+        if(rac2.posY+rac2.height>areaH.height){
+                      rac2.posY=areaH.height-rac2.height
+                    
+                  }
+      if(rac2.posY<0){
+          rac2.posY=0
+      }
+       rac2.update();
+      
+      if(random==1){
+        ballH.posX+=ballH.speedX;
+        ballH.posY+=ballH.speedY;
+      }else if(random==2){
+        ballH.posX+=ballH.speedX;
+        ballH.posY+=0.5+ballH.speedY;
+    }else if(random==3){
+        ballH.posX+=-6-ballH.speedX;
+        ballH.posY+=3-ballH.speedY;
+      }else if(random==4){
+        ballH.posX+=-3-ballH.speedX;
+        ballH.posY+=-ballH.speedY;
+      }
+
+        ballH.posX+=ballH.speedX;
+        ballH.posY+=ballH.speedY;
+        //удар об ракетку 2
+        if ( ballH.posX+ballH.width>=rac2.posX&&ballH.posY>=rac2.posY&&ballH.posY<=rac2.posY+rac2.height ) {
+            ballH.speedX=-ballH.speedX;
+            
+        }
+        //удар об 1 ракетку
+        if ( ballH.posX<=rac1.width&&ballH.posY>=rac1.posY&&ballH.posY<=rac1.posY+rac1.height ) {
+            ballH.speedX=-ballH.speedX;
+            ballH.posX=rac1.width;
+        }
+        // вылетел ли мяч правее стены?
+        if ( ballH.posX+ballH.width>areaH.width ) {
+            score.player1+=1
+        score.update()
+        cancelAnimationFrame(tick)
+      /*   ballH.posX=290;
+            ballH.posY=190
+            ballH.update() */
+        //clearInterval(timer2) 
+      return
+            
+        }
+        // вылетел ли мяч левее стены?
+        if ( ballH.posX<0 ) {
+            score.player2+=1
+        score.update();
+        cancelAnimationFrame(tick);
+        return
+           /*  ballH.posX=290;
+            ballH.posY=190;
+            ballH.update(); */
+            
+        
+        }
+        if(ballH.posX+ballH.width>areaH.offsetLeft){
+            ballH.speedX=-ballH.speedX;
+            ballH.posX=areaH.width-ballH.width;
+}
+      
+        // вылетел ли мяч ниже пола?
+        if ( ballH.posY+ballH.height>areaH.height ) {
+            ballH.speedY=-ballH.speedY;
+            ballH.posY=areaH.height-ballH.height;
+        }
+        // вылетел ли мяч выше потолка?
+        if ( ballH.posY<0 ) {
+            ballH.speedY=-ballH.speedY;
+            ballH.posY=0;
+        }
+        //ballH.posX+ballH.width>rac1.offsetLeft+rac1.offsetWidth
+        
+        ballH.update();
+        requestAnimationFrame(tick)
+    }
+
+    ballH.update(); 
