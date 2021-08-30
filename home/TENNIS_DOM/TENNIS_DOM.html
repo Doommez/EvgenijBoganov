@@ -166,20 +166,21 @@ window.addEventListener("keydown", move)
 let timer2;
     function start() {
         if(timer2){
-            
-            clearInterval(timer2);
+            cancelAnimationFrame(tick)
             ballH.posX=290;
             ballH.posY=190;
-            ballH.update();
-            score.player1=0;
+            ballH.update(); 
+           /* score.player1=0;
             score.player2=0;
-            score.update();
-            timer2=0
-            return
+            score.update();*/
+            
+            requestAnimationFrame(tick);
+           
         }else{
+            
             timer2=requestAnimationFrame(tick);
-        }
-        // плавное движение - от 25 кадр/сек
+           
+        } 
        
     }
 
@@ -222,10 +223,12 @@ let timer2;
         if ( ballH.posX+ballH.width>areaH.width ) {
             score.player1+=1
         score.update()
-        ballH.posX=290;
+        cancelAnimationFrame(tick)
+      /*   ballH.posX=290;
             ballH.posY=190
-            ballH.update()
+            ballH.update() */
         //clearInterval(timer2) 
+      return
       
             
         }
@@ -233,9 +236,12 @@ let timer2;
         if ( ballH.posX<0 ) {
             score.player2+=1
         score.update()
-            ballH.posX=290;
-            ballH.posY=190;
-            ballH.update();
+        cancelAnimationFrame(tick)
+      /*   ballH.posX=290;
+            ballH.posY=190
+            ballH.update() */
+        //clearInterval(timer2) 
+      return
             
         
         }
@@ -263,218 +269,6 @@ let timer2;
     ballH.update(); 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 
-
-
-        const area=document.createElement("div");
-        var areaH={
-            width:600,
-        height:400
-        }
-        var ballH={
-        posX : 290,
-        posY : 190,
-        speedX : 2,
-        speedY : 1,
-        width : 20,
-        height: 20,
-        startPosX:290,
-        startPosy:190,
-        
-        update : function() {
-            
-            ball.style.left=this.posX+"px";
-            ball.style.top=this.posY+"px";
-        }
-       
-    }
-
-       // счет
-       let scoreValue=document.getElementById("score");
-       
-        var score={
-            player1:0,
-            player2:0,
-            scoreUpdate:function(){
-              let  value="";
-     
-       value+=score.player1+":"+score.player2;
-        scoreValue.innerHTML=value;
-       
-            }
-        }
-        score.scoreUpdate()
-        
-     console.log( score.scoreUpdate);
-      
-      
-
-
-        area.setAttribute("id","area");
-        area.style.width=areaH.width+"px"
-        area.style.height=areaH.height+"px"
-        area.style.background="#F0EE7E"
-        area.style.position="relative"
-        document.body.appendChild(area);
-//ракетки
-        const rac1=document.createElement("div");
-        rac1.style.cssText="position:absolute;left:0px;top:160px;width:30px;height:80px;background:green;"
-        area.appendChild(rac1);
-        const rac2=document.createElement("div");
-        rac2.style.cssText="position:absolute;right:0px;top:160px;width:30px;height:80px;background:green;"
-        area.appendChild(rac2);
-        //ball
-        const ball=document.createElement("div");
-        ball.style.cssText="position:absolute;width:"+ballH.width+"px;height:"+ballH.height+"px;background:red; border-radius:50%"
-        area.appendChild(ball);
-        //move raket1
-        let x1=0;
-        let y=160;
-        let timer;
-        let timer01
-       //движение всех ракеток
-        function moveracup(){
-            if(rac1.offsetTop<=area.offsetTop-rac1.offsetHeight){
-                clearInterval(timer);
-                return
-            }
-            y--
-            rac1.style.top = y + "px";
-        }
-        function moverac2up(){
-            if(rac2.offsetTop<=area.offsetTop-rac2.offsetHeight){
-                clearInterval(timer01);
-                return
-            }
-            y--
-            rac2.style.top = y + "px";
-        }
-        function moveracdown(){
-            if(rac1.offsetTop>area.offsetHeight-rac1.offsetHeight){
-                clearInterval(timer);
-                return
-            }
-           
-            y++
-            rac1.style.top = y + "px";
-        }
-        function moverac2down(){
-            if(rac2.offsetTop>area.offsetHeight-rac2.offsetHeight){
-                clearInterval(timer01);
-                return
-            }
-           
-            y++
-            rac2.style.top = y + "px";
-        }
-        //дфижение по таймеру и нажатию кнопки
-        window.addEventListener("keydown", move)
-        function move(ev) {
-            console.log(ev);
-            let key = ev.code;
-     
-            switch (key) {
-                case "ControlLeft":
-                    if (timer) {
-                        clearInterval(timer)
-
-                    }
-                    timer = setInterval(moveracdown, 5)
-
-                    break;
-                case "ShiftLeft":
-                    if (timer) clearInterval(timer)
-                    timer = setInterval(moveracup, 10)
-                    break;
-                    case "ControlRight":
-                    if (timer01) {
-                        clearInterval(timer01)
-
-                    }
-                    timer01 = setInterval(moverac2down, 10)
-
-                    break;
-                case "ShiftRight":
-                    if (timer01) clearInterval(timer01)
-                    timer01 = setInterval(moverac2up, 10)
-                    break;
-
-            }}
-            //мяч left:290px;top:190px;
-       let timer2;
-    function start() {
-        if(timer2){
-            clearInterval(timer2);
-            ballH.posX=290;
-            ballH.posY=190;
-        
-        }
-        // плавное движение - от 25 кадр/сек
-        timer2=setInterval(tick,10);
-    }
-
-    function tick() {
-
-        ballH.posX+=ballH.speedX;
-        // вылетел ли мяч правее стены?
-        if ( ballH.posX+ballH.width>areaH.width ) {
-            score.player1+=1
-        score.scoreUpdate()
-        ball.posX=290;
-            ball.posY=190
-       clearInterval(timer2)
-      
-            
-        }
-        // вылетел ли мяч левее стены?
-        if ( ballH.posX<0 ) {
-            score.player2+=1
-        score.scoreUpdate()
-        ball.posX=290;
-            ball.posY=190
-       clearInterval(timer2)
-        return
-        }
-        if(ballH.posX+ballH.width>areaH.offsetLeft){
-            ballH.speedX=-ballH.speedX;
-            ballH.posX=areaH.width-ballH.width;
-}
-        ballH.posY+=ballH.speedY;
-        // вылетел ли мяч ниже пола?
-        if ( ballH.posY+ballH.height>areaH.height ) {
-            ballH.speedY=-ballH.speedY;
-            ballH.posY=areaH.height-ballH.height;
-        }
-        // вылетел ли мяч выше потолка?
-        if ( ballH.posY<0 ) {
-            ballH.speedY=-ballH.speedY;
-            ballH.posY=0;
-        }
-        //ballH.posX+ballH.width>rac1.offsetLeft+rac1.offsetWidth
-        
-        ballH.update();
-    }
-
-    ballH.update(); */
     </script>
 </body>
 </html>
