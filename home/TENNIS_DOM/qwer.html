@@ -40,8 +40,8 @@ var areaH={
     var ballH={
         posX : 290,
         posY : 190,
-        speedX :4 ,
-        speedY : 2,
+        speedX :2 ,
+        speedY : 1,
         width : 20,
         height: 20,
 
@@ -166,7 +166,7 @@ window.addEventListener("keydown", move)
 let timer2;
 var random;
     function start() {
-        console.log(timer2);
+      
         if(timer2){
             
            cancelAnimationFrame(tick)
@@ -225,17 +225,13 @@ var random;
         ballH.posY+=ballH.speedY;
       }else if(random==2){
         ballH.posX+=ballH.speedX;
-        ballH.posY+=0.5+ballH.speedY;
+        ballH.posY+=-ballH.speedY;
     }else if(random==3){
-        ballH.posX+=-6-ballH.speedX;
-        ballH.posY+=3-ballH.speedY;
-      }else if(random==4){
-        ballH.posX+=-3-ballH.speedX;
+        ballH.posX+=-ballH.speedX;
         ballH.posY+=-ballH.speedY;
       }
 
-        ballH.posX+=ballH.speedX;
-        ballH.posY+=ballH.speedY;
+       
         //удар об ракетку 2
         if ( ballH.posX+ballH.width>=rac2.posX&&ballH.posY>=rac2.posY&&ballH.posY<=rac2.posY+rac2.height ) {
             ballH.speedX=-ballH.speedX;
