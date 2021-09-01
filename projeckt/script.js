@@ -3,11 +3,13 @@ bullet=document.getElementById("bullet"),
 container=document.getElementById("container");
 var cBulletX=bullet.offsetLeft-bullet.offsetWidth/2;
 var cBulletY=bullet.offsetTop-bullet.offsetHeight/2;
+var cBulletX=bullet.offsetLeft-bullet.offsetWidth/2;
+var cBulletY=bullet.offsetTop-bullet.offsetHeight/2;
 //позиция шара
 var x;
 var y;
-var bbb;
-pos()
+
+pos();
 function pos( ) {
 
    
@@ -30,7 +32,7 @@ return x,y;
 
 console.log(container);
 var timer;
-
+var bbb
 document.addEventListener("mousemove",boxRot);
 function boxRot(ev){
     var bb = boxMove.getBoundingClientRect();
@@ -42,18 +44,24 @@ function boxRot(ev){
    // bullet.style.transform = "rotate(" + angleB + "rad)";
     boxMove.style.transform = "rotate(" + angle + "rad)";
     ballO.update();
+    
     document.addEventListener("click",shut);
    
     function shut(ev){
         console.log(ev.x);
-        let q=(ev.x-cBulletX);
-        let w=(ev.y-cBulletY);
+        let q=(ev.x-ball.offsetLeft)/240;
+        let w=(ev.y-ball.offsetTop)/240;
       requestAnimationFrame(tt)
         function tt(){
+            if(ballO.posX<container.offsetLeft||ballO.posX>container.offsetWidth||ballO.posY>container.offsetHeight||ballO.posY<container.offsetTop){
+                return
+            }
+            ballO.posX+=q;
+            ballO.posY+=w;
+            ballO.update();
+           console.log( container.offsetWidth);
+            console.log(ball.posX);
             
-           bulletO.posX=ev.x;
-           bulletO.posY=ev.y;
-           bulletO.update();
            requestAnimationFrame(tt)
         }
         }
@@ -101,10 +109,12 @@ let bulletO={
 }
 bulletO.update();
 var ball=document.getElementById("ball");
-var bbb=bullet.getBoundingClientRect();
+
+var posXNN,posYNN
+
 let ballO={
-    posY:bbb.top+5,
-  posX:bbb.left+5,  
+    posY:bullet.getBoundingClientRect().top,
+  posX:bullet.getBoundingClientRect().left,  
    /* posY:0,
   posX:80,  */
       speedX :2 ,
@@ -114,14 +124,17 @@ let ballO={
       update: function(){
         ball.style.left=this.posX+"px";
         ball.style.top=this.posY+"px";
+      
       }
      
 }
-
+ballO.update();
  let timer3=requestAnimationFrame(nn);
 function nn(){
-    console.log(bbb.left);
-    ballO.update();
-    requestAnimationFrame(nn);
+    let bbbb=bullet.getBoundingClientRect();
+ 
+     ball.style.left=bbbb.left+"px";
+    ball.style.top=bbbb.top+"px";  
+     requestAnimationFrame(nn);
+
 } 
-ballO.update();
