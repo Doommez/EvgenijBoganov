@@ -6,6 +6,7 @@ var cBulletY=bullet.offsetTop-bullet.offsetHeight/2;
 //позиция шара
 var x;
 var y;
+var bbb;
 pos()
 function pos( ) {
 
@@ -33,16 +34,16 @@ var timer;
 document.addEventListener("mousemove",boxRot);
 function boxRot(ev){
     var bb = boxMove.getBoundingClientRect();
-   var bbb=bullet.getBoundingClientRect();
+    bbb=bullet.getBoundingClientRect();
     var cx = bb.left + bb.width / 2, cy = bb.top + bb.height / 2;
     //let cxB=bbb.left + bbb.width / 2, cyB = bbb.top + bbb.height / 2;
     var angle = Math.atan2(ev.y - cy, ev.x - cx);
     //var angleB = Math.atan2(ev.y - cyB, ev.x - cxB);
    // bullet.style.transform = "rotate(" + angleB + "rad)";
     boxMove.style.transform = "rotate(" + angle + "rad)";
-    
-    document.addEventListener("click",shut);
     ballO.update();
+    document.addEventListener("click",shut);
+   
     function shut(ev){
         console.log(ev.x);
         let q=(ev.x-cBulletX);
