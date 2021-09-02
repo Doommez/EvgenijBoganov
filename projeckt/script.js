@@ -33,7 +33,7 @@ return x,y;
 console.log(container);
 var timer;
 var bbb
-document.addEventListener("mousemove",boxRot);
+//document.addEventListener("mousemove",boxRot);
 function boxRot(ev){
     var bb = boxMove.getBoundingClientRect();
     bbb=bullet.getBoundingClientRect();
@@ -49,8 +49,8 @@ function boxRot(ev){
    
     function shut(ev){
         console.log(ev.x);
-        let q=(ev.x-ball.offsetLeft)/240;
-        let w=(ev.y-ball.offsetTop)/240;
+        let q=(ev.x-ball.offsetLeft-ball.offsetWidth/2)/300;
+        let w=(ev.y-ball.offsetTop-ball.offsetHeight/2)/300;
       requestAnimationFrame(tt)
         function tt(){
             if(ballO.posX<container.offsetLeft||ballO.posX>container.offsetWidth||ballO.posY>container.offsetHeight||ballO.posY<container.offsetTop){
@@ -133,8 +133,59 @@ ballO.update();
 function nn(){
     let bbbb=bullet.getBoundingClientRect();
  
-     ball.style.left=bbbb.left+"px";
-    ball.style.top=bbbb.top+"px";  
+     ball.style.left=bbbb.left+bbbb.width/2-ball.offsetWidth/2+"px";
+    ball.style.top=bbbb.top+bbbb.height/2-ball.offsetHeight/2+"px";  
      requestAnimationFrame(nn);
 
 } 
+var area=[
+    [1,1,1,1,1,1,1,1,1,1],
+    [2,1,1,1,1,1,1,1,1,0],
+    [1,1,1,1,1,1,1,1,1,1],
+    [2,1,1,1,1,1,1,1,1,0]
+]
+let areaf= document.createElement("div");
+areaf.setAttribute("id","area");
+document.body.appendChild(areaf);
+let areaD=document.getElementById("area")
+function drow(){
+   
+    for(let i=0;i<area.length;i++){
+        if(area[i][0]==2){
+            creatOTS(i);
+         }
+        for(let k=0;k<area[i].length;k++){
+            if(area[i][k]==0){
+                creatPole00(k,i);
+            }
+            if(area[i][k]==1){
+                
+                creatPole01(k,i);
+            }
+            
+        }
+        
+    }
+    
+}
+function creatPole00(k,i){
+    let div=document.createElement("div");
+    div.className="pole0";
+    div.setAttribute("id",k+i)
+    areaD.appendChild(div)
+}
+function creatPole01(k,i){
+    let div=document.createElement("div");
+    div.className="pole1";
+    div.setAttribute("id",k)
+    areaD.appendChild(div)
+}
+function creatOTS(i){
+    let div=document.createElement("div");
+    div.className="polepol";
+    areaD.appendChild(div)
+}
+drow();
+areaD.addEventListener("click",function(e){
+console.log(e.target);
+})
