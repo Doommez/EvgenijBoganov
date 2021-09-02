@@ -149,7 +149,8 @@ areaf.setAttribute("id","area");
 document.body.appendChild(areaf);
 let areaD=document.getElementById("area")
 function drow(){
-   
+    let countForBuble=area.length
+  
     for(let i=0;i<area.length;i++){
         if(area[i][0]==2){
             creatOTS(i);
@@ -187,5 +188,7 @@ function creatOTS(i){
 }
 drow();
 areaD.addEventListener("click",function(e){
-console.log(e.target);
+console.log(e.x,e.y);
+let l=document.elementFromPoint(e.x,e.y);
+console.log(l);
 })
