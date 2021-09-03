@@ -69,15 +69,18 @@ game.pull={
     newX:320,
     newY:290,
     update:function(){
-       document.addEventListener("mousemove",function(ev){
+        var cvs=document.getElementById("mycanvas");
+       cvs.addEventListener("mousemove",function(ev){
            var cx=game.pull.x, cy=game.pull.x;
-           console.log(ev.x);
+           
          let gipotinuza=Math.sqrt(Math.pow((ev.x-game.pull.x),2)+Math.pow((ev.y-game.pull.y),2)) ;
-        console.log(gipotinuza);
-        let angle=((ev.x-game.pull.x)/gipotinuza)*(180/Math.PI);
-        console.log(angle);
-        newX=gipotinuza*Math.cos(angle)+game.pull.x;
-        newY=gipotinuza*Math.cos(90-angle)+game.pull.y;
+         //0.0175
+        let angle=Math.atan2(game.pull.y-ev.y, ev.x - game.pull.x);
+       console.log(angle);
+      
+    
+        newX=game.pull.x+game.pull.height*Math.cos(angle);
+        newY=game.pull.y-game.pull.height*Math.sin(angle);
          game.pull.newX=newX;
         game.pull.newY=newY;
      

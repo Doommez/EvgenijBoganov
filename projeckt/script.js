@@ -65,11 +65,11 @@ function boxRot(ev){
            requestAnimationFrame(tt)
         }
         }
-    /*  document.addEventListener("click",shut);
+  document.addEventListener("click",shut);
     function shut(ev){
         bullet.style.top=ev.y+bullet.offsetHeight+20+"px";
         bullet.style.left=ev.x-bullet.offsetWidth/2+"px"
-        } */
+        } 
 }
 let areaH=[
     [0,0]
