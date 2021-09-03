@@ -72,9 +72,14 @@ game.pull={
        document.addEventListener("mousemove",function(ev){
            var cx=game.pull.x, cy=game.pull.x;
            console.log(ev.x);
-         let rex=Math.sqrt((Math.pow(game.pull.height,2)/2));
-        game.pull.newX=ev.x;
-        game.pull.newY=ev.y;
+         let gipotinuza=Math.sqrt(Math.pow((ev.x-game.pull.x),2)+Math.pow((ev.y-game.pull.y),2)) ;
+        console.log(gipotinuza);
+        let angle=((ev.x-game.pull.x)/gipotinuza)*(180/Math.PI);
+        console.log(angle);
+        newX=gipotinuza*Math.cos(angle)+game.pull.x;
+        newY=gipotinuza*Math.cos(90-angle)+game.pull.y;
+         game.pull.newX=newX;
+        game.pull.newY=newY;
      
         //var angleB = Math.atan2(ev.y - cyB, ev.x - cxB);
        // bullet.style.transform = "rotate(" + angleB + "rad)";
