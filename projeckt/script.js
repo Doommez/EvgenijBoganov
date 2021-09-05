@@ -33,7 +33,7 @@ return x,y;
 console.log(container);
 var timer;
 var bbb
-//document.addEventListener("mousemove",boxRot);
+document.addEventListener("mousemove",boxRot);
 function boxRot(ev){
     var bb = boxMove.getBoundingClientRect();
     bbb=bullet.getBoundingClientRect();
