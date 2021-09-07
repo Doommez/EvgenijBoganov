@@ -13,11 +13,14 @@
     <button onclick='e()'>удаление информации о стране</button>
 
 
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script>
 var countryName;
 var capitalName;
 var countrysH={};
+var ajaxHandlerScript="https://fe.it-academy.by/AjaxStringStorage2.php";
+var country;
+var stringName="qwertytrewq";
 function y() {
              countryName = prompt("ввод");
 capitalName=prompt("ввод");
@@ -26,9 +29,11 @@ capitalName=prompt("ввод");
 function t() {
 countryName = prompt("инф о стране");
 console.log(getCountryInfo(countryName));
+restoreInfo();
 }
 function r() {
-console.log(listCountrys());}
+console.log(listCountrys());
+storeInfo();}
 function e() {
  countryName = prompt("ввод");
 deleteCountry(countryName);
@@ -36,8 +41,43 @@ deleteCountry(countryName);
 
     function addCountry(countryName,capitalName) {
         countrysH[countryName]=capitalName;
+        INSERT();
     }
-
+    function INSERT() {
+        let newRead=JSON.stringify(countrysH);
+         
+        $.ajax( {
+            url : ajaxHandlerScript, type : 'POST', cache : false, dataType:'json',
+            data : { f : 'INSERT', n : stringName,v:newRead  },
+            success : ttt, error : errorHandler
+        }
+    );
+    }
+    function restoreInfo() {
+    $.ajax(
+        {
+            url : ajaxHandlerScript, type : 'POST', cache : false, dataType:'json',
+            data : { f : 'READ', n : "countrys"},
+            success : ttt, error : errorHandler
+        }
+    );
+}
+function restoreInfoq() {
+    $.ajax(
+        {
+            url : ajaxHandlerScript, type : 'POST', cache : false, dataType:'json',
+            data : { f : 'READ', n : "countrys"},
+            success : ttt, error : errorHandler
+        }
+    );
+}
+    function ttt(data){
+        console.log("есть!");
+    }
+    function errorHandler(jqXHR,statusStr,errorStr) {
+    alert(statusStr+' '+errorStr);
+    console.log("qwer");
+}
     function deleteCountry(countryName) {
         delete countrysH[countryName];
     }
@@ -47,19 +87,51 @@ deleteCountry(countryName);
             return 'страна: ' + countryName + ' столица: ' + countrysH[countryName] ;
         else
             return 'нет информации о стране ' + countryName + '!' ;
-    }
+            
+        }
 
     function listCountrys() {
         var res="";
         for ( var CN in countrysH )
             res+='\n'+getCountryInfo(CN);
         return res;
+      
     }
 
     function goodBye( ) {
         alert('До свидания!');
     }
-    
+    function storeInfo() {
+    updatePassword=Math.random();
+    $.ajax( {
+            url : ajaxHandlerScript, type : 'POST', cache : false, dataType:'json',
+            data : { f : 'LOCKGET', n : stringName, p : updatePassword },
+            success : lockGetReady, error : errorHandler
+        }
+    );
+}
+
+function lockGetReady(callresult) {
+    console.log(callresult);
+    if ( callresult.error!=undefined )
+        alert(callresult.error);
+    else {
+        // нам всё равно, что было прочитано -
+        // всё равно перезаписываем
+      
+        $.ajax( {
+                url : ajaxHandlerScript, type : 'POST', cache : false, dataType:'json',
+                data : { f : 'UPDATE', n : stringName, v : JSON.stringify("qwer"), p : updatePassword },
+                success : updateReady, error : errorHandler
+            }
+        );
+    }
+}
+
+function updateReady(callresult) {
+    if ( callresult.error!=undefined )
+        alert(callresult.error);
+}
     </script>
     
 </body>
