@@ -1,7 +1,7 @@
 var canvas = document.getElementById("canvas");
   var ctx = canvas.getContext("2d");
-  var arcX  = 100;
-  var arcY = 100;
+  var arcX  = 320;
+  var arcY = 338;
   var lineX = 0;
   var lineY = 0;
   var speed = 10;
@@ -9,7 +9,7 @@ var canvas = document.getElementById("canvas");
   var KEY_COD = {w: 87, d: 68,s: 83, a: 65};
 var count=document.getElementById("count")
   var bullets = [];  // массив снарядов
-   
+ 
   function keyDownHandler (e) {
     if (KEY_COD.w == e.keyCode) vector.top = true;
     if (KEY_COD.d == e.keyCode) vector.left = true;
@@ -70,9 +70,9 @@ var count=document.getElementById("count")
            
           
         }
-        if(b.pos[1]==10){
-            b.pos[0]=b.to[0];
-            b.pos[1]=10;
+        if(b.pos[1]<canvas.offsetTop+10){
+            b.to[0]=0;
+            b.to[1]=0;
         }
         /* else{
             b.pos[0] += b.to[0];  
