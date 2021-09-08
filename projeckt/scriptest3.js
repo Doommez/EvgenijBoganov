@@ -33,7 +33,8 @@ var count=document.getElementById("count")
      // по клику добавляем информацию о  снаряде в массив  
      bullets.push({
        to: [xx,yy], // нормализованный вектор движения
-       pos: [arcX,arcY], // положение 
+       pos: [arcX,arcY], // положение
+       type:randomDiap(0,6), 
      });
   })
 //qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
@@ -42,7 +43,7 @@ var tilewidth=40;
 var rowheight=35;
 var level={
     
-    rows:canvas.offsetHeight/tilewidth/2,
+    rows:canvas.offsetHeight/tilewidth/2+1,
     columns:canvas.offsetWidth/tileheight,
     column:tileheight,
     row:tilewidth,
@@ -81,10 +82,7 @@ function drow(column,row){
  
     ctx.fillRect(0,0,canvas.width,canvas.height);
     
-  /*   ctx.strokeStyle='red';
-        ctx.beginPath();
-        ctx.strokeRect(level.tiles[row][column].cord.tilex,level.tiles[row][column].cord.tiley, tilewidth,tileheight)
-        ctx.stroke(); */
+ 
      level.tiles.forEach(b=>{b.forEach(a=>{
 
         ctx.strokeStyle='red';
@@ -94,10 +92,15 @@ function drow(column,row){
         ctx.stroke();
       
      })
-      
+    
        
     }) 
      //qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
+     pullbubble()
+
+
+
+
      ctx.beginPath();
     ctx.arc(arcX, arcY, 22, 0, 2 * Math.PI);
     ctx.stroke();
@@ -106,55 +109,7 @@ function drow(column,row){
     ctx.moveTo(arcX,arcY);
     ctx.lineTo(lineX,lineY);
     ctx.stroke();
-     bullets.forEach(b => {
-        //сдвигаем снаряд на значение вектора 
-        b.pos[0] += b.to[0];  
-        b.pos[1] += b.to[1]; 
-        if(b.pos[0]==10 ||b.pos[0]==canvas.width-10 ){
-            b.to[0]=-b.to[0];
-           
-          
-        }
-        if(b.pos[1]<canvas.offsetTop+10){
-            b.to[0]=0;
-            b.to[1]=0;
-        }
-        
-        for(let q=0;q<level.tiles[5-1].length;q++){
-
-            if(b.pos[1]<level.tiles[5-1][q].cord.tiley+tileheight&&b.pos[0]>level.tiles[5-1][q].cord.tilex-tilewidth&&b.pos[0]<level.tiles[5-1][q].cord.tilex+tilewidth){
-                b.to[0]=0;
-                b.to[1]=0;
-                b.pos[1]=level.tiles[5-1][q].cord.tiley+tileheight;
-                b.pos[0]=level.tiles[5-1][q].cord.tilex-tilewidth/2;
-                level.tiles[5]=[];
-                level.tiles[5][q]={cord:{tilex: b.pos[0], tiley: b.pos[1]},type:0}
-            }
-        }
-        
-      /*   if(b.pos[1]>cordb&&b.pos[1]<cordb){
-            b.to[0]=0;
-            b.to[1]=0;
-        } */
-       /*  level.tiles.forEach(b=>{b.forEach(a=>{
-            if(a.cord.tiley==bullets.forEach(b=>{
-                b.pos[1]
-            }) ){
-                b.to[0]=0;
-                b.to[1]=0;
-            }
-        })}) */
-        /* else{
-            b.pos[0] += b.to[0];  
-            b.pos[1] += b.to[1]; 
-        } */
-
-        // рисуем его
-        ctx.beginPath();
-        ctx.arc(...b.pos, 5, 0, 2 * Math.PI);
-     
-        ctx.stroke();
-    })
+   
 
     // удаляем снаряды покинувшие канву
       bullets = bullets.filter(b =>{
@@ -176,16 +131,67 @@ function randomDiap(n,m) {
 render();
 for(let i=0;i<level.rows;i++){
     if(i%2){
-        console.log(level.tiles[i][level.columns-1]);   
+    
         level.tiles[i].pop()
     }
  
 }
-
+function pullbubble(){
+    bullets.forEach(b => {
+        //сдвигаем снаряд на значение вектора 
+      
+        b.pos[0] += b.to[0];  
+        b.pos[1] += b.to[1]; 
+       
+        for(let w=level.tiles.length-1;w>0;w--){
+            for(let q=0;q<level.tiles[w].length;q++){
+                if(w%2){
+                    if(b.pos[1]<level.tiles[w][q].cord.tiley+tileheight&&b.pos[0]<level.tiles[w][q].cord.tilex&&level.tiles[w][q].cord.tilex-b.pos[0]<40){
+                        b.to[0]=0;
+                    b.to[1]=0; 
+                    b.pos[1]=level.tiles[w][q].cord.tiley+tileheight;
+                    if(b.pos[0]<canvas.offsetWidth/2){
+                        b.pos[0]=level.tiles[w][q].cord.tilex-tilewidth/2;  
+                    }else b.pos[0]=level.tiles[w][q].cord.tilex+tilewidth/2;
+                    }
+                }else if(b.pos[1]<level.tiles[w][q].cord.tiley+tileheight&&b.pos[0]>level.tiles[w][q].cord.tilex&&b.pos[0]<level.tiles[w][q].cord.tilex+tilewidth){
+                    b.to[0]=0;
+                    b.to[1]=0;
+                   
+                    b.pos[1]=level.tiles[w][q].cord.tiley+tileheight;
+                    
+                    if(b.pos[0]<canvas.offsetWidth/2){
+                        b.pos[0]=level.tiles[w][q].cord.tilex+tilewidth/2;  
+                    }else b.pos[0]=level.tiles[w][q].cord.tilex-tilewidth/2;
+               
+        
+                   /*  level.tiles[5]=[];
+                    level.tiles[5][q]={cord:{tilex: b.pos[0], tiley: b.pos[1]},type:b.type}
+                    if(level.tiles[5][q].type==level.tiles[5-1][q].type){
+                        level.tiles[5].splice(q,1);
+                        level.tiles[5-1].splice(q,1);
+                        
+                    } */
+                }
+              
+            }
+        }
+        if(b.pos[0]==1 ||b.pos[0]==canvas.width-1 ){
+            b.to[0]=-b.to[0];
+           
+          
+        }
+        if(b.pos[1]<canvas.offsetTop+10){
+            b.to[0]=0;
+            b.to[1]=0;
+        }
+    
+        // рисуем его
+        ctx.beginPath();
+        ctx.arc(...b.pos, 5, 0, 2 * Math.PI);
+     
+        ctx.stroke();
+    })
+}
 console.log(level);
-/* level.tiles.forEach(b=>{
-    console.log(b);
-     if(b[i]%2){
-     console.log(b[level.columns-1].pop());   
-    } 
-}) */
+
