@@ -10,22 +10,7 @@ var canvas = document.getElementById("canvas");
 var count=document.getElementById("count")
   var bullets = [];  // массив снарядов
  
-  function keyDownHandler (e) {
-    if (KEY_COD.w == e.keyCode) vector.top = true;
-    if (KEY_COD.d == e.keyCode) vector.left = true;
-    if (KEY_COD.s == e.keyCode) vector.bottom = true;
-    if (KEY_COD.a == e.keyCode) vector.right = true;
-  };
 
-  function keyUpHandler (e) {
-    if (KEY_COD.w == e.keyCode) vector.top = false;
-    if (KEY_COD.d == e.keyCode) vector.left = false;
-    if (KEY_COD.s == e.keyCode) vector.bottom = false;
-    if (KEY_COD.a == e.keyCode) vector.right = false;
-  }
-
-  document.addEventListener('keydown', keyDownHandler)
-  document.addEventListener('keyup', keyUpHandler)
   
   canvas.addEventListener('mousemove', function (e) {
      lineX = e.layerX;
