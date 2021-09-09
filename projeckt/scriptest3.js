@@ -140,12 +140,25 @@ function pullbubble(){
     bullets.forEach(b => {
         //сдвигаем снаряд на значение вектора 
       
-        b.pos[0] += b.to[0];  
-        b.pos[1] += b.to[1]; 
-       
+        b.pos[0] += b.to[0]*0.09;  
+        b.pos[1] += b.to[1]*0.09; 
         for(let w=level.tiles.length-1;w>0;w--){
             for(let q=0;q<level.tiles[w].length;q++){
-                if(w%2){
+             console.log();
+             if(collis(b.pos[0],b.pos[1],20,level.tiles[w][q].cord.tilex,level.tiles[w][q].cord.tiley)){
+                b.to[0]=0;
+                b.to[1]=0; 
+                b.pos[1]=level.tiles[w][q].cord.tiley+tileheight;
+                b.pos[0]=level.tiles[w][q].cord.tilex-tileheight/2;
+                
+                return;
+             }
+              
+            }}
+       /*  for(let w=level.tiles.length-1;w>0;w--){
+            for(let q=0;q<level.tiles[w].length;q++){
+
+                 if(w%2){
                     if(b.pos[1]<level.tiles[w][q].cord.tiley+tileheight&&b.pos[0]<level.tiles[w][q].cord.tilex&&level.tiles[w][q].cord.tilex-b.pos[0]<40){
                         b.to[0]=0;
                     b.to[1]=0; 
@@ -165,17 +178,17 @@ function pullbubble(){
                     }else b.pos[0]=level.tiles[w][q].cord.tilex-tilewidth/2;
                
         
-                   /*  level.tiles[5]=[];
+                     level.tiles[5]=[];
                     level.tiles[5][q]={cord:{tilex: b.pos[0], tiley: b.pos[1]},type:b.type}
                     if(level.tiles[5][q].type==level.tiles[5-1][q].type){
                         level.tiles[5].splice(q,1);
                         level.tiles[5-1].splice(q,1);
                         
-                    } */
-                }
+                    } 
+                } 
               
             }
-        }
+        } */
         if(b.pos[0]==1 ||b.pos[0]==canvas.width-1 ){
             b.to[0]=-b.to[0];
            
@@ -193,5 +206,19 @@ function pullbubble(){
         ctx.stroke();
     })
 }
+function collis(x1,y1,r,x2,y2){
+      // Calculate the distance between the centers
+      var dx = x1 - x2;
+      var dy = y1 - y2;
+      var len = Math.sqrt(dx * dx + dy * dy);
+   
+      if (len < r + r) {
+          // Circles intersect
+          return true;
+      }
+   
+      return false;
+  }
+
 console.log(level);
 
