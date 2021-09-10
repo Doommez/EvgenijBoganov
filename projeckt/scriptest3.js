@@ -43,7 +43,7 @@ var tilewidth=40;
 var rowheight=35;
 var level={
     
-    rows:canvas.offsetHeight/tilewidth/2,
+    rows:canvas.offsetHeight/tilewidth,
     columns:canvas.offsetWidth/tileheight,
     column:tileheight,
     row:tilewidth,
@@ -51,9 +51,10 @@ var level={
 }
 
 function render(){
-    for(let i=0;i<level.rows;i++){
+    yy:for(let i=0;i<level.rows;i++){
         level.tiles[i]=[];
         for(let k=0;k<level.columns;k++){
+            if(i>4)continue yy
             var cord= getcoordinate(k,i);
             var type=randomDiap(0,6)
             level.tiles[i][k]={cord,type};
@@ -153,13 +154,20 @@ function pullbubble(){
                 if(collis(b.pos[0],b.pos[1],20,level.tiles[w][q].cord.tilex,level.tiles[w][q].cord.tiley)){
                     b.to[0]=0;
                     b.to[1]=0; 
-                    b.pos[1]=level.tiles[w][q].cord.tiley+tileheight;
+                    if(b.pos[0]-level.tiles[w][q].cord.tilex<0){
+                         b.pos[1]=level.tiles[w][q].cord.tiley+tileheight;
                     b.pos[0]=level.tiles[w][q].cord.tilex-tileheight/2;
-    
-                    return;
-                 }
-              
-            } 
+                    }else if(b.pos[0]-level.tiles[w][q].cord.tilex>0){
+                        b.pos[1]=level.tiles[w][q].cord.tiley+tileheight;
+                        b.pos[0]=level.tiles[w][q].cord.tilex+tileheight/2;
+                    }
+                   
+                        
+                   level.tiles[w+1].push({cord:{tilex:b.pos[0],tiley:b.pos[1]},type:0})
+                        bullets=[]
+                }
+             
+            }  
         }
        }
         
