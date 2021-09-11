@@ -141,8 +141,8 @@ function pullbubble(){
     bullets.forEach(b => {
         //сдвигаем снаряд на значение вектора 
       
-        b.pos[0] += b.to[0]*0.09;  
-        b.pos[1] += b.to[1]*0.09; 
+        b.pos[0] += b.to[0]*0.5;  
+        b.pos[1] += b.to[1]*0.5; 
 
        if((level.tiles.length-1)*35+40>b.pos[1]){
         for(let w=level.tiles.length-1;w>=0;w--){
@@ -154,14 +154,17 @@ function pullbubble(){
                 if(collis(b.pos[0],b.pos[1],20,level.tiles[w][q].cord.tilex,level.tiles[w][q].cord.tiley)){
                     b.to[0]=0;
                     b.to[1]=0; 
-                    if(b.pos[0]-level.tiles[w][q].cord.tilex<0){
-                         b.pos[1]=level.tiles[w][q].cord.tiley+tileheight;
+                   /*  if(b.pos[0]-level.tiles[w][q].cord.tilex<=-20){
+                         b.pos[1]=level.tiles[w][q].cord.tiley+35;
                     b.pos[0]=level.tiles[w][q].cord.tilex-tileheight/2;
-                    }else if(b.pos[0]-level.tiles[w][q].cord.tilex>0){
-                        b.pos[1]=level.tiles[w][q].cord.tiley+tileheight;
-                        b.pos[0]=level.tiles[w][q].cord.tilex+tileheight/2;
+                    }else if(b.pos[0]-level.tiles[w][q].cord.tilex>=20){
+                        b.pos[1]=level.tiles[w][q].cord.tiley+35;
+                        b.pos[0]=level.tiles[w][q].cord.tilex+tileheight;
                     }
-                   
+                    */
+                    var centerX=b.pos[0];
+                   var centerY= b.pos[1];
+                   var gridpos = getGridPosition(centerX, centerY);
                         
                    level.tiles[w+1].push({cord:{tilex:b.pos[0],tiley:b.pos[1]},type:0})
                         bullets=[]
@@ -201,6 +204,17 @@ function collis(x1,y1,r,x2,y2){
    
       return false;
   }
-
+function getGridPosition(x, y) {
+    var gridy = Math.floor(y / rowheight);
+ 
+    // Check for offset
+    var xoffset = 0;
+    if ((gridy + rowheight) % 2) {
+        xoffset = tilewidth / 2;
+    }
+    var gridx = Math.floor((x - xoffset) / tilewidth);
+ 
+    return { x: gridx, y: gridy };
+}
 console.log(level);
 
