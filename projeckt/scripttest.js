@@ -93,7 +93,7 @@ game.pull={
         game.pull.newY=newY;
         cvs.addEventListener("click",(e)=>{
             game.pullBubble.frame=randomDiap(0,6);
-            console.log(game.pullBubble.frame);
+         
         })
      
         //var angleB = Math.atan2(ev.y - cyB, ev.x - cxB);
@@ -173,40 +173,40 @@ renderTiles(); */
 
 
 
-if(w%2){
+/* if(w%2){
     if(b.pos[1]<=level.tiles[w][q].cord.tiley+tileheight&&b.pos[0]<=level.tiles[w][q].cord.tilex&&level.tiles[w][q].cord.tilex-tilewidth/2==0){
         b.to[0]=0;
         b.to[1]=0; 
         b.pos[1]=level.tiles[w][q].cord.tiley+tileheight;
         b.pos[0]=10; 
-        return
+      
     }else if(b.pos[1]<=level.tiles[w][q].cord.tiley+tileheight&&b.pos[0]>=level.tiles[w][q].cord.tilex+tilewidth/2&&level.tiles[w][q].cord.tilex+tilewidth+tilewidth/2==canvas.offsetWidth){
         b.to[0]=0;
         b.to[1]=0; 
         b.pos[1]=level.tiles[w][q].cord.tiley+tileheight;
         b.pos[0]=canvas.offsetWidth-10; 
-        return
+      
     }
     if(b.pos[1]<=level.tiles[w][q].cord.tiley+tileheight&&b.pos[0]>=level.tiles[w][q].cord.tilex&&b.pos[0]<=level.tiles[w][q].cord.tilex+tilewidth/2){
         b.to[0]=0;
         b.to[1]=0; 
         b.pos[1]=level.tiles[w][q].cord.tiley+tileheight;
         b.pos[0]=level.tiles[w][q].cord.tilex-tilewidth/2; 
-        return
+       
         
-   /*  if(b.pos[1]<level.tiles[w][q].cord.tiley+tileheight&&b.pos[0]<level.tiles[w][q].cord.tilex-tilewidth/2){
+    if(b.pos[1]<level.tiles[w][q].cord.tiley+tileheight&&b.pos[0]<level.tiles[w][q].cord.tilex-tilewidth/2){
         b.to[0]=0;
     b.to[1]=0; 
     b.pos[1]=level.tiles[w][q].cord.tiley+tileheight;
     if(b.pos[0]<canvas.offsetWidth/2){
         b.pos[0]=level.tiles[w][q].cord.tilex-tilewidth/2;  
-    }else {b.pos[0]=level.tiles[w][q].cord.tilex+tilewidth/2;} */
+    }else {b.pos[0]=level.tiles[w][q].cord.tilex+tilewidth/2;} 
     }else if(b.pos[1]<=level.tiles[w][q].cord.tiley+tileheight&&b.pos[0]>=level.tiles[w][q].cord.tilex+tilewidth/2&&b.pos[0]<=level.tiles[w][q].cord.tilex+tilewidth){
         b.to[0]=0;
         b.to[1]=0; 
         b.pos[1]=level.tiles[w][q].cord.tiley+tileheight;
         b.pos[0]=level.tiles[w][q].cord.tilex+tilewidth/2; 
-        return
+      
     }
     
     
@@ -215,25 +215,43 @@ if(w%2){
     
    
 
-   /*  level.tiles[5]=[];
+     level.tiles[5]=[];
     level.tiles[5][q]={cord:{tilex: b.pos[0], tiley: b.pos[1]},type:b.type}
     if(level.tiles[5][q].type==level.tiles[5-1][q].type){
         level.tiles[5].splice(q,1);
         level.tiles[5-1].splice(q,1);
         
-    } */
+    } 
 }else{
     if(b.pos[1]<=level.tiles[w][q].cord.tiley+tileheight&&b.pos[0]>=level.tiles[w][q].cord.tilex&&b.pos[0]<=level.tiles[w][q].cord.tilex+tilewidth/2){
         b.to[0]=0;
         b.to[1]=0; 
         b.pos[1]=level.tiles[w][q].cord.tiley+tileheight;
         b.pos[0]=level.tiles[w][q].cord.tilex+tilewidth/2; 
-        return
+     
     }else if(b.pos[1]<=level.tiles[w][q].cord.tiley+tileheight&&b.pos[0]>=level.tiles[w][q].cord.tilex+tilewidth/2&&b.pos[0]<=level.tiles[w][q].cord.tilex+tilewidth&&level.tiles[w][q].cord.tilex==canvas.offsetWidth-tilewidth){
         b.to[0]=0;
         b.to[1]=0; 
         b.pos[1]=level.tiles[w][q].cord.tiley+tileheight;
         b.pos[0]=level.tiles[w][q].cord.tilex-tilewidth/2; 
-        return
+      
     }
+} */
+var type;
+var typeS=0;
+var typeNow=0;
+function ff(){
+    window.addEventListener("click",function (e){
+        type=typeNow;
+        console.log(type);
+       
+        typeS=randomDiap(0,6);
+        typeNow= typeS;
+        console.log(typeS);
+    })
 }
+function randomDiap(n,m) {
+    return Math.floor(
+      Math.random()*(m-n+1)
+      )+n;
+  }
