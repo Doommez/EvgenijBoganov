@@ -10,18 +10,25 @@ var typeS=0;
 var typeNow=randomDiap(0,6);
 var floatingclusters = [];
 var  dropFloatCluster=[];
+var sqip=0;
+var sqipNone=false;
 /* var aud = new Audio('notification.mp3'); */
-
+let newRow=[];
 
 
 var bubble=new Image();
 bubble.onload=drow;
 bubble.src="bubble.png"
+
+var logo=new Image();
+logo.onload=drow;
+logo.src="logo.png"
+
 var gridpos;
 //qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
 
-  var arcX  = 300;
-  var arcY = 460;
+  var arcX  = canvas.offsetWidth/2;
+  var arcY = canvas.offsetHeight-40;
   var lineX = 0;
   var lineY = 0;
   var arcXX  = 320;
@@ -46,7 +53,47 @@ var count=document.getElementById("count")
 
   canvas.addEventListener('click',pull) 
   function pull(e) {
+      console.log(sqip);
+      if(sqip>=10){
+      /*   let vv=0;
+       if(level.tiles[0].length==level.columns){
+           vv=level.columns-1
+       }else{
+            vv=level.columns;
+       }
+        for(let i=0;i<vv;i++){
+            console.log("qwerqwerqwerqwerqwerqwer");
+            let cord={tilex:i*40,tiley:0}
+            let type=randomDiap(0,6)
+            let newColom={cord:cord,type:type}
+             newRow.push(newColom);
+             
+          
+           }
+           
+         level.tiles.reverse().push(newRow) */
+         let vv=0;
+         for (var i=0; i<level.rows-3; i++) {
+            
+   
+            for (var j=0; j<level.columns; j++) {
+                level.tiles[level.rows-1-i][j].type = level.tiles[level.rows-1-i-2][j].type;
+ 
+            }
+            
+        }
+         for(var p=0; p<level.columns; p++){
+            level.tiles[0][p].type=randomDiap(0,6);
+            level.tiles[1][p].type=randomDiap(0,6);
+          
+         } 
+       
+        sqip=0
+      }
+     
     soundClick();
+
+    typeNow= typeS;
      let x = e.layerX - arcX;
      let y = e.layerY - arcY;
      let max = Math.max(Math.abs(x), Math.abs(y));
@@ -62,11 +109,13 @@ var count=document.getElementById("count")
        pos: [arcX,arcY], // положение
        type:typeNow, 
      });
-     console.log(typeNow);
+     
      typeS=randomDiap(0,6);
-    typeNow= typeS;
-    console.log(typeS);;
- 
+     if(sqipNone==false){
+        sqip+=1
+     }
+    sqipNone=false;
+    
     }
 //qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
 var  tileheight=40;
@@ -74,7 +123,7 @@ var tilewidth=40;
 var rowheight=35;
 var level={
     
-    rows:canvas.offsetHeight/tilewidth,
+    rows:Math.floor(canvas.offsetHeight/tilewidth) ,
     columns:canvas.offsetWidth/tileheight,
     column:tileheight,
     row:tilewidth,
@@ -92,6 +141,8 @@ function render(){
            
               drow(k,i);  }
               if(i>=Math.floor(level.rows)/2){
+                var cord= getcoordinate(k,i);
+              
                 level.tiles[i][k]={cord,type:-1} 
               }
         }
@@ -118,15 +169,18 @@ function drow(column,row){
  
     ctx.fillRect(0,0,canvas.width,canvas.height);
     
- 
+    ctx.strokeStyle='red';
+    ctx.beginPath();
+    ctx.moveTo(0,385);
+    ctx.lineTo(600,385);
+    ctx.stroke();
      level.tiles.forEach(b=>{b.forEach(a=>{
 if(a==null)return
-        ctx.strokeStyle='red';
-        ctx.beginPath();
+
        // ctx.strokeRect(a.cord.tilex,a.cord.tiley, tilewidth,tileheight)
        /* ctx.drawImage(bubble,tilewidth*typeS,0,tilewidth,tileheight,0,315,tilewidth,tileheight) */
        ctx.drawImage(bubble,tilewidth*a.type,0,tilewidth,tileheight,a.cord.tilex,a.cord.tiley,tilewidth,tileheight)
-        ctx.stroke();
+        
       
      })
     
@@ -143,11 +197,11 @@ if(a==null)return
    
     ctx.stroke();
 
-    ctx.beginPath();
+    /* ctx.beginPath();
     ctx.moveTo(arcXX,arcYY);
     ctx.lineTo(lineX,lineY);
     ctx.stroke();
-   
+    */
 
     // удаляем снаряды покинувшие канву
       bullets = bullets.filter(b =>{
@@ -170,10 +224,20 @@ if(a==null)return
                 ctx.restore();
             }
            
-          
+    
            
             
         }
+      ctx.drawImage(logo,30,canvas.offsetHeight-85,126,60)       
+    ctx.fillStyle='red';
+    ctx.font='italic bold 20px Arial';
+    ctx.fillText('your score',40,canvas.offsetHeight-60);
+
+    ctx.strokeStyle='blue';
+    ctx.lineWidth=2;
+    ctx.font='normal 25px Arial';
+    ctx.strokeText(score,70,canvas.offsetHeight-35);
+        
   /*       updateScore() */
         requestAnimationFrame(drow)
 }
@@ -187,7 +251,7 @@ render();
 for(let i=0;i<level.rows;i++){
     if(i%2){
     
-        level.tiles[i].pop()
+        level.tiles[i][level.columns-1].type=-1
     }
  
 }
@@ -195,8 +259,8 @@ function pullbubble(){
     bullets.forEach(b => {
         //сдвигаем снаряд на значение вектора 
       
-        b.pos[0] += b.to[0]*0.5;  
-        b.pos[1] += b.to[1]*0.5; 
+        b.pos[0] += b.to[0]*0.55;  
+        b.pos[1] += b.to[1]*0.55; 
 
        if((level.tiles.length-1)*35+40>b.pos[1]){
         for(let w=level.tiles.length-1;w>=0;w--){
@@ -208,24 +272,25 @@ function pullbubble(){
                 if(level.tiles[w][q].type!=-1&&collis(b.pos[0],b.pos[1],20,level.tiles[w][q].cord.tilex,level.tiles[w][q].cord.tiley)){
                     b.to[0]=0;
                     b.to[1]=0; 
-                    if(b.pos[0]-level.tiles[w][q].cord.tilex<0){
+                     if(b.pos[0]-level.tiles[w][q].cord.tilex<0){
                          b.pos[1]=level.tiles[w][q].cord.tiley+35;
                     b.pos[0]=level.tiles[w][q].cord.tilex-tileheight/2;
                     }else if(b.pos[0]-level.tiles[w][q].cord.tilex>0){
                         b.pos[1]=level.tiles[w][q].cord.tiley+35;
                         b.pos[0]=level.tiles[w][q].cord.tilex+tileheight/2;
                     }
-                    
+                     
                     var centerX=b.pos[0];
                    var centerY= b.pos[1];
                     gridpos = getGridPosition(centerX, centerY);
-            
+           
                    level.tiles[gridpos.y][gridpos.x]={cord:{tilex:b.pos[0],tiley:b.pos[1]},type:b.type}
                         bullets=[]
                         cluster = findCluster(gridpos.x,gridpos.y,  true, true, false);
                     
                         if (cluster.length >= 3) {
                             // Remove the cluster
+                            sqipNone=true;
                             soundClick1()
                             clusterDel(b.type);
                             //setGameState(gamestates.removecluster);
@@ -253,6 +318,7 @@ function pullbubble(){
       
      
         ctx.stroke();
+        endGame();
     })
 }
 function collis(x1,y1,r,x2,y2){
@@ -285,15 +351,34 @@ console.log(level);
 
 function endGame(){
     for(let n=0;n<level.columns;n++){
-        if(level.tiles[level.rows-1].length==0){
-            return false
-        }else if(level.tiles[level.rows-1].length>0) {
-            alert("asdf");
-            render();
-            return true
-    }
+        if(level.tiles[level.rows-1][n].type!=-1){
+        tttUpdate()
+        }
     
 }}
+function tttUpdate(){
+    score=0
+    for(let i=0;i<level.rows;i++){
+        
+        for(let k=0;k<level.columns;k++){
+            if(i<Math.floor(level.rows)/2){
+           
+              
+             
+            level.tiles[i][k].type=randomDiap(0,6);
+            if(i%2){
+    
+                level.tiles[i][level.columns-1].type=-1
+            }
+               }
+              if(i>=Math.floor(level.rows)/2){
+              
+              
+                level.tiles[i][k].type=-1 
+              }
+        }
+    }
+}
 function findCluster(ty, tx, matchtype, reset, skipremoved) {
     // Reset the processed flags
     if (reset) {
@@ -505,3 +590,9 @@ function soundClick() {
     audio.src = 'cbc4277e031bf4a.mp3'; // Указываем путь к звуку "клика"
     audio.autoplay = true; // Автоматически запускаем
   }
+  let bg = document.querySelector('.mouse-parallax-bg');
+/*   window.addEventListener('mousemove', function(e) {
+      let x = e.clientX / window.innerWidth;
+      let y = e.clientY / window.innerHeight;  
+      bg.style.transform = 'translate(-' + x * 50 + 'px, -' + y * 50 + 'px)';
+  }); */
