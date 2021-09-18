@@ -141,8 +141,8 @@ function rules(){
   function resize(e){
       console.log(e);
      if(window.innerWidth<880){
-         canvas.style.width=400+"px"
-         canvas.style.height=300+"px";
+         canvas.style.width=300+"px"
+         canvas.style.height=200+"px";
          res=true;
      }else{
         canvas.style.width=600+"px"
