@@ -90,7 +90,7 @@ function switchToMainPage() {
 function switchToGamePage() {
   switchToState( { pagename:'game'});
   player.name=document.getElementById("name").value;
-  document.getElementById("player").style.top="-100%"
+  document.getElementById("player").style.top="-200%"
  
 }
 document.addEventListener("click",txtChanged)
@@ -130,16 +130,24 @@ function rules(){
         document.getElementById("rules").style.top='10%';
         rulsPos=10
     }else{
-        document.getElementById("rules").style.top='-100%';
+        document.getElementById("rules").style.top='-200%';
         rulsPos=-100
     }
     
     
   }
-  
-  document.addEventListener("resize",resize)
+  let res=false;
+  window.addEventListener("resize",resize)
   function resize(e){
       console.log(e);
+     if(window.innerWidth<880){
+         canvas.style.width=400+"px"
+         canvas.style.height=300+"px";
+         res=true;
+     }else{
+        canvas.style.width=600+"px"
+        canvas.style.height=500+"px";
+     }
   }
 
 
@@ -238,7 +246,7 @@ var count=document.getElementById("count")
       }
      
     soundClick();
-
+console.log(e.layerX);
     typeNow= typeS;
      let x = e.layerX - arcX;
      let y = e.layerY - arcY;

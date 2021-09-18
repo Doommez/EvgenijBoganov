@@ -200,4 +200,19 @@ img{
   left: 20%;
  
 }
+
+}
+@media(max-width: 660px){
+  body{
+    display: flex;
+    flex-direction: column;
+  }
+  .Ipage{
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .bts{
+    width:90px ;
+    font-size:6px;
+  }
 }
