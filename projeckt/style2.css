@@ -80,9 +80,9 @@
         transform-origin: left;
       }
 .canvas{
-  visibility: hidden;
+
     border-radius: 2%;
-    transition: ease 1s ;
+   
 }
 .Ipage{
     
@@ -122,4 +122,33 @@ span{
     display: block;
     height: 30px;
     text-align: center;
+}
+li{
+  list-style: none;
+
+}
+.records{
+  
+  width: 300px;
+  height: 300px;
+  background-color: #000;
+  position: absolute;
+display: flex;
+justify-content: space-around;
+top:-100%;
+transition: ease 1s;
+z-index: 10;
+}
+.point{
+ 
+  height: 300px;
+  width: 6px;
+ position: absolute;
+ left: 150px;
+ 
+  background-color: #ff0b6d;
+}
+.recordsWiu{
+  max-width:30% ;
+  color: #fff;
 }

@@ -1,3 +1,115 @@
+let player={
+    name:"",
+    score:0
+  }
+window.onhashchange=switchToStateFromURLHash;
+
+// текущее состояние приложения
+// это Model из MVC
+var SPAState={}; // могут быть элементы pagename и photoid
+
+// фотографии, которые можно просмотреть
+/*  var photos={
+  1 : { image:"Hilu3.jpg", comment:"собака Шарик" },
+  2 : { image:"Retriever3.jpg", comment:"собака Барбос" }
+}; */
+
+// вызывается при изменении закладки УРЛа
+// а также при первом открытии страницы
+// читает новое состояние приложения из закладки УРЛа
+// и обновляет ВСЮ вариабельную часть веб-страницы
+// соответственно этому состоянию
+// это упрощённая реализация РОУТИНГА - автоматического выполнения нужных
+// частей кода в зависимости от формы URLа
+// "роутинг" и есть "контроллер" из MVC - управление приложением через URL
+function switchToStateFromURLHash() {
+  var URLHash=window.location.hash;
+
+  // убираем из закладки УРЛа решётку
+  // (по-хорошему надо ещё убирать восклицательный знак, если есть)
+  // и декодируем из формата УРЛ, т.к. любые значения в УРЛ закодированы
+  var stateJSON=decodeURIComponent(URLHash.substr(1));
+
+  if ( stateJSON!="" )
+    SPAState=JSON.parse(stateJSON); // если JSON непустой, читаем из него состояние и отображаем
+  else{
+      SPAState={pagename:'Main'};
+      
+  }
+    // иначе показываем главную страницу
+
+ 
+  console.log(SPAState);
+
+  // обновляем вариабельную часть страницы под текущее состояние
+  // это реализация View из MVC - отображение состояния модели в HTML-код
+  var pageHTML="";
+  switch ( SPAState.pagename ) {
+    case 'Main':
+        canvas.style.visibility="hidden"
+      pageHTML+=`<button class='bts  pos4' id='Start' onclick='start()'>Start Game</button>`;
+     
+      break;
+    case 'game':
+      
+      pageHTML+=`<button class="bts pos0" onclick="tttUpdate()">NEW GAME</button>
+      <button class="bts pos1" onclick="ff1()">RECORDS</button>
+      <button class="bts pos3" onclick="soundClick2()">  MUSIC</button>`;
+      canvas.style.visibility="visible"
+      break;
+    case 'About':
+      pageHTML+="<h3>О нас</h3>";
+      pageHTML+="<p>Мы круты!</p>";
+      break;
+  }
+  document.getElementById('IPage').innerHTML=pageHTML;
+}
+
+// устанавливает в закладке УРЛа новое состояние приложения
+// и затем устанавливает+отображает это состояние
+function switchToState(newState) {
+  
+  // устанавливаем закладку УРЛа (кодируя как положено любые компоненты УРЛ)
+  // нужно для правильной работы кнопок навигации браузера
+  // (т.к. записывается новый элемент истории просмотренных страниц)
+  // и для возможности передачи УРЛа другим лицам
+  location.hash=encodeURIComponent(JSON.stringify(newState));
+  /* if(newState=={pagename:"Main"}){
+      canvas.style.visibility="hidden"
+  }
+  canvas.style.visibility="visible" */
+
+  // АВТОМАТИЧЕСКИ вызовется switchToStateFromURLHash()
+  // т.к. закладка УРЛа изменилась (ЕСЛИ она действительно изменилась)
+}
+
+function switchToMainPage() {
+  switchToState( { pagename:'Main' } );
+  
+}
+
+function switchToGamePage() {
+  switchToState( { pagename:'game'});
+  player.name=document.getElementById("name").value;
+  document.getElementById("player").style.top="-20%"
+}
+
+function switchToAboutPage() {
+  switchToState( { pagename:'About' } );
+}
+
+// переключаемся в состояние, которое сейчас прописано в закладке УРЛ
+switchToStateFromURLHash();
+
+function start(){
+  document.getElementById("Start").style.display="none"
+  document.getElementById("player").style.top='40%';
+  document.getElementById("player").style.left='40%';
+}
+
+
+
+
 canvas=document.getElementById("canvas");
 ctx=canvas.getContext('2d');
 
@@ -352,13 +464,18 @@ console.log(level);
 function endGame(){
     for(let n=0;n<level.columns;n++){
         if(level.tiles[level.rows-1][n].type!=-1){
-            player.sqore=score
+            player.score=score;
+
         tttUpdate()
        
         }
     
-}}
+}
+
+
+}
 function tttUpdate(){
+    ff3()
     score=0
     sqip=0
     for(let i=0;i<level.rows;i++){
@@ -573,12 +690,7 @@ function findFloatingClusters() {
  
     return foundclusters;
 }
-function updateScore(){
-    let divsc=document.getElementById("score");
-    divsc.textContent=""
-    var scroreText=document.createTextNode(score);
-    divsc.appendChild(scroreText)
-}
+
 function soundClick() {
     var audio = new Audio(); // Создаём новый элемент Audio
     audio.src = 'audiomass-output.mp3'; // Указываем путь к звуку "клика"
@@ -609,111 +721,111 @@ function soundClick() {
   // оно происходит при любом виде навигации
   // (в т.ч. при нажатии кнопок браузера ВПЕРЁД/НАЗАД)
   // и при программном изменении закладки
-  window.onhashchange=switchToStateFromURLHash;
+  function ff2(uu){
+    var ajaxHandlerScript="https://fe.it-academy.by/AjaxStringStorage2.php";
 
-  // текущее состояние приложения
-  // это Model из MVC
-  var SPAState={}; // могут быть элементы pagename и photoid
-
-  // фотографии, которые можно просмотреть
- /*  var photos={
-    1 : { image:"Hilu3.jpg", comment:"собака Шарик" },
-    2 : { image:"Retriever3.jpg", comment:"собака Барбос" }
-  }; */
-
-  // вызывается при изменении закладки УРЛа
-  // а также при первом открытии страницы
-  // читает новое состояние приложения из закладки УРЛа
-  // и обновляет ВСЮ вариабельную часть веб-страницы
-  // соответственно этому состоянию
-  // это упрощённая реализация РОУТИНГА - автоматического выполнения нужных
-  // частей кода в зависимости от формы URLа
-  // "роутинг" и есть "контроллер" из MVC - управление приложением через URL
-  function switchToStateFromURLHash() {
-    var URLHash=window.location.hash;
-
-    // убираем из закладки УРЛа решётку
-    // (по-хорошему надо ещё убирать восклицательный знак, если есть)
-    // и декодируем из формата УРЛ, т.к. любые значения в УРЛ закодированы
-    var stateJSON=decodeURIComponent(URLHash.substr(1));
-
-    if ( stateJSON!="" )
-      SPAState=JSON.parse(stateJSON); // если JSON непустой, читаем из него состояние и отображаем
-    else{
-        SPAState={pagename:'Main'};
-        
-    }
-      // иначе показываем главную страницу
-
-   
-    console.log(SPAState);
-
-    // обновляем вариабельную часть страницы под текущее состояние
-    // это реализация View из MVC - отображение состояния модели в HTML-код
-    var pageHTML="";
-    switch ( SPAState.pagename ) {
-      case 'Main':
-        pageHTML+=`<button class='bts  pos4' id='Start' onclick='start()'>Start Game</button>`;
-        canvas.style.visibility="hidden"
-        break;
-      case 'game':
-        
-        pageHTML+=`<button class="bts pos0" onclick="tttUpdate()">NEW GAME</button>
-        <button class="bts pos1" onclick="tttUpdate()">RECORDS</button>
-        <button class="bts pos3" onclick="soundClick2()">  MUSIC</button>`;
-        canvas.style.visibility="visible"
-        break;
-      case 'About':
-        pageHTML+="<h3>О нас</h3>";
-        pageHTML+="<p>Мы круты!</p>";
-        break;
-    }
-    document.getElementById('IPage').innerHTML=pageHTML;
-  }
-
-  // устанавливает в закладке УРЛа новое состояние приложения
-  // и затем устанавливает+отображает это состояние
-  function switchToState(newState) {
+    // отдельно создаём набор POST-параметров запроса
+    let sp = new URLSearchParams();
     
-    // устанавливаем закладку УРЛа (кодируя как положено любые компоненты УРЛ)
-    // нужно для правильной работы кнопок навигации браузера
-    // (т.к. записывается новый элемент истории просмотренных страниц)
-    // и для возможности передачи УРЛа другим лицам
-    location.hash=encodeURIComponent(JSON.stringify(newState));
-    /* if(newState=={pagename:"Main"}){
-        canvas.style.visibility="hidden"
-    }
-    canvas.style.visibility="visible" */
+let tt=JSON.stringify(uu)
+    sp.append('f', 'LOCKGET');
+    sp.append('n', 'BOGANOVBUBBLESHOOTER');
+    sp.append('p', 'BOGANOVBUBBLESHOOTER');
+    let sp1 = new URLSearchParams();
+    sp1.append('f', 'UPDATE');
+    sp1.append('n', 'BOGANOVBUBBLESHOOTER');
+    sp1.append('p', 'BOGANOVBUBBLESHOOTER');
+    sp1.append('v',tt);
+
+    fetch(ajaxHandlerScript, { method: 'post', body: sp })
+    .then( response => response.json() )
+    .then( data => { console.log(data); } )
+    .catch( error => { console.error(error); } );
+    
+    fetch(ajaxHandlerScript, { method: 'post', body: sp1 })
+    .then( response => response.json() )
+    .then( data => { console.log(data); } )
+    .catch( error => { console.error(error); } );
+}
+
+function qq(data){
+    console.log(data);
+     let uu=JSON.parse( data.result) 
+     
+    console.log(uu);
+    uu.push(player);
+    uu.sort((a, b) => b.score - a.score);
+    
+    ff2(uu); 
+}
+function ff3(){
+    var ajaxHandlerScript="https://fe.it-academy.by/AjaxStringStorage2.php";
+
+    // отдельно создаём набор POST-параметров запроса
+    let sp = new URLSearchParams();
+   
+    sp.append('f', 'READ');
+    sp.append('n', 'BOGANOVBUBBLESHOOTER');
+   
+
+ fetch(ajaxHandlerScript, { method: 'post', body: sp })
+   .then( response => response.json() )
+   .then( data => {console.log(data);qq(data)} )
+   .catch( error => { console.error(error); } )
   
-    // АВТОМАТИЧЕСКИ вызовется switchToStateFromURLHash()
-    // т.к. закладка УРЛа изменилась (ЕСЛИ она действительно изменилась)
-  }
 
-  function switchToMainPage() {
-    switchToState( { pagename:'Main' } );
-  }
-
-  function switchToGamePage() {
-    switchToState( { pagename:'game'});
-    player.name=document.getElementById("name").value;
-    document.getElementById("player").style.top="-20%"
-  }
-
-  function switchToAboutPage() {
-    switchToState( { pagename:'About' } );
-  }
-
-  // переключаемся в состояние, которое сейчас прописано в закладке УРЛ
-  switchToStateFromURLHash();
-let player={
-    name:"",
-    sqore:0
 }
-function start(){
-    document.getElementById("Start").style.display="none"
-    document.getElementById("player").style.top='40%';
-    document.getElementById("player").style.left='40%';
+function ff1(){
+    var ajaxHandlerScript="https://fe.it-academy.by/AjaxStringStorage2.php";
+
+    // отдельно создаём набор POST-параметров запроса
+    let sp = new URLSearchParams();
+    
+    sp.append('f', 'READ');
+    sp.append('n', 'BOGANOVBUBBLESHOOTER');
+   
+
+ fetch(ajaxHandlerScript, { method: 'post', body: sp })
+   .then( response => response.json() )
+   .then( data => {console.log(data);wq(data)  }, )
+   .catch( error => { console.error(error); } )
+  
+
 }
-function pushServ(data){
-JSON.stringify(data);
+let records=document.getElementById("records");
+let recordsName=document.getElementById("recordsName");
+let recordsScores=document.getElementById("recordsScores");
+let prs=-100;
+let recHtmlName="";
+let recHtmlScores="";
+function wq(data){
+    console.log(data);
+     let wq=JSON.parse( data.result) 
+     
+     wq.sort((a,b)=>b.score-a.score);
+     wq.length=5
+     recHtmlName=`<div class="recordsWiu">1.${wq[0].name}</div>
+     <div class="recordsWiu">2.${wq[1].name}</div>
+     <div class="recordsWiu">3.${wq[2].name}</div>
+     <div class="recordsWiu">4.${wq[3].name}</div>
+     <div class="recordsWiu">5.${wq[4].name}</div>`
+     recHtmlScores=`<div class="recordsWiu">${wq[0].score}</div>
+     <div class="recordsWiu">${wq[1].score}</div>
+     <div class="recordsWiu">${wq[2].score}</div>
+     <div class="recordsWiu">${wq[3].score}</div>
+     <div class="recordsWiu">${wq[4].score}</div>`
+     recordsName.innerHTML=recHtmlName;
+     recordsScores.innerHTML=recHtmlScores;
+     if(prs==20){
+        records.style.top=prs+"%" 
+       
+     prs=-100
+     
+     } else{
+        records.style.top=prs+"%";
+        prs=20;
+     } 
+    
 }
+
+console.log(records);
