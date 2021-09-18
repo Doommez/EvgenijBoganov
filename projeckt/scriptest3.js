@@ -2,17 +2,15 @@ let player={
     name:"",
     score:0
   }
+  var textChanged=false;
+  
 window.onhashchange=switchToStateFromURLHash;
 
 // текущее состояние приложения
 // это Model из MVC
 var SPAState={}; // могут быть элементы pagename и photoid
 
-// фотографии, которые можно просмотреть
-/*  var photos={
-  1 : { image:"Hilu3.jpg", comment:"собака Шарик" },
-  2 : { image:"Retriever3.jpg", comment:"собака Барбос" }
-}; */
+
 
 // вызывается при изменении закладки УРЛа
 // а также при первом открытии страницы
@@ -48,7 +46,8 @@ function switchToStateFromURLHash() {
     case 'Main':
         canvas.style.visibility="hidden"
       pageHTML+=`<button class='bts  pos4' id='Start' onclick='start()'>Start Game</button>`;
-     
+      pageHTML+=`<button class='bts  pos5' id='ruless' onclick='rules()'>Rules</button>`;
+      pageHTML+=`<img src="unnamed.png" alt="logo" id="logo"></img>`;
       break;
     case 'game':
       
@@ -91,8 +90,24 @@ function switchToMainPage() {
 function switchToGamePage() {
   switchToState( { pagename:'game'});
   player.name=document.getElementById("name").value;
-  document.getElementById("player").style.top="-20%"
+  document.getElementById("player").style.top="-100%"
+ 
 }
+document.addEventListener("click",txtChanged)
+window.onbeforeunload=befUnload;
+
+  function befUnload(EO) {
+    EO=EO||window.event;
+    // если текст изменён, попросим браузер задать вопрос пользователю
+    if ( textChanged )
+      EO.returnValue='А у вас есть несохранённые изменения!';
+  };
+function txtChanged(EO) {
+    EO=EO||window.event;
+
+    textChanged=true; // текст изменён
+  }
+ 
 
 function switchToAboutPage() {
   switchToState( { pagename:'About' } );
@@ -102,11 +117,30 @@ function switchToAboutPage() {
 switchToStateFromURLHash();
 
 function start(){
-  document.getElementById("Start").style.display="none"
+  document.getElementById("Start").style.display="none";
+  document.getElementById("ruless").style.display="none";
+  document.getElementById("logo").style.display="none"
   document.getElementById("player").style.top='40%';
   document.getElementById("player").style.left='40%';
 }
+let rulsPos=-100;
 
+function rules(){
+    if(rulsPos==-100){
+        document.getElementById("rules").style.top='10%';
+        rulsPos=10
+    }else{
+        document.getElementById("rules").style.top='-100%';
+        rulsPos=-100
+    }
+    
+    
+  }
+  
+  document.addEventListener("resize",resize)
+  function resize(e){
+      console.log(e);
+  }
 
 
 
@@ -466,12 +500,15 @@ function endGame(){
         if(level.tiles[level.rows-1][n].type!=-1){
             player.score=score;
 
-        tttUpdate()
        
+            DD() 
         }
     
 }
-
+function DD(){
+    alert("GAME OVER")
+    tttUpdate()
+}
 
 }
 function tttUpdate(){
@@ -804,6 +841,9 @@ function wq(data){
      
      wq.sort((a,b)=>b.score-a.score);
      wq.length=5
+     for(let i=0;i<wq.length;i++){
+         wq[i].name.slice(11,wq[i].name.length-11)
+     }
      recHtmlName=`<div class="recordsWiu">1.${wq[0].name}</div>
      <div class="recordsWiu">2.${wq[1].name}</div>
      <div class="recordsWiu">3.${wq[2].name}</div>

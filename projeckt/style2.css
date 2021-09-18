@@ -1,14 +1,15 @@
  body{
     padding: 0;
     margin: 0;
-    height: 100%;
+    height:100vh;
     background: url("goluboy-puzyri-voda.jpg") no-repeat;
         background-size: 100%;
         background-size: cover;
         display: flex;
 
         justify-content: center;
-    align-items: center;
+        align-items: flex-start;
+      
    }
    .START{
      height: 100%;
@@ -24,22 +25,27 @@
   }
    .bg {
        height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      
       
     }
-    .pos0{
-       
-    }
-    .pos1{
-      
-    }
-    .pos3{
-        
-    }
+ 
+    
     .pos4{
         position: absolute;
         left: 41%;
+        top: 41%;
       margin: 0 auto;
     }
+    .pos5{
+      position: absolute;
+      left: 41%;
+      top: 51%;
+    margin: 0 auto;
+   
+  }
     .bts {
        margin: 20px;
         transform: translate(-1%);
@@ -109,9 +115,7 @@ input {
     transition: ease-in 1s;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-[type="text"]{
 
-}
 input:hover{
     background-color: #ff0b6d;
 }
@@ -151,4 +155,49 @@ z-index: 10;
 .recordsWiu{
   max-width:30% ;
   color: #fff;
+}
+img{
+  position: absolute;
+  width: 400px;
+  top: 10%;
+  left: 36%;
+}
+.rules{
+  width: 350px;
+  height: 200px;
+  background-color: #000;
+  color: #fff;
+  font-family: sans-serif;
+  text-align: center;
+  border-radius: 10px;
+  position: absolute;
+  top: -100%;
+  left: 37.5%;
+  line-height: 1.5;
+  transition: ease-in 0.5s;
+  z-index: 10;
+}
+@media(max-width: 660px){
+  img{
+    width: 200px;
+  }
+  .pos4{
+    top:30%;
+    left: 35%;
+  }
+  .pos5{
+    top:50%;
+    left: 35%;
+  }
+  .player{
+    position: absolute;
+    top: -70%;
+    transition: ease-in 0.5s;
+
+}
+.rules{
+ 
+  left: 20%;
+ 
+}
 }
