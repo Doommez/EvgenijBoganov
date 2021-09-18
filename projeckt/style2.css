@@ -98,7 +98,7 @@
 .player{
     position: absolute;
     top: -20%;
-    transition: ease-in 1s;
+    transition: ease-in 0.5s;
 
 }
 input {
