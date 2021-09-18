@@ -352,12 +352,15 @@ console.log(level);
 function endGame(){
     for(let n=0;n<level.columns;n++){
         if(level.tiles[level.rows-1][n].type!=-1){
+            player.sqore=score
         tttUpdate()
+       
         }
     
 }}
 function tttUpdate(){
     score=0
+    sqip=0
     for(let i=0;i<level.rows;i++){
         
         for(let k=0;k<level.columns;k++){
@@ -508,16 +511,13 @@ score+=floatingclusters.length*100
             }
             
             console.log(alpha);
-          if(tile.tiley>250){
+          if(tile.tiley>280){
               cancelAnimationFrame(removeBuble)
               dropcluster=[];
               speedRemove=1;
               alpha=1
               scoreNow=0
           }
-          
-
-
 
        }
     }
@@ -596,3 +596,124 @@ function soundClick() {
       let y = e.clientY / window.innerHeight;  
       bg.style.transform = 'translate(-' + x * 50 + 'px, -' + y * 50 + 'px)';
   }); */
+  
+  let audio = document.querySelector('.musicOn audio');
+  
+  function soundClick2() {
+    audio.paused ? audio.play() : audio.pause();
+  }
+ 
+  // в закладке УРЛа будем хранить полное JSON-представление состояния приложения
+
+  // отслеживаем изменение закладки в УРЛе
+  // оно происходит при любом виде навигации
+  // (в т.ч. при нажатии кнопок браузера ВПЕРЁД/НАЗАД)
+  // и при программном изменении закладки
+  window.onhashchange=switchToStateFromURLHash;
+
+  // текущее состояние приложения
+  // это Model из MVC
+  var SPAState={}; // могут быть элементы pagename и photoid
+
+  // фотографии, которые можно просмотреть
+ /*  var photos={
+    1 : { image:"Hilu3.jpg", comment:"собака Шарик" },
+    2 : { image:"Retriever3.jpg", comment:"собака Барбос" }
+  }; */
+
+  // вызывается при изменении закладки УРЛа
+  // а также при первом открытии страницы
+  // читает новое состояние приложения из закладки УРЛа
+  // и обновляет ВСЮ вариабельную часть веб-страницы
+  // соответственно этому состоянию
+  // это упрощённая реализация РОУТИНГА - автоматического выполнения нужных
+  // частей кода в зависимости от формы URLа
+  // "роутинг" и есть "контроллер" из MVC - управление приложением через URL
+  function switchToStateFromURLHash() {
+    var URLHash=window.location.hash;
+
+    // убираем из закладки УРЛа решётку
+    // (по-хорошему надо ещё убирать восклицательный знак, если есть)
+    // и декодируем из формата УРЛ, т.к. любые значения в УРЛ закодированы
+    var stateJSON=decodeURIComponent(URLHash.substr(1));
+
+    if ( stateJSON!="" )
+      SPAState=JSON.parse(stateJSON); // если JSON непустой, читаем из него состояние и отображаем
+    else{
+        SPAState={pagename:'Main'};
+        
+    }
+      // иначе показываем главную страницу
+
+   
+    console.log(SPAState);
+
+    // обновляем вариабельную часть страницы под текущее состояние
+    // это реализация View из MVC - отображение состояния модели в HTML-код
+    var pageHTML="";
+    switch ( SPAState.pagename ) {
+      case 'Main':
+        pageHTML+=`<button class='bts  pos4' id='Start' onclick='start()'>Start Game</button>`;
+        canvas.style.visibility="hidden"
+        break;
+      case 'game':
+        
+        pageHTML+=`<button class="bts pos0" onclick="tttUpdate()">NEW GAME</button>
+        <button class="bts pos1" onclick="tttUpdate()">RECORDS</button>
+        <button class="bts pos3" onclick="soundClick2()">  MUSIC</button>`;
+        canvas.style.visibility="visible"
+        break;
+      case 'About':
+        pageHTML+="<h3>О нас</h3>";
+        pageHTML+="<p>Мы круты!</p>";
+        break;
+    }
+    document.getElementById('IPage').innerHTML=pageHTML;
+  }
+
+  // устанавливает в закладке УРЛа новое состояние приложения
+  // и затем устанавливает+отображает это состояние
+  function switchToState(newState) {
+    
+    // устанавливаем закладку УРЛа (кодируя как положено любые компоненты УРЛ)
+    // нужно для правильной работы кнопок навигации браузера
+    // (т.к. записывается новый элемент истории просмотренных страниц)
+    // и для возможности передачи УРЛа другим лицам
+    location.hash=encodeURIComponent(JSON.stringify(newState));
+    /* if(newState=={pagename:"Main"}){
+        canvas.style.visibility="hidden"
+    }
+    canvas.style.visibility="visible" */
+  
+    // АВТОМАТИЧЕСКИ вызовется switchToStateFromURLHash()
+    // т.к. закладка УРЛа изменилась (ЕСЛИ она действительно изменилась)
+  }
+
+  function switchToMainPage() {
+    switchToState( { pagename:'Main' } );
+  }
+
+  function switchToGamePage() {
+    switchToState( { pagename:'game'});
+    player.name=document.getElementById("name").value;
+    document.getElementById("player").style.top="-20%"
+  }
+
+  function switchToAboutPage() {
+    switchToState( { pagename:'About' } );
+  }
+
+  // переключаемся в состояние, которое сейчас прописано в закладке УРЛ
+  switchToStateFromURLHash();
+let player={
+    name:"",
+    sqore:0
+}
+function start(){
+    document.getElementById("Start").style.display="none"
+    document.getElementById("player").style.top='40%';
+    document.getElementById("player").style.left='40%';
+}
+function pushServ(data){
+JSON.stringify(data);
+}

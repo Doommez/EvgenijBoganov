@@ -240,18 +240,124 @@ renderTiles(); */
 var type;
 var typeS=0;
 var typeNow=0;
+
+
+   
 function ff(){
-    window.addEventListener("click",function (e){
-        type=typeNow;
-        console.log(type);
-       
-        typeS=randomDiap(0,6);
-        typeNow= typeS;
-        console.log(typeS);
-    })
+    var ajaxHandlerScript="https://fe.it-academy.by/AjaxStringStorage2.php";
+
+    // отдельно создаём набор POST-параметров запроса
+    let sp = new URLSearchParams();
+    let players=[];
+    sp.append('f', 'INSERT');
+    sp.append('n', 'BOGANOVBUBBLESHOOTER');
+    sp.append('v', players);
+
+    fetch(ajaxHandlerScript, { method: 'post', body: sp })
+    .then( response => response.json() )
+    .then( data => { console.log(data); } )
+    .catch( error => { console.error(error); } );
 }
+function ff1(){
+    var ajaxHandlerScript="https://fe.it-academy.by/AjaxStringStorage2.php";
+
+    // отдельно создаём набор POST-параметров запроса
+    let sp = new URLSearchParams();
+    let players=[];
+    sp.append('f', 'READ');
+    sp.append('n', 'BOGANOVBUBBLESHOOTER');
+   
+var data;
+ fetch(ajaxHandlerScript, { method: 'post', body: sp })
+   .then( response => response.json() )
+   .then( data => {console.log(data);qq(data)  }, )
+   .catch( error => { console.error(error); } )
+  
+
+}
+function ff2(){
+    var ajaxHandlerScript="https://fe.it-academy.by/AjaxStringStorage2.php";
+
+    // отдельно создаём набор POST-параметров запроса
+    let sp = new URLSearchParams();
+    let players=JSON.stringify({name:"qwe",score:0});
+
+    sp.append('f', 'LOCKGET');
+    sp.append('n', 'BOGANOVBUBBLESHOOTER');
+    sp.append('p', 'BOGANOVBUBBLESHOOTER');
+    let sp1 = new URLSearchParams();
+    sp1.append('f', 'UPDATE');
+    sp1.append('n', 'BOGANOVBUBBLESHOOTER');
+    sp1.append('p', 'BOGANOVBUBBLESHOOTER');
+    sp1.append('v', players);
+
+    fetch(ajaxHandlerScript, { method: 'post', body: sp })
+    .then( response => response.json() )
+    .then( data => { console.log(data); } )
+    .catch( error => { console.error(error); } );
+    
+    fetch(ajaxHandlerScript, { method: 'post', body: sp1 })
+    .then( response => response.json() )
+    .then( data => { console.log(data); } )
+    .catch( error => { console.error(error); } );
+}
+function qq(data){
+     let uu=JSON.parse( data.result) 
+    console.log(uu);
+    
+}
+
 function randomDiap(n,m) {
     return Math.floor(
       Math.random()*(m-n+1)
       )+n;
   }
+  
+/*let arr = [['1', '100'],['2', '99'] , ['3', '98'],['4', '97'] , ['5', '96']];
+
+async function update(name, value) {
+    let password = String(Math.random());
+
+    let myHeaders = new Headers();
+    myHeaders.append('Content-type', 'application/x-www-form-urlencoded');
+
+    let urlencodedRecords = new URLSearchParams();
+    urlencodedRecords.append('f', 'LOCKGET');
+    urlencodedRecords.append('n', name);
+    urlencodedRecords.append('p', password);
+
+    let requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: urlencodedRecords
+    }
+    console.log(value)
+    let records = await fetch('https://fe.it-academy.by/AjaxStringStorage2.php', requestOptions)
+        .then(response => response.json())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error))
+
+    console.log(records)
+
+    let myHeadersUpdate = new Headers();
+    myHeadersUpdate.append('Content-type', 'application/x-www-form-urlencoded');
+
+    let urlencodedRecordsUpdate = new URLSearchParams();
+    urlencodedRecordsUpdate.append('f', 'UPDATE');
+    urlencodedRecordsUpdate.append('n', name);
+    urlencodedRecordsUpdate.append('p', password);
+    urlencodedRecordsUpdate.append('v', JSON.stringify(value));
+
+    let requestOptionsUpdate = {
+        method: 'POST',
+        headers: myHeadersUpdate,
+        body: urlencodedRecordsUpdate
+    }
+
+    fetch('https://fe.it-academy.by/AjaxStringStorage2.php', requestOptionsUpdate)
+        .then(response => response.json())
+        .then(result => result)
+        .catch(error => console.log('error', error))
+}
+
+update('KLUBKOU_ZUMA_RECORDS',arr);*/
