@@ -51,9 +51,9 @@ function switchToStateFromURLHash() {
       break;
     case 'game':
       
-      pageHTML+=`<button class="bts pos0" onclick="tttUpdate()">NEW GAME</button>
-      <button class="bts pos1" onclick="ff1()">RECORDS</button>
-      <button class="bts pos3" onclick="soundClick2()">  MUSIC</button>`;
+      pageHTML+=`<button class="bts2 pos0" onclick="tttUpdate()">NEW GAME</button>
+      <button class="bts2 pos1" onclick="ff1()">RECORDS</button>
+      <button class="bts2 pos3" onclick="soundClick2()">  MUSIC</button>`;
       canvas.style.visibility="visible"
       break;
     case 'About':
