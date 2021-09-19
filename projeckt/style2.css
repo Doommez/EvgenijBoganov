@@ -274,7 +274,7 @@ img{
 
 }
 .rules{
- 
+  
   left: 20%;
  
 }
@@ -290,6 +290,8 @@ img{
   .Ipage{
     flex-direction: row;
     flex-wrap: wrap;
+   
+   
   }
   .bg{
     width: 100%;

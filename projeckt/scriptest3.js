@@ -119,6 +119,7 @@ switchToStateFromURLHash();
 function start(){
   document.getElementById("Start").style.display="none";
   document.getElementById("ruless").style.display="none";
+  document.getElementById("rules").style.display="none";
   document.getElementById("logo").style.display="none"
   document.getElementById("player").style.top='40%';
   document.getElementById("player").style.left='40%';
@@ -149,7 +150,8 @@ function rules(){
       console.log();
      if(window.innerWidth<600||windowsSize<600){
        
-        canvas.style.width=300+"px"
+        canvas.style.width=350+"px"
+        canvas.style.marginTop=20+"px"
         canvas.style.height=500+"px";
          res=true;
      }else if(window.innerWidth>600||windowsSize>600){
