@@ -150,7 +150,7 @@ function rules(){
       console.log();
      if(window.innerWidth<600||windowsSize<600){
        
-        canvas.style.width=350+"px"
+        canvas.style.width=370+"px"
         canvas.style.marginTop=50+"px"
         canvas.style.height=500+"px";
          res=true;
