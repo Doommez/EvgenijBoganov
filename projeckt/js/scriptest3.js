@@ -444,8 +444,8 @@ function pullbubble(){
     bullets.forEach(b => {
         //сдвигаем снаряд на значение вектора 
       
-        b.pos[0] += b.to[0]*0.55;  
-        b.pos[1] += b.to[1]*0.55; 
+        b.pos[0] += b.to[0]*0.35;  
+        b.pos[1] += b.to[1]*0.35; 
 
        if((level.tiles.length-1)*35+40>b.pos[1]){
         for(let w=level.tiles.length-1;w>=0;w--){
