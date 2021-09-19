@@ -401,16 +401,16 @@ if(a==null)return
             
         }
         if(res){
-            ctx.drawImage(logo,30,canvas.offsetHeight+140,126,60)       
+            ctx.drawImage(logo,30,canvas.offsetHeight-60,126,60)       
             ctx.fillStyle='red';
             ctx.font='italic bold 20px Arial';
-            ctx.fillText('your score',40,canvas.offsetHeight+160);
+            ctx.fillText('your score',40,canvas.offsetHeight-40);
         
             ctx.strokeStyle='blue';
             ctx.lineWidth=2;
             ctx.font='normal 25px Arial';
-            ctx.strokeText(score,70,canvas.offsetHeight+185);
-        }else{
+            ctx.strokeText(score,70,canvas.offsetHeight-25);
+        }else{ 
             ctx.drawImage(logo,30,canvas.offsetHeight-85,126,60)       
             ctx.fillStyle='red';
             ctx.font='italic bold 20px Arial';
