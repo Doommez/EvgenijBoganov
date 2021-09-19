@@ -401,7 +401,7 @@ if(a==null)return
             
         }
         if(res){
-            ctx.drawImage(logo,30,canvas.offsetHeight+60,126,60)       
+            ctx.drawImage(logo,30,canvas.offsetHeight,126,60)       
             ctx.fillStyle='red';
             ctx.font='italic bold 20px Arial';
             ctx.fillText('your score',40,canvas.offsetHeight+40);
