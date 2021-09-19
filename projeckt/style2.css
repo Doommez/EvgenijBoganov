@@ -280,6 +280,19 @@ img{
 }
 
 }
+@media(max-width: 660px){
+  img{
+    left: 25%;
+  }
+  .pos4{
+    top:30%;
+    left: 25%;
+  }
+  .pos5{
+    top:50%;
+    left: 25%;
+  }
+}
 
 @media(max-width: 890px){
   body{
