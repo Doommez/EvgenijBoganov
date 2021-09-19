@@ -2,7 +2,7 @@
     padding: 0;
     margin: 0;
     height:100vh;
-    background: url("goluboy-puzyri-voda.jpg") no-repeat;
+    background: url("../img/goluboy-puzyri-voda.jpg") no-repeat;
         background-size: 100%;
         background-size: cover;
         display: flex;
@@ -268,10 +268,14 @@ img{
     left: 35%;
   }
   .player{
-    position: absolute;
+    
     top: -70%;
-    transition: ease-in 0.5s;
+  left: 15%;
+    
 
+}
+span{
+  width: 188px;
 }
 .rules{
   

@@ -47,7 +47,7 @@ function switchToStateFromURLHash() {
         canvas.style.visibility="hidden"
       pageHTML+=`<button class='bts  pos4' id='Start' onclick='start()'>Start Game</button>`;
       pageHTML+=`<button class='bts  pos5' id='ruless' onclick='rules()'>Rules</button>`;
-      pageHTML+=`<img src="unnamed.png" alt="logo" id="logo"></img>`;
+      pageHTML+=`<img src="img/unnamed.png" alt="logo" id="logo"></img>`;
       break;
     case 'game':
       
@@ -122,6 +122,9 @@ function start(){
   document.getElementById("rules").style.display="none";
   document.getElementById("logo").style.display="none"
   document.getElementById("player").style.top='40%';
+  if(res){
+    document.getElementById("player").style.left='35%';
+  }
   document.getElementById("player").style.left='40%';
 }
 let rulsPos=-100;
@@ -148,15 +151,17 @@ function rules(){
    window.addEventListener("resize",resize)
   function resize(){
       console.log();
-     if(window.innerWidth<600||windowsSize<600){
+     if(window.innerWidth<620||windowsSize<620){
        
         canvas.style.width=370+"px"
         canvas.style.marginTop=50+"px"
-        canvas.style.height=500+"px";
+        canvas.style.height=400+"px";
          res=true;
-     }else if(window.innerWidth>600||windowsSize>600){
+         document.getElementById("player").style.left='30%';
+     }else if(window.innerWidth>620||windowsSize>620){
          canvas.style.width=600+"px"
         canvas.style.height=500+"px"; 
+        canvas.style.marginTop=0+"px"
         res=false
         //canvas.width=600
        // canvas.height=500;
@@ -185,11 +190,11 @@ let newRow=[];
 
 var bubble=new Image();
 bubble.onload=drow;
-bubble.src="bubble.png"
+bubble.src="img/bubble.png"
 
 var logo=new Image();
 logo.onload=drow;
-logo.src="logo.png"
+logo.src="img/logo.png"
 
 var gridpos;
 //qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
@@ -764,13 +769,13 @@ function findFloatingClusters() {
 
 function soundClick() {
     var audio = new Audio(); // Создаём новый элемент Audio
-    audio.src = 'audiomass-output.mp3'; // Указываем путь к звуку "клика"
+    audio.src = 'music/audiomass-output.mp3'; // Указываем путь к звуку "клика"
     audio.autoplay = true; // Автоматически запускаем
   }
 
   function soundClick1() {
     var audio = new Audio(); // Создаём новый элемент Audio
-    audio.src = 'cbc4277e031bf4a.mp3'; // Указываем путь к звуку "клика"
+    audio.src = 'music/cbc4277e031bf4a.mp3'; // Указываем путь к звуку "клика"
     audio.autoplay = true; // Автоматически запускаем
   }
   let bg = document.querySelector('.mouse-parallax-bg');
