@@ -145,7 +145,7 @@ function rules(){
         canvas.style.width=300+"px"
         canvas.style.height=500+"px";
          res=true;
-     }else{
+     }else if(window.innerWidth>600){
          canvas.style.width=600+"px"
         canvas.style.height=500+"px"; 
         res=false
@@ -386,15 +386,28 @@ if(a==null)return
            
             
         }
-      ctx.drawImage(logo,30,canvas.offsetHeight-85,126,60)       
-    ctx.fillStyle='red';
-    ctx.font='italic bold 20px Arial';
-    ctx.fillText('your score',40,canvas.offsetHeight-60);
-
-    ctx.strokeStyle='blue';
-    ctx.lineWidth=2;
-    ctx.font='normal 25px Arial';
-    ctx.strokeText(score,70,canvas.offsetHeight-35);
+        if(res){
+            ctx.drawImage(logo,30,canvas.offsetHeight+140,126,60)       
+            ctx.fillStyle='red';
+            ctx.font='italic bold 20px Arial';
+            ctx.fillText('your score',40,canvas.offsetHeight+160);
+        
+            ctx.strokeStyle='blue';
+            ctx.lineWidth=2;
+            ctx.font='normal 25px Arial';
+            ctx.strokeText(score,70,canvas.offsetHeight+185);
+        }else{
+            ctx.drawImage(logo,30,canvas.offsetHeight-85,126,60)       
+            ctx.fillStyle='red';
+            ctx.font='italic bold 20px Arial';
+            ctx.fillText('your score',40,canvas.offsetHeight-60);
+        
+            ctx.strokeStyle='blue';
+            ctx.lineWidth=2;
+            ctx.font='normal 25px Arial';
+            ctx.strokeText(score,70,canvas.offsetHeight-35);
+        }
+     
         
   /*       updateScore() */
         requestAnimationFrame(drow)
