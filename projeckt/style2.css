@@ -216,6 +216,45 @@ img{
   transition: ease-in 0.5s;
   z-index: 10;
 }
+@media(max-width: 1400px){
+
+  .pos4{
+   
+    left: 42%;
+  }
+  .pos5{
+   
+    left: 42%;
+  }
+
+
+}
+@media(max-width: 1200px){
+
+  .pos4{
+   
+    left: 44%;
+  }
+  .pos5{
+   
+    left: 44%;
+  }
+
+
+}
+@media(max-width: 1000px){
+
+  .pos4{
+   
+    left: 46%;
+  }
+  .pos5{
+   
+    left: 46%;
+  }
+
+
+}
 @media(max-width: 660px){
   img{
     width: 200px;
@@ -241,6 +280,7 @@ img{
 }
 
 }
+
 @media(max-width: 890px){
   body{
     display: flex;

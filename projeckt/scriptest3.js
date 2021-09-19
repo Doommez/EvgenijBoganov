@@ -137,22 +137,23 @@ function rules(){
     
   }
   let res=false;
-/*   window.addEventListener("resize",resize)
+   window.addEventListener("resize",resize)
   function resize(e){
       console.log(e);
-     if(window.innerWidth<880){
+     if(window.innerWidth<600){
        
-        canvas.style.width=500+"px"
+        canvas.style.width=300+"px"
         canvas.style.height=500+"px";
          res=true;
      }else{
-       //  canvas.style.width=600+"px"
-       // canvas.style.height=500+"px"; 
-        canvas.width=600
-        canvas.height=500;
+         canvas.style.width=600+"px"
+        canvas.style.height=500+"px"; 
+        res=false
+        //canvas.width=600
+       // canvas.height=500;
      }
   }
- */
+ 
 
 
 canvas=document.getElementById("canvas");
@@ -195,13 +196,13 @@ var count=document.getElementById("count")
   var bullets = [];  // массив снарядов
  
 
-  
+  let ex;
+  let ey
   canvas.addEventListener('mousemove', function (e) {
-      
+    var rect = canvas.getBoundingClientRect();
     let angle=Math.atan2(arcYY-e.y, e.x - arcXX);
-  
-      
-    
+   ex= Math.round((e.clientX - rect.left)/(rect.right - rect.left)*canvas.width) 
+  ey=Math.round((e.clientY - rect.top)/(rect.bottom - rect.top)*canvas.height)
     newX=arcXX+40*Math.cos(angle);
     newY=arcYY-40*Math.sin(angle);
     lineX=newX;
@@ -251,11 +252,11 @@ var count=document.getElementById("count")
     soundClick();
 console.log(e.layerX);
     typeNow= typeS;
-     let x = e.layerX - arcX;
-     let y = e.layerY - arcY;
+     let x = ex - arcX;
+     let y = ey - arcY;
      let max = Math.max(Math.abs(x), Math.abs(y));
     let xx=x/max;
-    let yy= y/max;
+   let yy= y/max;
     
     
    
