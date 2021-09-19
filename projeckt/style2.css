@@ -202,17 +202,24 @@ img{
 }
 
 }
-@media(max-width: 660px){
+@media(max-width: 890px){
   body{
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
   .Ipage{
     flex-direction: row;
     flex-wrap: wrap;
   }
+  .bg{
+    width: 100%;
+  }
   .bts{
     width:90px ;
+    height: 40px;
     font-size:6px;
+    line-height: 1;
+    
   }
 }

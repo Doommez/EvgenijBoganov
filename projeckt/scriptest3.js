@@ -137,19 +137,22 @@ function rules(){
     
   }
   let res=false;
-  window.addEventListener("resize",resize)
+/*   window.addEventListener("resize",resize)
   function resize(e){
       console.log(e);
      if(window.innerWidth<880){
-         canvas.style.width=300+"px"
-         canvas.style.height=200+"px";
+       
+        canvas.style.width=500+"px"
+        canvas.style.height=500+"px";
          res=true;
      }else{
-        canvas.style.width=600+"px"
-        canvas.style.height=500+"px";
+       //  canvas.style.width=600+"px"
+       // canvas.style.height=500+"px"; 
+        canvas.width=600
+        canvas.height=500;
      }
   }
-
+ */
 
 
 canvas=document.getElementById("canvas");
@@ -320,7 +323,7 @@ function getcoordinate(column,row){
 function drow(column,row){
    ctx.fillStyle="#6beeff";
    
- 
+  
     ctx.fillRect(0,0,canvas.width,canvas.height);
     
     ctx.strokeStyle='red';
