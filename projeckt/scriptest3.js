@@ -137,15 +137,22 @@ function rules(){
     
   }
   let res=false;
+  let windowsSize;
+  
+ window.onload=function wins(){
+    windowsSize = window.innerWidth;
+    console.log(windowsSize);
+    resize();
+  }
    window.addEventListener("resize",resize)
-  function resize(e){
-      console.log(e);
-     if(window.innerWidth<600){
+  function resize(){
+      console.log();
+     if(window.innerWidth<600||windowsSize<600){
        
         canvas.style.width=300+"px"
         canvas.style.height=500+"px";
          res=true;
-     }else if(window.innerWidth>600){
+     }else if(window.innerWidth>600||windowsSize>600){
          canvas.style.width=600+"px"
         canvas.style.height=500+"px"; 
         res=false
