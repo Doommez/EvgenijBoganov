@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+function f() {
+  var a=5;
+  console.log('локальная для f переменная a='+a);
+
+  return function() { // это та самая функция ff, имя необязательно
+      var b=7;
+      console.log('локальная для ff переменная b='+b);
+      console.log('замкнутая переменная a='+a);
+    };
+
+}
+
+var ffref=f(); // ffref показывает на описанную внутри f функцию ff
+
+ffref(); // вызываем функцию ff
+    </script>
+</body>
+</html>
